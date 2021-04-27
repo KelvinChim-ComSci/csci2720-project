@@ -30,6 +30,8 @@ app.use(bodyParser.urlencoded({extended:false}
 app.get('/*', function(req,res) {
     res.send('hello world!')
 })
+
+
 //  SYNTAX FORMAT  //
 /* app.get('/loc', function(req,res) {
 	var keyword = req.query['quota'];
