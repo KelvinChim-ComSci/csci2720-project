@@ -12,15 +12,13 @@ db.once('open', function () {
 	console.log("Connection is open...");
 });
 
-var EventSchema = mongoose.Schema({
-	eventId: { type: Number, required: true, unique: true },
-	name: { type: String, required: true }, //Input
-	loc: { type: mongoose.Schema.Types.ObjectId, ref: 'Location' },
-	quota: { type: Number } //Input
+var UserSchema = mongoose.Schema({
+    username: { type: String, required: true, unique: true },
+    password: { type: String }
 });
 
 
-var Event = mongoose.model('Event', EventSchema);
+var User = mongoose.model('User', UserSchema);
 
 
 // POST //
@@ -29,7 +27,9 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended:false}
 ));
 
-
+app.get('/*', function(req,res) {
+    res.send('hello world!')
+})
 //  SYNTAX FORMAT  //
 /* app.get('/loc', function(req,res) {
 	var keyword = req.query['quota'];
