@@ -21,6 +21,15 @@ var UserSchema = mongoose.Schema({
 
 var User = mongoose.model('User', UserSchema);
 
+/*app.get('/*', function(req,res) {
+	User.findOne({}, function(err,user) {
+		if (err) {
+			return res.send(err);
+		}
+		return user;
+	})
+}) */
+
 // POST //
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended:false}
@@ -41,7 +50,7 @@ app.post('/login', function(req,res){ // LOGIN SYSTEM
 		if (user.admin == true) {
 			return res.status(201).send('admin'); // ADMIN
 		}
-		return res.status(200).send('okay'); // SUCCESSFUL
+		else return res.status(200).send('okay'); // SUCCESSFUL
 	})
 })
 
