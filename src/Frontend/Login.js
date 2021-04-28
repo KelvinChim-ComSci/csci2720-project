@@ -8,7 +8,7 @@ class Login extends React.Component {
     return (
       <div>
         <h1>Login</h1>
-        <form>
+        <form action="http://localhost:3000/login" method="post">
           <label for="login-id">Login ID:</label>
           <input type="text" id = "login-id" name="id"></input>
           

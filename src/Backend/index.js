@@ -14,7 +14,7 @@ db.once('open', function () {
 
 var UserSchema = mongoose.Schema({
     username: { type: String, required: true, unique: true },
-    password: { type: String }
+    password: { type: String, required: true }
 });
 
 
@@ -31,7 +31,22 @@ app.get('/*', function(req,res) {
     res.send('hello world!')
 })
 
+app.post('/login', function(req,res){
+	var username = req.body.id;
+	var password = req.body.pw;
 
+	User.findOne({username: username, password: password}, function(err,user){
+		if (err) {
+			console.log(err); // ERROR
+		}
+
+		if (!user) {
+			return res.status(404).send('wrong'); // NO USER EXISTS. WRONG PW OR WRONG ID.
+		}
+
+		return res.status(200).send('okay'); // SUCCESSFUL
+	})
+})
 //  SYNTAX FORMAT  //
 /* app.get('/loc', function(req,res) {
 	var keyword = req.query['quota'];
