@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
 
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://s1155126571:x73339@localhost/s1155126571');
@@ -38,9 +39,10 @@ app.use(bodyParser.urlencoded({extended:false}
 app.post('/login', function(req,res){ // LOGIN SYSTEM
 	var username = req.body.id;
 	var password = req.body.pw;
+	console.log(username);
 	User.findOne({username: username, password: password}, function(err,user){
 		if (err) {
-			return res.send(err); // ERROR
+			return console.log('err'); // ERROR
 		}
 
 		if (!user) {
