@@ -14,39 +14,38 @@ db.once('open', function () {
 
 var UserSchema = mongoose.Schema({
     username: { type: String, required: true, unique: true },
-    password: { type: String, required: true }
+    password: { type: String, required: true }, // NEED HASHING
+	admin: { type: Boolean }
 });
 
 
 var User = mongoose.model('User', UserSchema);
 
-
 // POST //
-
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended:false}
 ));
 
-app.get('/*', function(req,res) {
-    res.send('hello world!')
-})
-
-app.post('/login', function(req,res){
+app.post('/login', function(req,res){ // LOGIN SYSTEM
 	var username = req.body.id;
 	var password = req.body.pw;
-
 	User.findOne({username: username, password: password}, function(err,user){
 		if (err) {
-			console.log(err); // ERROR
+			return res.send(err); // ERROR
 		}
 
 		if (!user) {
 			return res.status(404).send('wrong'); // NO USER EXISTS. WRONG PW OR WRONG ID.
 		}
 
+		if (user.admin == true) {
+			return res.status(201).send('admin'); // ADMIN
+		}
 		return res.status(200).send('okay'); // SUCCESSFUL
 	})
 })
+
+
 //  SYNTAX FORMAT  //
 /* app.get('/loc', function(req,res) {
 	var keyword = req.query['quota'];
