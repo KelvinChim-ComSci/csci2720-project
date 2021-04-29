@@ -1,26 +1,34 @@
 import React from "react";
 
 class Login extends React.Component {
+  constructor(props)
+  {
+    super(props);
+    this.state = { login: false };
+  }
+  async validate() {
+    var id = document.getElementById('login-id').value;
+    var pw = document.getElementById('login-pw').value;
+    console.log(id + " " + pw);
+    await fetch("http://csci2720-g114.cse.cuhk.edu.hk/login", {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {
+        'Content-Type':'application/json',
+      },
+      body: JSON.stringify({
+        id,
+        pw,
+      }),
+    })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+    })
+    .catch((err) => console.log(err));
+  }
+
   render () {
-    function validate() {
-      console.log("test" + document.getElementById('login-id').value);
-      fetch('http://csci2720-g96.cse.cuhk.edu.hk/login',
-      {
-        mode: 'no-cors',
-        method: 'POST',
-        header: {
-          'Content-Type':'application/json',
-        },
-        body: JSON.stringify({
-          id: document.getElementById('login-id').value
-        }),
-      })
-      .then((res) => res.text())
-      .then((data) => {
-        console.log(data);
-      })
-      //'http://localhost:3000/event/%27+document.getElementById(%27new-event%27).value+%27/loc/%27+document.getElementById(%27new-loc%27).value'
-    }
     return (
       <div>
         <h1>Login</h1>
@@ -31,7 +39,7 @@ class Login extends React.Component {
           <label htmlFor="login-pw">Password:</label>
           <input type="password" id ="login-pw" name="pw"></input>
 
-          <button id="Submit" type="button" onClick={validate}>Login</button>
+          <button id="Submit" type="button" onClick={() => this.validate()}>Login</button>
         </form>
       </div>
     );
