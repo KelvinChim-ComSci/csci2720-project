@@ -1,26 +1,34 @@
 import React from "react";
 
 class Login extends React.Component {
-  render () {
-    function validate() {
-      console.log("test" + document.getElementById('login-id').value);
-      fetch('http://csci2720-g96.cse.cuhk.edu.hk/login',
+
+  validate(){
+    fetch(
+      `http://csci2720-g101.cse.cuhk.edu.hk/login`,
       {
-        mode: 'no-cors',
-        method: 'POST',
-        header: {
-          'Content-Type':'application/json',
-        },
-        body: JSON.stringify({
-          id: document.getElementById('login-id').value
+        method: "POST",
+        headers: new Headers({
+          //"Access-Control-Allow-Header": "Content-Type",
+          //"Accept": 'application/json',
+          "Content-Type": 'application/json',
+          //"Access-Control-Allow-Origin" : "'http://localhost:3000'",
+          //"Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS",
+          //"Access-Control-Allow-Credentials" : true, 
         }),
-      })
-      .then((res) => res.text())
-      .then((data) => {
-        console.log(data);
-      })
+        body: JSON.stringify({
+          id: document.getElementById("login-id").value,
+          pw: document.getElementById("login-pw").value,
+        }),
+      }
+    )
+      .then((res) => res.json())
+      .catch(error => console.error('Error:', error))
+      .then(response => console.log('Success:', response));
+    console.log("Done");
+  }
+
+  render () {   
       //'http://localhost:3000/event/%27+document.getElementById(%27new-event%27).value+%27/loc/%27+document.getElementById(%27new-loc%27).value'
-    }
     return (
       <div>
         <h1>Login</h1>
@@ -31,7 +39,7 @@ class Login extends React.Component {
           <label htmlFor="login-pw">Password:</label>
           <input type="password" id ="login-pw" name="pw"></input>
 
-          <button id="Submit" type="button" onClick={validate}>Login</button>
+          <button id="Submit" type="button" onClick={this.validate}>Login</button>
         </form>
       </div>
     );
@@ -39,3 +47,4 @@ class Login extends React.Component {
 }
 
 export default Login;
+
