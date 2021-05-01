@@ -39,27 +39,27 @@ var User = mongoose.model('User', UserSchema);
 /*var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended:false}
 ));*/
-app.post("/login", function (req, res) {
-	console.log("Post request received!!");
-	var username = req.body.id;
-	var password = req.body.pw;
-	console.log(req.body);
-	console.log(req.body['id']);
-	User.findOne({username: username, password: password}, function(err,user){
-		if (err) {
-			return console.log('err'); // ERROR
-		}
+app.post('/login', function(req,res){ // LOGIN SYSTEM
+    console.log("Post request received!!");
+    var username = req.body.id;
+    var password = req.body.pw;
+    console.log(req.body);
+    console.log(req.body['id']);
+    User.findOne({username: username, password: password}, function(err,user){
+        if (err) {
+            return console.log('err'); // ERROR
+        }
 
-		if (!user) {
-			return res.json('wrong'); // NO USER EXISTS. WRONG PW OR WRONG ID.
-		}
+        if (!user) {
+            return res.json('FALSE'); // NO USER EXISTS. WRONG PW OR WRONG ID.
+        }
 
-		if (user.admin == true) {
-			return res.status(201).json('admin'); // ADMIN
-		}
-		else return res.status(200).json('okay'); // SUCCESSFUL
-	})
-  });
+        if (user.admin == true) {
+            return res.status(201).json('ADMIN'); // ADMIN
+        }
+        else return res.status(200).json('TRUE'); // SUCCESSFUL
+    })
+})
 
 //  SYNTAX FORMAT  //
 /* app.get('/loc', function(req,res) {

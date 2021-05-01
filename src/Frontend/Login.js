@@ -2,7 +2,13 @@ import React from "react";
 
 class Login extends React.Component {
 
-  validate(){
+  constructor(props) {
+    super(props);
+    this.state = { authenticated: -1 };
+  }
+
+  validate(){ // Validation
+    
     fetch(
       `http://csci2720-g101.cse.cuhk.edu.hk/login`,
       {
@@ -23,8 +29,24 @@ class Login extends React.Component {
     )
       .then((res) => res.json())
       .catch(error => console.error('Error:', error))
-      .then(response => console.log('Success:', response));
-    console.log("Done");
+      .then(function(response) {
+        console.log(response);
+        return response; // NOT DONE
+      });
+  }
+
+  checkLogin() { // CHECK IF INPUT IS CORRECT
+    var response = this.validate();
+    // const response = await this.validate();
+    if (response === "ADMIN") {
+      console.log("welcome, admin!");
+    }
+    else if (response === "TRUE") {
+      console.log("welcome, normal user!");
+    }
+    else {
+      console.log("Wrong ID or password. Please try again.")
+    }
   }
 
   render () {   
