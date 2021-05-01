@@ -4,6 +4,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import Home from "./Home.js";
 import LongLink from "./LongLink.js";
 import Login from "./Login.js";
+import Info from "./Info.js";
 
 class RouterClass extends React.Component {
   render() {
@@ -13,6 +14,7 @@ class RouterClass extends React.Component {
           <ul>
             <LongLink activeOnlyWhenExact={true} to="/" label="Home" />
             <LongLink to="/login" label="Login" />
+            <LongLink to="/info" label="Info" />
           </ul>
 
           <hr />
@@ -20,6 +22,8 @@ class RouterClass extends React.Component {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/login" component={Login} />
+            <Route path="/info" component={Info} />
+            {/*info is for testing only/}
             {/*<Route path="*" component={NoMatch} />*/}
           </Switch>
         </div>
@@ -29,3 +33,4 @@ class RouterClass extends React.Component {
 }
 
 export default RouterClass;
+
