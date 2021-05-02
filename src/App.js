@@ -10,28 +10,42 @@ class App extends React.Component {
     super(props);
     this.state = { logined: -1 }; // -1 is wrong, 0 is user, 1 is admin
     this.handleLogin = this.handleLogin.bind(this);
+    this.Logout = this.Logout.bind(this);
   }
 
-  handleLogin() { // DEFAULT AS USER CURRENTLY
+  handleLogin() {
     this.setState({
-      logined: 0
+      logined: 1
+    })
+  }
+
+  Logout() {
+    this.setState({
+      logined: -1
     })
   }
 
   render() {
-    if (this.state.logined === 0) { //USER INTERFACE
+    if (this.state.logined === 0) { // USER INTERFACE
       return (
         <div>
-          <LoginedRouterClassUser logined={this.state.logined} />
+          <LoginedRouterClassUser logined={this.state.logined} Logout={this.Logout} />
         </div>
       );
     }
-    else if (this.state.logined === 1) { //ADMIN INTERFACE
+    else if (this.state.logined === 1) { // ADMIN INTERFACE
         return (
           <div>
-            <LoginedRouterClassAdmin logined={this.state.logined} />
+            <LoginedRouterClassAdmin logined={this.state.logined} Logout={this.Logout} />
           </div>
         );
+    }
+    else {
+      return (
+        <div>
+          <Login handleLogin={this.handleLogin} />
+        </div>
+      )
     }
 
     return (

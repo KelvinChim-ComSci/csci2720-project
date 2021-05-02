@@ -3,14 +3,11 @@ import React from "react";
 class Login extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { authenticated: -1 };
-    this.myRef = React.createRef();
   }
 
 
   validate(){ // Validation
     // const status = React.useRef(0);
-  var that = this;
     fetch(
       `http://csci2720-g96.cse.cuhk.edu.hk/login`,
       {
@@ -50,10 +47,7 @@ class Login extends React.Component {
       }) */
       .then((res) => res.json())
       .catch(error => console.error('Error:', error))
-      .then((res) => {
-        console.log(res);
-        this.props.handleLogin.bind(this);
-      })
+      .then((res) => console.log(res))
   }
 
 
