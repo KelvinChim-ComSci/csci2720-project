@@ -8,23 +8,22 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { username: "", logined: -1 }; // -1 is wrong, 0 is user, 1 is admin
-    this.handleLogin = this.handleLogin.bind(this);
+    this.handleAdminLogin = this.handleAdminLogin.bind(this);
+    this.handleUserLogin = this.handleUserLogin.bind(this);
     this.Logout = this.Logout.bind(this);
   }
 
-  handleLogin() {
+  handleAdminLogin() {
     this.setState({
       logined: 1
     })
   }
 
-  /*
   handleUserLogin() {
     this.setState({
       logined: 0
     })
   }
-  */
 
   Logout() {
     this.setState({
@@ -50,7 +49,10 @@ class App extends React.Component {
     else {
       return (
         <div>
-          <Login handleLogin={this.handleLogin} />
+          <Login
+            handleAdminLogin={this.handleAdminLogin}
+            handleUserLogin={this.handleUserLogin} 
+          />
         </div>
       )
     }

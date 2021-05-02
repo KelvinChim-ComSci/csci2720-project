@@ -6,7 +6,6 @@ class Login extends React.Component {
     this.validate = this.validate.bind(this);
   }
 
-
   validate(){ // Validation
     console.log("id: " + document.getElementById("login-id").value);
     console.log("pw: " + document.getElementById("login-pw").value);
@@ -29,24 +28,18 @@ class Login extends React.Component {
       }
     )
       .then((res) => {
-        var a = 0;
         console.log("res.status: " + res.status);
-        const test = res.status;
-        if (test === 201) {
-          a = 1;
-          this.props.handleLogin();
+        if (res.status === 201) { // admin
+          this.props.handleAdminLogin();
         }
-        else if (test === 200) {
-          a = 0;
-          this.props.handleLogin();
+        else if (res.status === 200) { // user
+          this.props.handleUserLogin();
         }
-        else if (test === 422) {
-          a = -1;
-          alert("hello");
+        else if (res.status === 422) { // no user
+          alert("Invalid username or password! Please try again.");
         }
         else
           return console.log("error");
-        return a;
       })
       .then((res) => res.json())
       .catch(error => console.error('Error:', error))
@@ -68,7 +61,6 @@ class Login extends React.Component {
 
           <button id="Submit" type="button" onClick={this.validate}>Login</button>
         </form>
-        <button onClick={this.props.handleLogin}>To Logined Page</button>
       </div>
     );
   }
