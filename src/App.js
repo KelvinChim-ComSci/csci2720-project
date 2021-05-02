@@ -56,15 +56,6 @@ class App extends React.Component {
         </div>
       )
     }
-
-    return (
-      <div className="App">
-        <Login handleLogin={this.handleLogin} />
-        {/*<RouterClass logined={this.state.logined} />
-        <button type="button" onClick={() => console.log(this.state.logined)}>changeState</button>
-        <button type="button" onClick={() => this.setState({ logined: true })}>LoginPage</button>*/}
-      </div>
-    );
   }
 }
 

@@ -7,8 +7,6 @@ class Login extends React.Component {
   }
 
   validate(){ // Validation
-    console.log("id: " + document.getElementById("login-id").value);
-    console.log("pw: " + document.getElementById("login-pw").value);
     fetch(
       `http://csci2720-g114.cse.cuhk.edu.hk/login`,
       {
@@ -28,7 +26,6 @@ class Login extends React.Component {
       }
     )
       .then((res) => {
-        console.log("res.status: " + res.status);
         if (res.status === 201) { // admin
           this.props.handleAdminLogin();
         }
@@ -41,14 +38,10 @@ class Login extends React.Component {
         else
           return console.log("error");
       })
-      .then((res) => res.json())
-      .catch(error => console.error('Error:', error))
-      .then((res) => console.log(res))
   }
 
 
   render () {   
-      //'http://localhost:3000/event/%27+document.getElementById(%27new-event%27).value+%27/loc/%27+document.getElementById(%27new-loc%27).value'
     return (
       <div>
         <h1>Login</h1>
