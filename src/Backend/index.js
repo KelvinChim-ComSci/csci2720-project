@@ -17,8 +17,8 @@ db.once('open', function () {
 });
 
 var UserSchema = mongoose.Schema({
-    username: { type: String, required: true, unique: true },
-    password: { type: String, required: true }, // NEED HASHING
+  username: { type: String, required: true, unique: true },
+  password: { type: String, required: true }, // NEED HASHING
 	admin: { type: Boolean }
 });
 
@@ -40,20 +40,19 @@ app.post('/login', function(req,res){ // LOGIN SYSTEM
 	var username = req.body.id;
 	var password = req.body.pw;
 	console.log(req.body);
-	console.log(req.body['id']);
 	User.findOne({username: username, password: password}, function(err,user){
 		if (err) {
 			return console.log('err'); // ERROR
 		}
 
 		if (!user) {
-			return res.status(422).json('-1'); // NO USER EXISTS. WRONG PW OR WRONG ID.
+			return res.status(422).json({msg: 'user not exist'}); // NO USER EXISTS. WRONG PW OR WRONG ID.
 		}
 
 		if (user.admin == true) {
-			return res.status(201).json('1'); // ADMIN
+			return res.status(201).json({msg: 'admin'}); // ADMIN
 		}
-		else return res.status(200).json('0'); // SUCCESSFUL
+		else return res.status(200).json({msg: 'success'}); // SUCCESSFUL
 	})
 })
 
@@ -100,4 +99,4 @@ app.post('/login', function(req,res){ // LOGIN SYSTEM
 */
 
 // listen to port 2096
-const server = app.listen(2096);
+const server = app.listen(2114);

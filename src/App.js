@@ -1,6 +1,5 @@
 import React from "react";
 import "./App.css";
-//import RouterClass from "./Frontend/RouterClass.js";
 import LoginedRouterClassUser from "./Frontend/LoginedRouterClassUser.js";
 import LoginedRouterClassAdmin from "./Frontend/LoginedRouterClassAdmin.js";
 import Login from "./Frontend/Login.js";
@@ -8,7 +7,7 @@ import Login from "./Frontend/Login.js";
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { logined: -1 }; // -1 is wrong, 0 is user, 1 is admin
+    this.state = { username: "", logined: -1 }; // -1 is wrong, 0 is user, 1 is admin
     this.handleLogin = this.handleLogin.bind(this);
     this.Logout = this.Logout.bind(this);
   }
@@ -18,6 +17,14 @@ class App extends React.Component {
       logined: 1
     })
   }
+
+  /*
+  handleUserLogin() {
+    this.setState({
+      logined: 0
+    })
+  }
+  */
 
   Logout() {
     this.setState({

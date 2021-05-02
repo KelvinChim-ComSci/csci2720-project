@@ -3,13 +3,15 @@ import React from "react";
 class Login extends React.Component {
   constructor(props) {
     super(props);
+    this.validate = this.validate.bind(this);
   }
 
 
   validate(){ // Validation
-    // const status = React.useRef(0);
+    console.log("id: " + document.getElementById("login-id").value);
+    console.log("pw: " + document.getElementById("login-pw").value);
     fetch(
-      `http://csci2720-g96.cse.cuhk.edu.hk/login`,
+      `http://csci2720-g114.cse.cuhk.edu.hk/login`,
       {
         method: "POST",
         headers: new Headers({
@@ -26,25 +28,26 @@ class Login extends React.Component {
         }),
       }
     )
-      /*.then((res) => {
+      .then((res) => {
         var a = 0;
+        console.log("res.status: " + res.status);
         const test = res.status;
         if (test === 201) {
           a = 1;
-          that.props.handleLogin();
+          this.props.handleLogin();
         }
         else if (test === 200) {
           a = 0;
-          that.props.handleLogin();
+          this.props.handleLogin();
         }
         else if (test === 422) {
           a = -1;
-          that.props.handleLogin();
+          alert("hello");
         }
         else
           return console.log("error");
         return a;
-      }) */
+      })
       .then((res) => res.json())
       .catch(error => console.error('Error:', error))
       .then((res) => console.log(res))
@@ -63,7 +66,7 @@ class Login extends React.Component {
           <label htmlFor="login-pw">Password:</label>
           <input type="password" id ="login-pw" name="pw"></input>
 
-          <button id="Submit" type="button" onClick={(this.validate)}>Login</button>
+          <button id="Submit" type="button" onClick={this.validate}>Login</button>
         </form>
         <button onClick={this.props.handleLogin}>To Logined Page</button>
       </div>
