@@ -5,12 +5,12 @@ import LongLink from "./LongLink.js";
 import Info from "./Info.js";
 
 
-class LoginedRouterClass extends React.Component {
+class LoginedRouterClassUser extends React.Component { //User Page
     render() {
         return (
             <Router>
                 <div>
-                    <h2>Welcome backed!! OwO</h2>
+                    <h2>Welcome back, User! OwO</h2>
                     <ul>
                         <LongLink to="/info" label="Info" />
                     </ul>
@@ -28,4 +28,4 @@ class LoginedRouterClass extends React.Component {
     }
 }
 
-export default LoginedRouterClass;
+export default LoginedRouterClassUser;

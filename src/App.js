@@ -1,29 +1,37 @@
 import React from "react";
 import "./App.css";
 //import RouterClass from "./Frontend/RouterClass.js";
-import LoginedRouterClass from "./Frontend/LoginedRouterClass.js";
+import LoginedRouterClassUser from "./Frontend/LoginedRouterClassUser.js";
+import LoginedRouterClassAdmin from "./Frontend/LoginedRouterClassAdmin.js";
 import Login from "./Frontend/Login.js";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { logined: false };
+    this.state = { logined: -1 }; // -1 is wrong, 0 is user, 1 is admin
     this.handleLogin = this.handleLogin.bind(this);
   }
 
-  handleLogin() {
+  handleLogin() { // DEFAULT AS USER CURRENTLY
     this.setState({
-      logined: true
+      logined: 0
     })
   }
 
   render() {
-    if (this.state.logined) {
+    if (this.state.logined === 0) { //USER INTERFACE
       return (
         <div>
-          <LoginedRouterClass logined={this.state.logined} />
+          <LoginedRouterClassUser logined={this.state.logined} />
         </div>
       );
+    }
+    else if (this.state.logined === 1) { //ADMIN INTERFACE
+        return (
+          <div>
+            <LoginedRouterClassAdmin logined={this.state.logined} />
+          </div>
+        );
     }
 
     return (
