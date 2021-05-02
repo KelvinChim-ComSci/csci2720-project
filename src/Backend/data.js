@@ -12,10 +12,39 @@ const location_dict = {
     "K06": ["JTI at Chatham Road North southbound near Fat Kwong Street Playground", 837010.873, 818912.021],
     "SJ1": ["JTI at Tai Po Road  Sha Tin near the Racecourse", 839405.76, 829500.77],
     "SJ2": ["JTI at Tate’s Cairn Highway near Shek Mun", 839740.36, 827835.46],
-    "SJ3": ["JTI at Tolo Highway near Science Park", 839366.62, 831956.75]
+    "SJ3": ["JTI at Tolo Highway near Science Park", 839366.62, 831956.75],
+    "SJ4": ["JTI at San Tin Highway near Pok Wai Road", 823591.61, 836073.4],
+    "SJ5": ["JTI at Tuen Mun Road near Tuen Mun Heung Sze Wui Road", 815710.37, 829102.02]
 };
 
-/*export function locationDict(){
-    return location_dict;
-}*/
-export { location_dict };
+const destination_dict = {
+    "CH": "Cross Harbour Tunnel",
+    "EH": "Eastern Harbour Crossing",
+    "WH": "Western Harbour Crossing",
+    "LRT": "Lion Rock Tunnel",
+    "SMT": "Shing Mun Tunnel",
+    "TCT": "Tate's Cairn Tunnel",
+    "TKTL": "Ting Kau, via Tai Lam Tunnel",
+    "TKTM": "Ting Kau, via Tuen Mun Road",
+    "TSCA": "Tsing Sha Control Area",
+    "TWCP": "Tsuen Wan via Castle Peak",
+    "TWTM": "Tsuen Wan via Tuen Mun"
+}
+
+//for journey_data and journey_desc
+//it stated that type 2 will have bitmap, need see see dim
+const journal_type2_dict = {
+    1: "traffic congested",
+    2: "tunnel congested",
+    3: "tunnel closed",
+    4: "blank"
+}
+
+const color_dict = {
+    1: "Red",
+    2: "Yellow",
+    3: "Green",
+    "-1": "Not applicable"
+}
+
+export { location_dict, destination_dict, journal_type2_dict, color_dict };

@@ -7,8 +7,8 @@ class Login extends React.Component {
     this.state = { authenticated: -1 };
   }
 
-  validate(){ // Validation
-    
+  validate() { // Validation
+
     fetch(
       `http://csci2720-g101.cse.cuhk.edu.hk/login`,
       {
@@ -29,7 +29,7 @@ class Login extends React.Component {
     )
       .then((res) => res.json())
       .catch(error => console.error('Error:', error))
-      .then(function(response) {
+      .then(function (response) {
         console.log(response);
         return response; // NOT DONE
       });
@@ -49,20 +49,21 @@ class Login extends React.Component {
     }
   }
 
-  render () {   
-      //'http://localhost:3000/event/%27+document.getElementById(%27new-event%27).value+%27/loc/%27+document.getElementById(%27new-loc%27).value'
+  render() {
+    //'http://localhost:3000/event/%27+document.getElementById(%27new-event%27).value+%27/loc/%27+document.getElementById(%27new-loc%27).value'
     return (
       <div>
         <h1>Login</h1>
         <form>
           <label htmlFor="login-id">Login ID:</label>
-          <input type="text" id = "login-id" name="id"></input>
-          
+          <input type="text" id="login-id" name="id"></input>
+
           <label htmlFor="login-pw">Password:</label>
-          <input type="password" id ="login-pw" name="pw"></input>
+          <input type="password" id="login-pw" name="pw"></input>
 
           <button id="Submit" type="button" onClick={this.validate}>Login</button>
         </form>
+        <button onClick={this.props.handleLogin}>To Logined Page</button>
       </div>
     );
   }

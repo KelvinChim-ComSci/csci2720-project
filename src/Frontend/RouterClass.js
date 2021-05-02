@@ -4,7 +4,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import Home from "./Home.js";
 import LongLink from "./LongLink.js";
 import Login from "./Login.js";
-import Info from "./Info.js";
+import LoginedRouterClass from "./LoginedRouterClass.js";
 
 class RouterClass extends React.Component {
   render() {
@@ -14,15 +14,15 @@ class RouterClass extends React.Component {
           <ul>
             <LongLink activeOnlyWhenExact={true} to="/" label="Home" />
             <LongLink to="/login" label="Login" />
-            <LongLink to="/info" label="Info" />
+            <LongLink to="/logined" label="LoginedRouterClass" />
           </ul>
 
           <hr />
-
+          {/*<button type="button" onClick={() => console.log(this.props.logined)}>change to login</button>*/}
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/login" component={Login} />
-            <Route path="/info" component={Info} />
+            <Route path="/logined" component={LoginedRouterClass} />
             {/*info is for testing only/}
             {/*<Route path="*" component={NoMatch} />*/}
           </Switch>
@@ -31,6 +31,7 @@ class RouterClass extends React.Component {
     );
   }
 }
+
 
 export default RouterClass;
 
