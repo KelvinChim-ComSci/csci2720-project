@@ -1,5 +1,5 @@
 import React from "react";
-import { destination_dict, location_dict } from "../Backend/data.js";
+import { destination_dict, location_dict, journal_type2_dict, color_dict } from "../Backend/data.js";
 
 class Info extends React.Component {
     constructor(props) {
@@ -9,6 +9,7 @@ class Info extends React.Component {
             time: "",
             get: false
         };
+        this.sortByLocID = this.sortByLocID.bind(this);
     }
     var
 
@@ -18,7 +19,7 @@ class Info extends React.Component {
             .then(data => {
                 const parser = new DOMParser();
                 const xml = parser.parseFromString(data, "application/xml");
-                var allData = xml.getElementsByTagName('jtis_journey_time');
+                //var allData = xml.getElementsByTagName('jtis_journey_time');
                 //var columns = ['LOCATION_ID', 'DESTINATION_ID', 'JOURNEY_TYPE', 'JOURNEY_DATA', 'COLOUR_ID'];
                 var loc_id = xml.getElementsByTagName('LOCATION_ID');
                 var dest_id = xml.getElementsByTagName('DESTINATION_ID');
@@ -30,20 +31,27 @@ class Info extends React.Component {
 
                 var i = 0;
                 for (i = 0; i < loc_id.length; i++) {
-                    var tmp = [];
-                    //tmp.push(location_dict[loc_id[i].childNodes[0].nodeValue][0]);
-                    tmp.push(loc_id[i].childNodes[0].nodeValue);
-                    tmp.push(dest_id[i].childNodes[0].nodeValue);
-                    tmp.push(journey_type[i].childNodes[0].nodeValue);
-                    tmp.push(journey_data[i].childNodes[0].nodeValue);
-                    tmp.push(color_id[i].childNodes[0].nodeValue);
-                    all_data.push(tmp);
+                    var loc = loc_id[i].childNodes[0].nodeValue;
+                    var dest = dest_id[i].childNodes[0].nodeValue;
+                    var type = journey_type[i].childNodes[0].nodeValue;
+                    var d = journey_data[i].childNodes[0].nodeValue;
+                    var c = color_id[i].childNodes[0].nodeValue;
+                    all_data.push({ location: loc, destination: dest, journeyType: type, journeyData: d, color: c });
                 }
-                console.log(all_data)
-                console.log(capture_time);
+                //all_data.push({ location: "H1", destination: "CH", journeyType: "2", journeyData: "3", color: "1" }); //to test journey type 2
                 this.setState({ latestData: all_data, time: capture_time, get: true });
             })
             .catch(console.error);
+    }
+
+    sortByLocID() {
+        //bands.sort((a, b) => b[sortProperty] - a[sortProperty])
+        console.log("haha");
+        var tmp = this.state.latestData;
+        console.log(tmp);
+        var tmp2 = tmp.sort((a, b) => a.destination.localeCompare(b.destination))
+        this.setState({ latestData: tmp });
+        console.log(tmp2);
     }
 
     componentDidMount() {
@@ -58,50 +66,56 @@ class Info extends React.Component {
         if (!this.state.get) {
             return (
                 <div>
-                    <h2>Info</h2>
+                    <h2>Real-time Data</h2>
                     <p>Loading...</p>
-                    <button id="getInfo" type="button" onClick={this.test12}>getInfo</button>
                 </div>
             );
         }
         return (
             <div>
-                <h2>Info</h2>
-                <p>Get la ouo</p>
+                <h2>Real-time Data</h2>
                 <p>Update time: +{this.state.time}</p>
+                <button id="getInfo" type="button" onClick={this.sortByLocID}>sort by location ID</button>
                 <table>
+                    <thead>
+                        <tr>
+                            <th>Location ID</th>
+                            <th>Location</th>
+                            <th>Destination ID</th>
+                            <th>Destination</th>
+                            <th>Journey Time / Traffic Status</th>
+                            <th>Color Code</th>
+                        </tr>
+                    </thead>
                     <tbody>
                         {this.state.latestData.map((value, index) => {
-                            if (value[2] === "1") {
+                            if (value['journeyType'] === "1") {
                                 return (
                                     <tr key={index}>
-                                        <td>{value[0]}</td>
-                                        <td>{value[1]}</td>
-                                        <td></td>
-                                        <td>{value[3]}</td>
-                                        <td>{value[4]}</td>
+                                        <td>{value['location']}</td>                        {/*location ID*/}
+                                        <td>{location_dict[value['location']][0]}</td>      {/*location*/}
+                                        <td>{value['destination']}</td>                     {/*destination ID*/}
+                                        <td>{destination_dict[value['destination']]}</td>   {/*destination*/}
+                                        <td>{value['journeyData']} mins</td>                {/*journey time*/}
+                                        <td>{color_dict[value['color']]}</td>               {/*color code*/}
                                     </tr>
                                 )
                             } else {
                                 return (
                                     <tr key={index}>
-                                        <td>{value[0]}</td>
-                                        <td>{value[1]}</td>
-                                        {/*<td>{value[2]}</td>*/}
-                                        <td>{value[3]}</td>
-                                        <td>{value[4]}</td>
+                                        <td>{value['location']}</td>                        {/*location ID*/}
+                                        <td>{location_dict[value['location']][0]}</td>      {/*location*/}
+                                        <td>{value['destination']}</td>                     {/*destination ID*/}
+                                        <td>{destination_dict[value['destination']]}</td>   {/*destination*/}
+                                        <td>{journal_type2_dict[value['journeyData']]}</td> {/*traffic status*/}
+                                        <td>{color_dict[value['color']]}</td>               {/*color code*/}
                                     </tr>
                                 )
                             }
                         })}
                     </tbody>
                 </table>
-                {/*<ul>
-                    {this.state.latestData.map((value, index) => {
-                        return <li key={index}>{value}</li>
-                    })}
-                </ul>*/}
-                <button id="getInfo" type="button" onClick={this.test12}>getInfo</button>
+                {/*<button id="getInfo" type="button" onClick={this.test12}>getInfo</button>*/}
 
             </div>
         );
