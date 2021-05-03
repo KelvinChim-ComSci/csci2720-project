@@ -7,11 +7,15 @@ import FavouritePlace from "./FavouritePlace.js";
 
 
 class LoginedRouterClassUser extends React.Component { //User Page
+    componentDidMount() {
+        this.props.getUsername();
+    }
     render() {
         return (
             <Router>
                 <div>
                     <header>
+                        <p id="username"></p>
                         <button onClick={this.props.Logout}>Logout</button>
                     </header>
                     <h2>Welcome back, User! OwO</h2>
