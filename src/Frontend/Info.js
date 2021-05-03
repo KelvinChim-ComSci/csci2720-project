@@ -6,6 +6,7 @@ class Info extends React.Component {
         super(props);
         this.state = {
             latestData: "",
+            time: "",
             get: false
         };
     }
@@ -25,24 +26,22 @@ class Info extends React.Component {
                 var journey_data = xml.getElementsByTagName('JOURNEY_DATA');
                 var color_id = xml.getElementsByTagName('COLOUR_ID');
                 var capture_time = xml.getElementsByTagName('CAPTURE_DATE')[0].childNodes[0].nodeValue;
+                var all_data = [];
 
-                //console.log(allData[0].firstChild)
                 var i = 0;
-                for (i = 0; i < 35; i++) {
-                    console.log(loc_id[i].childNodes[0].nodeValue);
-                    console.log(dest_id[i].childNodes[0].nodeValue);
-                    console.log(journey_type[i].childNodes[0].nodeValue);
-                    console.log(journey_data[i].childNodes[0].nodeValue);
-                    console.log(color_id[i].childNodes[0].nodeValue);
+                for (i = 0; i < loc_id.length; i++) {
+                    var tmp = [];
+                    //tmp.push(location_dict[loc_id[i].childNodes[0].nodeValue][0]);
+                    tmp.push(loc_id[i].childNodes[0].nodeValue);
+                    tmp.push(dest_id[i].childNodes[0].nodeValue);
+                    tmp.push(journey_type[i].childNodes[0].nodeValue);
+                    tmp.push(journey_data[i].childNodes[0].nodeValue);
+                    tmp.push(color_id[i].childNodes[0].nodeValue);
+                    all_data.push(tmp);
                 }
+                console.log(all_data)
                 console.log(capture_time);
-                this.setState({ latestData: allData, get: true });
-                /*for (record in allData) {
-                    console.log(record);
-                }*/
-
-                //console.log(loc_id);
-                //document.getElementById("fetchData").innerHTML = xml_to_string(allData);
+                this.setState({ latestData: all_data, time: capture_time, get: true });
             })
             .catch(console.error);
     }
@@ -52,8 +51,7 @@ class Info extends React.Component {
     }
 
     test12() {
-        console.log(location_dict['H1'])
-        //console.log(this.state.data1)
+        console.log(location_dict['H1'][0])
     }
 
     render() {
@@ -63,7 +61,6 @@ class Info extends React.Component {
                     <h2>Info</h2>
                     <p>Loading...</p>
                     <button id="getInfo" type="button" onClick={this.test12}>getInfo</button>
-                    {/*<p>{this.state.data1}</p>*/}
                 </div>
             );
         }
@@ -71,7 +68,29 @@ class Info extends React.Component {
             <div>
                 <h2>Info</h2>
                 <p>Get la ouo</p>
-                <p id="fetchData" ></p>
+                <p>Update time: +{this.state.time}</p>
+                <table>
+                    <tbody>
+                        {this.state.latestData.map((value, index) => {
+                            if (value[2] === "1") {
+                                return (
+                                    <tr key={index}>
+                                        <td>{value[0]}</td>
+                                        <td>{value[1]}</td>
+                                        {/*<td>{value[2]}</td>*/}
+                                        <td>{value[3]}</td>
+                                        <td>{value[4]}</td>
+                                    </tr>
+                                )
+                            }
+                        })}
+                    </tbody>
+                </table>
+                {/*<ul>
+                    {this.state.latestData.map((value, index) => {
+                        return <li key={index}>{value}</li>
+                    })}
+                </ul>*/}
                 <button id="getInfo" type="button" onClick={this.test12}>getInfo</button>
 
             </div>
