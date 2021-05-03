@@ -11,6 +11,9 @@ class LoginedRouterClassUser extends React.Component { //User Page
         return (
             <Router>
                 <div>
+                    <header>
+                        <button onClick={this.props.Logout}>Logout</button>
+                    </header>
                     <h2>Welcome back, User! OwO</h2>
                     <ul>
                         <LongLink to="/info" label="Info" />
