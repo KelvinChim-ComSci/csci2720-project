@@ -34,16 +34,16 @@ const destination_dict = {
 //for journey_data and journey_desc
 //it stated that type 2 will have bitmap, need see see dim
 const journal_type2_dict = {
-    1: "traffic congested",
-    2: "tunnel congested",
-    3: "tunnel closed",
-    4: "blank"
+    "1": "traffic congested",
+    "2": "tunnel congested",
+    "3": "tunnel closed",
+    "4": "blank"
 }
 
 const color_dict = {
-    1: "Red",
-    2: "Yellow",
-    3: "Green",
+    "1": "Red",
+    "2": "Yellow",
+    "3": "Green",
     "-1": "Not applicable"
 }
 
