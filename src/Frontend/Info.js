@@ -1,5 +1,5 @@
 import React from "react";
-import { location_dict } from "../Backend/data.js";
+import { destination_dict, location_dict } from "../Backend/data.js";
 
 class Info extends React.Component {
     constructor(props) {
@@ -73,6 +73,16 @@ class Info extends React.Component {
                     <tbody>
                         {this.state.latestData.map((value, index) => {
                             if (value[2] === "1") {
+                                return (
+                                    <tr key={index}>
+                                        <td>{value[0]}</td>
+                                        <td>{value[1]}</td>
+                                        <td></td>
+                                        <td>{value[3]}</td>
+                                        <td>{value[4]}</td>
+                                    </tr>
+                                )
+                            } else {
                                 return (
                                     <tr key={index}>
                                         <td>{value[0]}</td>
