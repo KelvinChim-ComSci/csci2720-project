@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 import { destination_dict, location_dict, journal_type2_dict, color_dict } from "../Backend/data.js";
 // import SearchBar from "./SearchBar.js";
 
-var all_data = [];
-
 class Info extends React.Component {
     constructor(props) {
         super(props);
@@ -36,7 +34,7 @@ class Info extends React.Component {
                 var journey_data = xml.getElementsByTagName('JOURNEY_DATA');
                 var color_id = xml.getElementsByTagName('COLOUR_ID');
                 var capture_time = xml.getElementsByTagName('CAPTURE_DATE')[0].childNodes[0].nodeValue;
-                // var all_data = [];
+                var all_data = [];
 
                 var i = 0;
                 for (i = 0; i < loc_id.length; i++) {
@@ -65,10 +63,6 @@ class Info extends React.Component {
 
     componentDidMount() {
         this.getData();
-    }
-
-    test12() {
-        console.log(location_dict['H1'][0])
     }
 
     /*
@@ -122,7 +116,7 @@ class Info extends React.Component {
                             if (value['journeyType'] === "1") {
                                 return (
                                     <tr key={index}>
-                                        <Link onClick={() => console.log(value['locID'])} to="/place">
+                                        <Link onClick={() => this.props.changePlace(value['locID'])} to="/place">
                                             <td>{value['locID']}</td>   {/*location ID*/}
                                         </Link>
                                         <td>{value['location']}</td>      {/*location*/}
@@ -133,18 +127,17 @@ class Info extends React.Component {
                                     </tr>
 
                                 )
-                            } else {
-                                return (
-                                    <tr key={index}>
-                                        <td>{value['locID']}</td>                           {/*location ID*/}
-                                        <td>{value['location']}</td>                        {/*location*/}
-                                        <td>{value['destID']}</td>                          {/*destination ID*/}
-                                        <td>{value['destination']}</td>                     {/*destination*/}
-                                        <td>{journal_type2_dict[value['journeyData']]}</td> {/*traffic status*/}
-                                        <td>{value['color']}</td>               {/*color code*/}
-                                    </tr>
-                                )
                             }
+                            return (
+                                <tr key={index}>
+                                    <td>{value['locID']}</td>                           {/*location ID*/}
+                                    <td>{value['location']}</td>                        {/*location*/}
+                                    <td>{value['destID']}</td>                          {/*destination ID*/}
+                                    <td>{value['destination']}</td>                     {/*destination*/}
+                                    <td>{journal_type2_dict[value['journeyData']]}</td> {/*traffic status*/}
+                                    <td>{value['color']}</td>               {/*color code*/}
+                                </tr>
+                            )
                         })}
                     </tbody>
                 </table>

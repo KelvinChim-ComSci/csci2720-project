@@ -1,4 +1,4 @@
-//locationID: description, E, N
+//locationID: description, longitude: E, latitude: N
 const location_dict = {
     "H1": ["JTI at Gloucester Road eastbound near the Revenue Tower", 835776.133, 815604.834],
     "H2": ["JTI at Canal Road Flyover northbound near exit of Aberdeen Tunnel", 836609.240, 814749.535],
@@ -47,4 +47,22 @@ const color_dict = {
     "-1": "Not applicable"
 }
 
-export { location_dict, destination_dict, journal_type2_dict, color_dict };
+const loc_to_dest_dict = {
+    "H1": ["CH", "EH"],
+    "H2": ["CH", "EH", "WH"],
+    "H3": ["CH", "WH"],
+    "H11": ["CH", "EH"],
+    "K01": ["CH", "WH"],
+    "K02": ["CH", "EH"],
+    "K03": ["CH", "EH", "WH"],
+    "K04": ["CH", "WH"],
+    "K05": ["CH", "EH"],
+    "K06": ["CH", "WH"],
+    "SJ1": ["LRT", "SMT", "TSCA"],
+    "SJ2": ["LRT", "TCT", "TSCA"],
+    "SJ3": ["LRT", "TCT", "TSCA"],
+    "SJ4": ["TKTL", "TKTM"],
+    "SJ5": ["TWCP", "TWTM"]
+}
+
+export { location_dict, destination_dict, journal_type2_dict, color_dict, loc_to_dest_dict };

@@ -7,9 +7,22 @@ import Place from "./Place.js";
 import FavouritePlace from "./FavouritePlace.js";
 
 class LoginedRouterClassUser extends React.Component { //User Page
+    constructor(props) {
+        super(props);
+        this.state = { place: "H1" };
+        this.changePlace = this.changePlace.bind(this);
+    }
+
     componentDidMount() {
         this.props.getUsername();
     }
+
+    changePlace(loc) {
+        this.setState({
+            place: loc
+        });
+    }
+
     render() {
         return (
             <Router>
@@ -28,8 +41,9 @@ class LoginedRouterClassUser extends React.Component { //User Page
                     <hr />
 
                     <Switch>
-                        <Route path="/info" component={Info} />
-                        <Route path="/place" component={Place} />
+                        <Route path="/info"><Info changePlace={this.changePlace} /></Route>
+                        {/*<Route path="/info" component={Info} />*/}
+                        <Route path="/place"><Place place={this.state.place} /></Route>
                         <Route path="/favouriteplace" component={FavouritePlace} />
                         {/*<Route path="*" component={NoMatch} />*/}
                         {/*<Route path="/search" component={Search} />*/}
