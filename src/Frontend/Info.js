@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { destination_dict, location_dict, journal_type2_dict, color_dict } from "../Backend/data.js";
 
 class Info extends React.Component {
@@ -11,7 +12,6 @@ class Info extends React.Component {
         };
         this.sortBy = this.sortBy.bind(this);
     }
-    var
 
     getData() {
         fetch(`https://resource.data.one.gov.hk/td/journeytime.xml`)
@@ -91,13 +91,16 @@ class Info extends React.Component {
                             if (value['journeyType'] === "1") {
                                 return (
                                     <tr key={index}>
-                                        <td>{value['locID']}</td>                        {/*location ID*/}
+                                        <Link onClick={() => console.log(value['locID'])} to="/place">
+                                            <td>{value['locID']}</td>   {/*location ID*/}
+                                        </Link>
                                         <td>{value['location']}</td>      {/*location*/}
                                         <td>{value['destID']}</td>                     {/*destination ID*/}
                                         <td>{value['destination']}</td>   {/*destination*/}
                                         <td>{value['journeyData']} mins</td>                {/*journey time*/}
                                         <td>{value['color']}</td>               {/*color code*/}
                                     </tr>
+
                                 )
                             } else {
                                 return (
@@ -114,9 +117,8 @@ class Info extends React.Component {
                         })}
                     </tbody>
                 </table>
-                {/*<button id="getInfo" type="button" onClick={this.test12}>getInfo</button>*/}
+            </div >
 
-            </div>
         );
     }
 }
