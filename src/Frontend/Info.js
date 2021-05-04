@@ -18,6 +18,7 @@ class Info extends React.Component {
 
         this.sortByLocID = this.sortByLocID.bind(this);
         // this.setInput = this.setInput.bind(this);
+        this.sortBy = this.sortBy.bind(this);
     }
 
     getData() {
@@ -43,22 +44,22 @@ class Info extends React.Component {
                     var type = journey_type[i].childNodes[0].nodeValue;
                     var d = journey_data[i].childNodes[0].nodeValue;
                     var c = color_id[i].childNodes[0].nodeValue;
-                    all_data.push({ location: loc, destination: dest, journeyType: type, journeyData: d, color: c });
+                    all_data.push({ locID: loc, location: location_dict[loc][0], destID: dest, destination: destination_dict[dest], journeyType: type, journeyData: d, color: color_dict[c] });
                 }
-                //all_data.push({ location: "H1", destination: "CH", journeyType: "2", journeyData: "3", color: "1" }); //to test journey type 2
+                //all_data.push({ locID: "H1", location: "test", destID: "tt", destination: "CH", journeyType: "2", journeyData: "3", color: "black" }); //to test journey type 2
                 this.setState({ latestData: all_data, time: capture_time, get: true });
             })
             .catch(console.error);
     }
 
-    sortByLocID() {
-        //bands.sort((a, b) => b[sortProperty] - a[sortProperty])
-        console.log("haha");
+    sortBy(col) {
         var tmp = this.state.latestData;
-        console.log(tmp);
-        var tmp2 = tmp.sort((a, b) => a.destination.localeCompare(b.destination))
+        if (col === "journeyData") {
+            tmp = tmp.sort((a, b) => (a["journeyData"] - b["journeyData"]) > 0 ? 1 : -1)
+        } else {
+            tmp = tmp.sort((a, b) => a[col].localeCompare(b[col]));
+        }
         this.setState({ latestData: tmp });
-        console.log(tmp2);
     }
 
     componentDidMount() {
@@ -104,16 +105,15 @@ class Info extends React.Component {
                 />*/}
                 <h2>Real-time Data</h2>
                 <p>Update time: +{this.state.time}</p>
-                <button id="getInfo" type="button" onClick={this.sortByLocID}>sort by location ID</button>
                 <table>
                     <thead>
                         <tr>
-                            <th>Location ID</th>
-                            <th>Location</th>
-                            <th>Destination ID</th>
-                            <th>Destination</th>
-                            <th>Journey Time / Traffic Status</th>
-                            <th>Color Code</th>
+                            <th>Location ID <button type="button" onClick={() => this.sortBy("locID")}>sort</button> </th>
+                            <th>Location <button type="button" onClick={() => this.sortBy("location")}>sort</button></th>
+                            <th>Destination ID <button type="button" onClick={() => this.sortBy("destID")}>sort</button></th>
+                            <th>Destination <button type="button" onClick={() => this.sortBy("destination")}>sort</button></th>
+                            <th>Journey Time / Traffic Status <button type="button" onClick={() => this.sortBy("journeyData")}>sort</button></th>
+                            <th>Color Code <button type="button" onClick={() => this.sortBy("color")}>sort</button></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -121,23 +121,23 @@ class Info extends React.Component {
                             if (value['journeyType'] === "1") {
                                 return (
                                     <tr key={index}>
-                                        <td>{value['location']}</td>                        {/*location ID*/}
-                                        <td>{location_dict[value['location']][0]}</td>      {/*location*/}
-                                        <td>{value['destination']}</td>                     {/*destination ID*/}
-                                        <td>{destination_dict[value['destination']]}</td>   {/*destination*/}
+                                        <td>{value['locID']}</td>                        {/*location ID*/}
+                                        <td>{value['location']}</td>      {/*location*/}
+                                        <td>{value['destID']}</td>                     {/*destination ID*/}
+                                        <td>{value['destination']}</td>   {/*destination*/}
                                         <td>{value['journeyData']} mins</td>                {/*journey time*/}
-                                        <td>{color_dict[value['color']]}</td>               {/*color code*/}
+                                        <td>{value['color']}</td>               {/*color code*/}
                                     </tr>
                                 )
                             } else {
                                 return (
                                     <tr key={index}>
-                                        <td>{value['location']}</td>                        {/*location ID*/}
-                                        <td>{location_dict[value['location']][0]}</td>      {/*location*/}
-                                        <td>{value['destination']}</td>                     {/*destination ID*/}
-                                        <td>{destination_dict[value['destination']]}</td>   {/*destination*/}
+                                        <td>{value['locID']}</td>                           {/*location ID*/}
+                                        <td>{value['location']}</td>                        {/*location*/}
+                                        <td>{value['destID']}</td>                          {/*destination ID*/}
+                                        <td>{value['destination']}</td>                     {/*destination*/}
                                         <td>{journal_type2_dict[value['journeyData']]}</td> {/*traffic status*/}
-                                        <td>{color_dict[value['color']]}</td>               {/*color code*/}
+                                        <td>{value['color']}</td>               {/*color code*/}
                                     </tr>
                                 )
                             }
