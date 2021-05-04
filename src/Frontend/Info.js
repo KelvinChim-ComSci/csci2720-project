@@ -1,6 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { destination_dict, location_dict, journal_type2_dict, color_dict } from "../Backend/data.js";
+// import SearchBar from "./SearchBar.js";
+
+var all_data = [];
 
 class Info extends React.Component {
     constructor(props) {
@@ -8,8 +11,14 @@ class Info extends React.Component {
         this.state = {
             latestData: "",
             time: "",
-            get: false
+            get: false,
+
+            // input: "",
+            // searchList: []
         };
+
+        this.sortByLocID = this.sortByLocID.bind(this);
+        // this.setInput = this.setInput.bind(this);
         this.sortBy = this.sortBy.bind(this);
     }
 
@@ -27,7 +36,7 @@ class Info extends React.Component {
                 var journey_data = xml.getElementsByTagName('JOURNEY_DATA');
                 var color_id = xml.getElementsByTagName('COLOUR_ID');
                 var capture_time = xml.getElementsByTagName('CAPTURE_DATE')[0].childNodes[0].nodeValue;
-                var all_data = [];
+                // var all_data = [];
 
                 var i = 0;
                 for (i = 0; i < loc_id.length; i++) {
@@ -62,6 +71,23 @@ class Info extends React.Component {
         console.log(location_dict['H1'][0])
     }
 
+    /*
+    async updateInput(input) {
+        const filtered = all_data.filter(data => {
+         return data.name.toLowerCase().includes(input.toLowerCase())
+        })
+        console.log("input: " + input);
+        this.setState({input: input});
+        console.log("filtered: " + filtered);
+        this.setState({searchList: filtered});
+    }
+
+    setInput(e) {
+        console.log("e");
+        this.setState({input: e});
+    }
+    */
+
     render() {
         if (!this.state.get) {
             return (
@@ -73,6 +99,11 @@ class Info extends React.Component {
         }
         return (
             <div>
+                {/*<SearchBar 
+                    input={this.state.input} 
+                    setInput={setInput}
+                    onChange={this.updateInput}
+                />*/}
                 <h2>Real-time Data</h2>
                 <p>Update time: +{this.state.time}</p>
                 <table>

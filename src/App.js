@@ -34,7 +34,7 @@ class App extends React.Component {
   }
 
   getUsername() {
-    document.getElementById("username").innerHTML = this.state.username;
+    document.getElementById("username").innerHTML = "Welcome! " + this.state.username;
   }
 
   render() {
