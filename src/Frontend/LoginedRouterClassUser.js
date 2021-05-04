@@ -35,6 +35,7 @@ class LoginedRouterClassUser extends React.Component { //User Page
                     <ul>
                         <LongLink to="/info" label="Real-time Data" />
                         <LongLink to="/favouriteplace" label="FavouritePlace" />
+                        {/*<LongLink to="/map" label="Map" />*/}
                         {/*<LongLink to="/search" label="Search" />*/}
                     </ul>
 
@@ -45,6 +46,8 @@ class LoginedRouterClassUser extends React.Component { //User Page
                         {/*<Route path="/info" component={Info} />*/}
                         <Route path="/place"><Place place={this.state.place} /></Route>
                         <Route path="/favouriteplace" component={FavouritePlace} />
+                        <Route path="/map" component={Map} />
+                        
                         {/*<Route path="*" component={NoMatch} />*/}
                         {/*<Route path="/search" component={Search} />*/}
                         {/*info is for testing only/}
