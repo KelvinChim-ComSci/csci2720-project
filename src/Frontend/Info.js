@@ -17,7 +17,7 @@ class Info extends React.Component {
             // searchList: []
         };
 
-        this.sortByLocID = this.sortByLocID.bind(this);
+        //this.sortByLocID = this.sortByLocID.bind(this);
         // this.setInput = this.setInput.bind(this);
         this.sortBy = this.sortBy.bind(this);
     }

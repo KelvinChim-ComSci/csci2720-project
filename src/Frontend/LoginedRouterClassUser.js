@@ -31,13 +31,10 @@ class LoginedRouterClassUser extends React.Component { //User Page
                         <Route path="/info" component={Info} />
                         <Route path="/place" component={Place} />
                         <Route path="/favouriteplace" component={FavouritePlace} />
-<<<<<<< HEAD
                         {/*<Route path="*" component={NoMatch} />*/}
-=======
                         {/*<Route path="/search" component={Search} />*/}
                         {/*info is for testing only/}
             {/*<Route path="*" component={NoMatch} />*/}
->>>>>>> 000f1456b8ef6110505a388d34cdb94ad47af418
                     </Switch>
                 </div>
             </Router>
