@@ -5,7 +5,6 @@ import LongLink from "./LongLink.js";
 import Info from "./Info.js";
 import FavouritePlace from "./FavouritePlace.js";
 
-
 class LoginedRouterClassUser extends React.Component { //User Page
     componentDidMount() {
         this.props.getUsername();
@@ -22,6 +21,7 @@ class LoginedRouterClassUser extends React.Component { //User Page
                     <ul>
                         <LongLink to="/info" label="Info" />
                         <LongLink to="/favouriteplace" label="FavouritePlace" />
+                        {/*<LongLink to="/search" label="Search" />*/}
                     </ul>
 
                     <hr />
@@ -29,6 +29,7 @@ class LoginedRouterClassUser extends React.Component { //User Page
                     <Switch>
                         <Route path="/info" component={Info} />
                         <Route path="/favouriteplace" component={FavouritePlace} />
+                        {/*<Route path="/search" component={Search} />*/}
                         {/*info is for testing only/}
             {/*<Route path="*" component={NoMatch} />*/}
                     </Switch>
