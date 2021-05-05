@@ -2,8 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { destination_dict, location_dict, journal_type2_dict, color_dict } from "../Backend/data.js";
 import SearchBar from "./SearchBar.js";
-// import { search } from "window.location";
-// const query = new URLSearchParams(search).get('s');
 
 class Info extends React.Component {
     constructor(props) {
@@ -13,14 +11,18 @@ class Info extends React.Component {
             time: "",
             get: false,
 
-            // search: window.location,
+            // SearchBar
             query: new URLSearchParams(window.location.search).get('s'),
             searchQuery: "", 
+            field: "location"
         };
 
         //this.sortByLocID = this.sortByLocID.bind(this);
-        this.setSearchQuery = this.setSearchQuery.bind(this);
         this.sortBy = this.sortBy.bind(this);
+        
+        // SearchBar
+        this.setSearchQuery = this.setSearchQuery.bind(this);
+        this.onChangeValue = this.onChangeValue.bind(this);
     }
 
     getData() {
@@ -68,24 +70,20 @@ class Info extends React.Component {
         this.getData();
     }
 
-    filterDatas(datas, query){
+    // SearchBar
+    filterDatas(datas, query, field){
         if (!query) {
             return datas;
         }
-    
         return datas.filter((data) => {
-            console.log(data);
-            return data.location.includes(query);
+            return data[field].includes(query);
         });
     };
-
-    testSearchBar() {
-        console.log("searchQuery: " + this.state.searchQuery);
-    }
-
     setSearchQuery(e) {
-        console.log("successfully set searchQuery!")
         this.setState({searchQuery: e});
+    }
+    onChangeValue(e) {
+        this.setState({field: e.target.value});
     }
 
     render() {
@@ -101,7 +99,13 @@ class Info extends React.Component {
             <div>
                 <h2>Real-time Data</h2>
                 <p>Update time: +{this.state.time}</p>
-                <button onClick={() => this.testSearchBar()}>Test</button>
+                <div onChange={this.onChangeValue}>
+                    <input type="radio" value="locID" name="field" /> Location ID
+                    <input type="radio" value="location" name="field" /> Location
+                    <input type="radio" value="destID" name="field" /> Destination ID
+                    <input type="radio" value="destination" name="field" /> Destination
+                    
+                </div>
                 <SearchBar 
                     searchQuery={this.state.searchQuery}
                     setSearchQuery={this.setSearchQuery}
@@ -119,9 +123,7 @@ class Info extends React.Component {
                     </thead>
                     <tbody>
                         {/*filterLocations(locations, query)*/}
-                        {this.filterDatas(this.state.latestData, this.state.searchQuery).map((value, index) => {
-                            {/*this.state.latestData.map((value, index) => {*/}
-                            
+                        {this.filterDatas(this.state.latestData, this.state.searchQuery, this.state.field).map((value, index) => {
                             if (value['journeyType'] === "1") {
                                 return (
                                     <tr key={index}>

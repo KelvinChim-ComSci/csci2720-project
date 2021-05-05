@@ -3,9 +3,6 @@ import React from 'react';
 class SearchBar extends React.Component {
   constructor(props) {
     super(props);
-
-    // this.setInput = this.setInput.bind(this);
-
   }
 
   render() {
@@ -19,7 +16,7 @@ class SearchBar extends React.Component {
             onInput={e => this.props.setSearchQuery(e.target.value)}
             type="text"
             id="header-search"
-            placeholder="Search location"
+            placeholder="search"
             name="s" 
         />
         {/*<button type="submit">Search</button>*/}
