@@ -17,7 +17,7 @@ class Login extends React.Component {
           //"Access-Control-Allow-Header": "Content-Type",
           //"Accept": 'application/json',
           "Content-Type": 'application/json',
-          //"Access-Control-Allow-Origin" : "'http://localhost:3000'",
+          "Access-Control-Allow-Origin" : "'http://localhost:3000'",
           //"Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS",
           //"Access-Control-Allow-Credentials" : true, 
         }),

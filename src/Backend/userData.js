@@ -1,7 +1,21 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+import { Link, Route, Switch, useRouteMatch } from "react-router-dom";
 import { BrowserRouter as Router } from "react-router-dom";
-import LongLink from "./LongLink.js";
+
+
+function LongLink({label, to, activeOnlyWhenExact}) {
+    let match = useRouteMatch({
+      path: to,
+      exact: activeOnlyWhenExact
+    });
+    return (
+      <li className={match ? "active" : ""}>
+        {match && "> "}
+        <Link to={to}>{label}</Link>
+      </li>
+    );
+  }
+  
 
 class userData extends React.Component {
     render() {
