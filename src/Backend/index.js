@@ -3,22 +3,22 @@ const app = express();
 const cors = require('cors');
 app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
+app.use(express.urlencoded({ extended: true }));
 
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://s1155126571:x73339@localhost/s1155126571');
 
 var db = mongoose.connection;
 // Upon connection failure
-db.on('error', console.error.bind(console,'Connection error:'));
+db.on('error', console.error.bind(console, 'Connection error:'));
 // Upon opening the database successfully
 db.once('open', function () {
 	console.log("Connection is open...");
 });
 
 var UserSchema = mongoose.Schema({
-  username: { type: String, required: true, unique: true },
-  password: { type: String, required: true }, // NEED HASHING
+	username: { type: String, required: true, unique: true },
+	password: { type: String, required: true }, // NEED HASHING
 	admin: { type: Boolean }
 });
 
@@ -35,24 +35,24 @@ var User = mongoose.model('User', UserSchema);
 }) */
 
 // POST //
-app.post('/login', function(req,res){ // LOGIN SYSTEM
+app.post('/login', function (req, res) { // LOGIN SYSTEM
 	console.log("Post request received!!");
 	var username = req.body.id;
 	var password = req.body.pw;
 	console.log(req.body);
-	User.findOne({username: username, password: password}, function(err,user){
+	User.findOne({ username: username, password: password }, function (err, user) {
 		if (err) {
 			return console.log('err'); // ERROR
 		}
 
 		if (!user) {
-			return res.status(422).json({msg: 'user not exist'}); // NO USER EXISTS. WRONG PW OR WRONG ID.
+			return res.status(422).json({ msg: 'user not exist' }); // NO USER EXISTS. WRONG PW OR WRONG ID.
 		}
 
 		if (user.admin == true) {
-			return res.status(201).json({msg: 'admin'}); // ADMIN
+			return res.status(201).json({ msg: 'admin' }); // ADMIN
 		}
-		else return res.status(200).json({msg: 'success'}); // SUCCESSFUL
+		else return res.status(200).json({ msg: 'success' }); // SUCCESSFUL
 	})
 })
 
@@ -106,4 +106,4 @@ app.post('/userData/createUser/create', function(req,res){
 */
 
 // listen to port 2096
-const server = app.listen(2084);
+const server = app.listen(2101);

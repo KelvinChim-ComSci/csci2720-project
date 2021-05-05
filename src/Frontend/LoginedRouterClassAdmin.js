@@ -13,12 +13,14 @@ class LoginedRouterClassAdmin extends React.Component { //Admin Page
     render() {
         return (
             <Router>
+                <header>
+                    <button onClick={this.props.Logout}>Logout</button>
+                </header>
                 <div>
                     <h2>Welcome back, Admin!</h2>
                     <ul>
                         <LongLink to="/trafficData" label="trafficData" />
                         <LongLink to="/userData" label="userData" />
-                        <button onClick={this.props.Logout}>Logout</button>
                     </ul>
 
                     <hr />

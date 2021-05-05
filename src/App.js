@@ -11,6 +11,7 @@ class App extends React.Component {
     this.handleAdminLogin = this.handleAdminLogin.bind(this);
     this.handleUserLogin = this.handleUserLogin.bind(this);
     this.Logout = this.Logout.bind(this);
+    this.getUsername = this.getUsername.bind(this);
   }
 
   handleAdminLogin() {
@@ -21,7 +22,8 @@ class App extends React.Component {
 
   handleUserLogin() {
     this.setState({
-      logined: 0
+      logined: 0,
+      username: document.getElementById("login-id").value
     })
   }
 
@@ -31,11 +33,15 @@ class App extends React.Component {
     })
   }
 
+  getUsername() {
+    document.getElementById("username").innerHTML = "Welcome! " + this.state.username;
+  }
+
   render() {
     if (this.state.logined === 0) { // USER INTERFACE
       return (
         <div>
-          <LoginedRouterClassUser logined={this.state.logined} Logout={this.Logout} />
+          <LoginedRouterClassUser logined={this.state.logined} Logout={this.Logout} getUsername={this.getUsername} />
         </div>
       );
     }
@@ -51,20 +57,11 @@ class App extends React.Component {
         <div>
           <Login
             handleAdminLogin={this.handleAdminLogin}
-            handleUserLogin={this.handleUserLogin} 
+            handleUserLogin={this.handleUserLogin}
           />
         </div>
       )
     }
-
-    return (
-      <div className="App">
-        <Login handleLogin={this.handleLogin} />
-        {/*<RouterClass logined={this.state.logined} />
-        <button type="button" onClick={() => console.log(this.state.logined)}>changeState</button>
-        <button type="button" onClick={() => this.setState({ logined: true })}>LoginPage</button>*/}
-      </div>
-    );
   }
 }
 
