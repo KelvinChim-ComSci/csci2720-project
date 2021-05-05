@@ -1,4 +1,4 @@
-//locationID: description, longitude: E, latitude: N
+//locationID: description, longitude: E, latitude: N.  Need to find accurate data.
 const location_dict = {
     "H1": ["JTI at Gloucester Road eastbound near the Revenue Tower", 835776.133, 815604.834],
     "H2": ["JTI at Canal Road Flyover northbound near exit of Aberdeen Tunnel", 836609.240, 814749.535],
