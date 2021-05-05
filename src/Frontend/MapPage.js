@@ -10,7 +10,7 @@ class MapPage extends React.Component {
     return (
       <div>
         <Map 
-          center={{lat: 59.95, lng: 30.33}}
+          center={{lat: 22.302711, lng: 114.177216}}
           zoom={11}
         />
       </div>
