@@ -1,9 +1,9 @@
-/*import React, { Component } from 'react';
+import React, { Component } from 'react';
 import GoogleMapReact from 'google-map-react';
  
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
-class Map extends Component {
+class Map extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -22,9 +22,11 @@ class Map extends Component {
       // Key is AIzaSyCJdRfhVCq5eYChojMx5dV7skmGy1IGm2s
       <div style={{ height: '100vh', width: '100%' }}>
         <GoogleMapReact
-          bootstrapURLKeys={{ key: AIzaSyCJdRfhVCq5eYChojMx5dV7skmGy1IGm2s }}
+          bootstrapURLKeys={{ key: "AIzaSyCJdRfhVCq5eYChojMx5dV7skmGy1IGm2s" }}
           defaultCenter={this.props.center}
           defaultZoom={this.props.zoom}
+          yesIWantToUseGoogleMapApiInternals
+          //onGoogleApiLoaded={({ map, maps }) => handleApiLoaded(map, maps)}
         >
           <AnyReactComponent
             lat={59.955413}
@@ -37,5 +39,5 @@ class Map extends Component {
   }
 }
 
-var map = new Map();
-export default Map;*/
+// var map = new Map();
+export default Map
