@@ -12,7 +12,7 @@ class Map extends React.Component {
   render() {
     return (
       // Important! Always set the container height explicitly
-      // Key is AIzaSyCJdRfhVCq5eYChojMx5dV7skmGy1IGm2s
+      // Key is AIzaSyBhVbCumzcBYSl-jizd9Lf04uhdZ6Qlrv8
       <div style={{ height: '100vh', width: '100%' }}>
         <GoogleMapReact
           bootstrapURLKeys={{ key: "AIzaSyBhVbCumzcBYSl-jizd9Lf04uhdZ6Qlrv8" }}
