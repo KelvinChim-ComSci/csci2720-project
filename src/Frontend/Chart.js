@@ -20,7 +20,6 @@ class Chart extends React.Component {
         console.log(day);
         ('0' + 11).slice(-2)
         console.log(day.getFullYear() + '/' + ('0' + (day.getMonth() + 1)).slice(-2) + '/' + ('0' + day.getDate()).slice(-2));     //day
-        c
     }
 
 
