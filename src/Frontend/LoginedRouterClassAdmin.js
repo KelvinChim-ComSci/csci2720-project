@@ -8,6 +8,7 @@ import trafficData from "../Backend/trafficData.js";
 import userData from "../Backend/userData.js";
 
 
+
 class LoginedRouterClassAdmin extends React.Component { //Admin Page
     render() {
         return (
@@ -32,5 +33,6 @@ class LoginedRouterClassAdmin extends React.Component { //Admin Page
         );
     }
 }
+
 
 export default LoginedRouterClassAdmin;

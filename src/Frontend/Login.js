@@ -10,7 +10,7 @@ class Login extends React.Component {
     console.log("id: " + document.getElementById("login-id").value);
     console.log("pw: " + document.getElementById("login-pw").value);
     fetch(
-      `http://csci2720-g114.cse.cuhk.edu.hk/login`,
+      `http://csci2720-g84.cse.cuhk.edu.hk/login`,
       {
         method: "POST",
         headers: new Headers({

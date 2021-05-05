@@ -56,6 +56,13 @@ app.post('/login', function(req,res){ // LOGIN SYSTEM
 	})
 })
 
+app.post('/userData/createUser/create', function(req,res){ 
+	console.log("Post request received!!");
+	var username = req.body.id;
+	var password = req.body.pw;
+	console.log(req.body);
+})
+
 
 //  SYNTAX FORMAT  //
 /* app.get('/loc', function(req,res) {
@@ -99,4 +106,4 @@ app.post('/login', function(req,res){ // LOGIN SYSTEM
 */
 
 // listen to port 2096
-const server = app.listen(2114);
+const server = app.listen(2084);
