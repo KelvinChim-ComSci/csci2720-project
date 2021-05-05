@@ -6,6 +6,7 @@ import Info from "./Info.js";
 import Place from "./Place.js";
 import FavouritePlace from "./FavouritePlace.js";
 import Chart from "./Chart.js";
+import MapPage from "./MapPage.js";
 
 class LoginedRouterClassUser extends React.Component { //User Page
     constructor(props) {
@@ -38,6 +39,7 @@ class LoginedRouterClassUser extends React.Component { //User Page
                         <LongLink to="/favouriteplace" label="FavouritePlace" />
                         <LongLink to="/chart" label="Chart" />
                         {/*<LongLink to="/map" label="Map" />*/}
+                        <LongLink to="/mapPage" label="MapPage" />
                         {/*<LongLink to="/search" label="Search" />*/}
                     </ul>
 
@@ -50,6 +52,8 @@ class LoginedRouterClassUser extends React.Component { //User Page
                         <Route path="/favouriteplace" component={FavouritePlace} />
                         <Route path="/map" component={Map} />
                         <Route path="/chart" component={Chart} />
+
+                        <Route path="/mapPage" component={MapPage} />
 
                         {/*<Route path="*" component={NoMatch} />*/}
                         {/*<Route path="/search" component={Search} />*/}
