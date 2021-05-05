@@ -1,7 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { destination_dict, location_dict, journal_type2_dict, color_dict } from "../Backend/data.js";
-// import SearchBar from "./SearchBar.js";
+import SearchBar from "./SearchBar.js";
+// import { search } from "window.location";
+// const query = new URLSearchParams(search).get('s');
 
 class Info extends React.Component {
     constructor(props) {
@@ -11,12 +13,13 @@ class Info extends React.Component {
             time: "",
             get: false,
 
-            // input: "",
-            // searchList: []
+            // search: window.location,
+            query: new URLSearchParams(window.location.search).get('s'),
+            searchQuery: "", 
         };
 
         //this.sortByLocID = this.sortByLocID.bind(this);
-        // this.setInput = this.setInput.bind(this);
+        this.setSearchQuery = this.setSearchQuery.bind(this);
         this.sortBy = this.sortBy.bind(this);
     }
 
@@ -65,22 +68,25 @@ class Info extends React.Component {
         this.getData();
     }
 
-    /*
-    async updateInput(input) {
-        const filtered = all_data.filter(data => {
-         return data.name.toLowerCase().includes(input.toLowerCase())
-        })
-        console.log("input: " + input);
-        this.setState({input: input});
-        console.log("filtered: " + filtered);
-        this.setState({searchList: filtered});
+    filterDatas(datas, query){
+        if (!query) {
+            return datas;
+        }
+    
+        return datas.filter((data) => {
+            console.log(data);
+            return data.location.includes(query);
+        });
+    };
+
+    testSearchBar() {
+        console.log("searchQuery: " + this.state.searchQuery);
     }
 
-    setInput(e) {
-        console.log("e");
-        this.setState({input: e});
+    setSearchQuery(e) {
+        console.log("successfully set searchQuery!")
+        this.setState({searchQuery: e});
     }
-    */
 
     render() {
         if (!this.state.get) {
@@ -93,13 +99,13 @@ class Info extends React.Component {
         }
         return (
             <div>
-                {/*<SearchBar 
-                    input={this.state.input} 
-                    setInput={setInput}
-                    onChange={this.updateInput}
-                />*/}
                 <h2>Real-time Data</h2>
                 <p>Update time: +{this.state.time}</p>
+                <button onClick={() => this.testSearchBar()}>Test</button>
+                <SearchBar 
+                    searchQuery={this.state.searchQuery}
+                    setSearchQuery={this.setSearchQuery}
+                />
                 <table>
                     <thead>
                         <tr>
@@ -112,7 +118,10 @@ class Info extends React.Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {this.state.latestData.map((value, index) => {
+                        {/*filterLocations(locations, query)*/}
+                        {this.filterDatas(this.state.latestData, this.state.searchQuery).map((value, index) => {
+                            {/*this.state.latestData.map((value, index) => {*/}
+                            
                             if (value['journeyType'] === "1") {
                                 return (
                                     <tr key={index}>
