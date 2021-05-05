@@ -22,8 +22,14 @@ var UserSchema = mongoose.Schema({
 	admin: { type: Boolean }
 });
 
+var CommentSchema = mongoose.Schema({
+	username: { type: String, required: true, unique: true },
+	comment: { type: String, required: true }, // NEED HASHING
+	time: { type: Date, required: true }
+});
 
 var User = mongoose.model('User', UserSchema);
+var Comment = mongoose.model('Comment', CommentSchema);
 
 /*app.get('/*', function(req,res) {
 	User.findOne({}, function(err,user) {
@@ -56,7 +62,7 @@ app.post('/login', function (req, res) { // LOGIN SYSTEM
 	})
 })
 
-app.post('/userData/createUser/create', function(req,res){ 
+app.post('/userData/createUser/create', function (req, res) {
 	console.log("Post request received!!");
 	var username = req.body.id;
 	var password = req.body.pw;
@@ -106,4 +112,4 @@ app.post('/userData/createUser/create', function(req,res){
 */
 
 // listen to port 2096
-const server = app.listen(2114);
+const server = app.listen(2101);

@@ -13,13 +13,13 @@ class Info extends React.Component {
 
             // SearchBar
             query: new URLSearchParams(window.location.search).get('s'),
-            searchQuery: "", 
+            searchQuery: "",
             field: "location"
         };
 
         //this.sortByLocID = this.sortByLocID.bind(this);
         this.sortBy = this.sortBy.bind(this);
-        
+
         // SearchBar
         this.setSearchQuery = this.setSearchQuery.bind(this);
         this.onChangeValue = this.onChangeValue.bind(this);
@@ -71,7 +71,7 @@ class Info extends React.Component {
     }
 
     // SearchBar
-    filterDatas(datas, query, field){
+    filterDatas(datas, query, field) {
         if (!query) {
             return datas;
         }
@@ -80,10 +80,10 @@ class Info extends React.Component {
         });
     };
     setSearchQuery(e) {
-        this.setState({searchQuery: e});
+        this.setState({ searchQuery: e });
     }
     onChangeValue(e) {
-        this.setState({field: e.target.value});
+        this.setState({ field: e.target.value });
     }
 
     render() {
@@ -104,9 +104,9 @@ class Info extends React.Component {
                     <input type="radio" value="location" name="field" /> Location
                     <input type="radio" value="destID" name="field" /> Destination ID
                     <input type="radio" value="destination" name="field" /> Destination
-                    
+
                 </div>
-                <SearchBar 
+                <SearchBar
                     searchQuery={this.state.searchQuery}
                     setSearchQuery={this.setSearchQuery}
                 />
@@ -130,10 +130,10 @@ class Info extends React.Component {
                                         <Link onClick={() => this.props.changePlace(value['locID'])} to="/place">
                                             <td>{value['locID']}</td>   {/*location ID*/}
                                         </Link>
-                                        <td>{value['location']}</td>      {/*location*/}
-                                        <td>{value['destID']}</td>                     {/*destination ID*/}
-                                        <td>{value['destination']}</td>   {/*destination*/}
-                                        <td>{value['journeyData']} mins</td>                {/*journey time*/}
+                                        <td>{value['location']}</td>            {/*location*/}
+                                        <td>{value['destID']}</td>              {/*destination ID*/}
+                                        <td>{value['destination']}</td>         {/*destination*/}
+                                        <td>{value['journeyData']} mins</td>    {/*journey time*/}
                                         <td>{value['color']}</td>               {/*color code*/}
                                     </tr>
 
