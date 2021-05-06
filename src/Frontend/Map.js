@@ -1,41 +1,51 @@
-/*import React, { Component } from 'react';
+import React from 'react';
 import GoogleMapReact from 'google-map-react';
- 
-const AnyReactComponent = ({ text }) => <div>{text}</div>;
+import { location_dict } from '../Backend/data.js';
 
-class Map extends Component {
+// longitude = location_dict[loc][1], latitude = location_dict[loc][2]
+const Marker = ({text}) => <div style={{fontWeight: 'bold'}}>O</div>; // Need to change style
+
+class Map extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            center: {
-                lat: 59.95,
-                lng: 30.33
-            },
-            zoom: 11
-        };
+          markers : [],
+          map : {},
+          maps : {}
+        }
     }
-  
- 
+    
+    componentDidMount() {
+      this.setState({
+        markers: Object.values(location_dict)
+      })
+    }
+
   render() {
     return (
-      // Important! Always set the container height explicitly
-      // Key is AIzaSyCJdRfhVCq5eYChojMx5dV7skmGy1IGm2s
+      // Key is AIzaSyBhVbCumzcBYSl-jizd9Lf04uhdZ6Qlrv8
       <div style={{ height: '100vh', width: '100%' }}>
         <GoogleMapReact
-          bootstrapURLKeys={{ key: AIzaSyCJdRfhVCq5eYChojMx5dV7skmGy1IGm2s }}
+          bootstrapURLKeys={{ key: "AIzaSyBhVbCumzcBYSl-jizd9Lf04uhdZ6Qlrv8" }}
           defaultCenter={this.props.center}
           defaultZoom={this.props.zoom}
+          yesIWantToUseGoogleMapApiInternals
+          onGoogleApiLoaded={({ map, maps }) => this.setState({ map, maps })}
         >
-          <AnyReactComponent
-            lat={59.955413}
-            lng={30.337844}
-            text="My Marker"
-          />
+          {this.state.markers.map((place) => { 
+            return(
+            <Marker
+            lat = {place[3]}
+            lng = {place[4]}
+            place = {place[0]}
+            />
+            )}
+          )}
+            
         </GoogleMapReact>
       </div>
     );
   }
 }
 
-var map = new Map();
-export default Map;*/
+export default Map;

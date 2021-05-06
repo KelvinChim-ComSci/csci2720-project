@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { destination_dict, location_dict, journal_type2_dict, color_dict } from "../Backend/data.js";
-// import SearchBar from "./SearchBar.js";
+import SearchBar from "./SearchBar.js";
 
 class Info extends React.Component {
     constructor(props) {
@@ -11,13 +11,18 @@ class Info extends React.Component {
             time: "",
             get: false,
 
-            // input: "",
-            // searchList: []
+            // SearchBar
+            query: new URLSearchParams(window.location.search).get('s'),
+            searchQuery: "",
+            field: "location"
         };
 
         //this.sortByLocID = this.sortByLocID.bind(this);
-        // this.setInput = this.setInput.bind(this);
         this.sortBy = this.sortBy.bind(this);
+
+        // SearchBar
+        this.setSearchQuery = this.setSearchQuery.bind(this);
+        this.onChangeValue = this.onChangeValue.bind(this);
     }
 
     getData() {
@@ -65,22 +70,21 @@ class Info extends React.Component {
         this.getData();
     }
 
-    /*
-    async updateInput(input) {
-        const filtered = all_data.filter(data => {
-         return data.name.toLowerCase().includes(input.toLowerCase())
-        })
-        console.log("input: " + input);
-        this.setState({input: input});
-        console.log("filtered: " + filtered);
-        this.setState({searchList: filtered});
+    // SearchBar
+    filterDatas(datas, query, field) {
+        if (!query) {
+            return datas;
+        }
+        return datas.filter((data) => {
+            return data[field].includes(query);
+        });
+    };
+    setSearchQuery(e) {
+        this.setState({ searchQuery: e });
     }
-
-    setInput(e) {
-        console.log("e");
-        this.setState({input: e});
+    onChangeValue(e) {
+        this.setState({ field: e.target.value });
     }
-    */
 
     render() {
         if (!this.state.get) {
@@ -93,13 +97,19 @@ class Info extends React.Component {
         }
         return (
             <div>
-                {/*<SearchBar 
-                    input={this.state.input} 
-                    setInput={setInput}
-                    onChange={this.updateInput}
-                />*/}
                 <h2>Real-time Data</h2>
                 <p>Update time: +{this.state.time}</p>
+                <div onChange={this.onChangeValue}>
+                    <input type="radio" value="locID" name="field" /> Location ID
+                    <input type="radio" value="location" name="field" /> Location
+                    <input type="radio" value="destID" name="field" /> Destination ID
+                    <input type="radio" value="destination" name="field" /> Destination
+
+                </div>
+                <SearchBar
+                    searchQuery={this.state.searchQuery}
+                    setSearchQuery={this.setSearchQuery}
+                />
                 <table>
                     <thead>
                         <tr>
@@ -112,17 +122,17 @@ class Info extends React.Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {this.state.latestData.map((value, index) => {
+                        {this.filterDatas(this.state.latestData, this.state.searchQuery, this.state.field).map((value, index) => {
                             if (value['journeyType'] === "1") {
                                 return (
                                     <tr key={index}>
                                         <Link onClick={() => this.props.changePlace(value['locID'])} to="/place">
                                             <td>{value['locID']}</td>   {/*location ID*/}
                                         </Link>
-                                        <td>{value['location']}</td>      {/*location*/}
-                                        <td>{value['destID']}</td>                     {/*destination ID*/}
-                                        <td>{value['destination']}</td>   {/*destination*/}
-                                        <td>{value['journeyData']} mins</td>                {/*journey time*/}
+                                        <td>{value['location']}</td>            {/*location*/}
+                                        <td>{value['destID']}</td>              {/*destination ID*/}
+                                        <td>{value['destination']}</td>         {/*destination*/}
+                                        <td>{value['journeyData']} mins</td>    {/*journey time*/}
                                         <td>{value['color']}</td>               {/*color code*/}
                                     </tr>
 

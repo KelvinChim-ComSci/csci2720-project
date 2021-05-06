@@ -11,7 +11,6 @@ class App extends React.Component {
     this.handleAdminLogin = this.handleAdminLogin.bind(this);
     this.handleUserLogin = this.handleUserLogin.bind(this);
     this.Logout = this.Logout.bind(this);
-    this.getUsername = this.getUsername.bind(this);
   }
 
   handleAdminLogin() {
@@ -33,15 +32,11 @@ class App extends React.Component {
     })
   }
 
-  getUsername() {
-    document.getElementById("username").innerHTML = "Welcome! " + this.state.username;
-  }
-
   render() {
     if (this.state.logined === 0) { // USER INTERFACE
       return (
         <div>
-          <LoginedRouterClassUser logined={this.state.logined} Logout={this.Logout} getUsername={this.getUsername} />
+          <LoginedRouterClassUser logined={this.state.logined} Logout={this.Logout} username={this.state.username} />
         </div>
       );
     }
