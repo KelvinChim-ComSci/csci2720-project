@@ -57,11 +57,121 @@ app.post('/login', function (req, res) { // LOGIN SYSTEM
 })
 
 app.post('/userData/createUser/create', function(req,res){ 
-	console.log("Post request received!!");
-	var username = req.body.id;
-	var password = req.body.pw;
+	console.log("Create user request received!!");
 	console.log(req.body);
+	User.findOne(
+        { username: req.body.id },
+        (err, e) => {
+			//if (err) return res.send(err);
+			if (e == null || e == " ") {
+				var x = new User({
+					username: req.body.id,
+					password: req.body.pw,
+					admin: false,
+				});
+				x.save(function (err) {
+					if (err) return res.send(err);
+					return res
+					.status(201)
+					.send(
+						"New user account created! <br>Username: " +
+							req.body.id +
+						"<br>\n" +
+						"Password: " +
+						req.body.pw 
+					);
+				})
+			} 
+			else
+				return res.send("Username registered already");
+		}
+	)
 })
+
+app.post('/userData/retrieveUser/retrieve', function(req,res){ 
+	console.log("Retrieve user request received!!");
+	console.log(req.body);
+	User.findOne(
+        { username: req.body.id },
+		"username, password",
+        (err, e) => {
+			if (err) return res.send(err);
+			if (e == null || e == " ") 
+				return res.send("User account not found");
+			else{	
+					return res.status(201).send(
+						"User account retrieved! <br>Username: " +
+						req.body.id +
+						"<br>\n" +
+						"Password: " +
+						e.password 
+					);
+				}
+		}
+	)
+}) 
+
+app.post('/userData/updateUser/update', function(req,res){ 
+	console.log("Update user request received!!");
+	console.log(req.body);
+	User.findOne(
+        { username: req.body.id },
+		"username, password",
+        (err, e) => {
+			if (err) return res.send(err);
+			if (e == null || e == " ") 
+				return res.send("User account not found");
+			else{	
+				if (e.username != req.body.id ){
+						e.username = req.body.newid;
+				}
+				if (e.password != req.body.newpw){
+					e.password = req.body.newpw;
+				}
+				e.save();
+					return res.status(201).send(
+						"User account updated! <br>Username: " +
+						req.body.id +
+						"<br>\n" +
+						"New Username: " +
+						e.username+
+						"<br>\n" +
+						"New Password: " +
+						e.password 
+					);
+				}
+		}
+	)
+}) 
+
+app.post('/userData/deleteUser/delete', function(req,res){ 
+	console.log("Delete user request received!!");
+	console.log(req.body);
+	User.findOne(
+        { username: req.body.id },
+		"username, password",
+        (err, e) => {
+			if (err) return res.send(err);
+			if (e == null || e == " ") 
+				return res.send("User account not found");
+			else{	
+				User.deleteOne({ username: req.body.id }).exec(function (
+					err,
+					l
+				  ) {
+					if (err) return res.send(err);
+					return res.status(201).send(
+						"User account deleted! <br>Username: " +
+						req.body.id +
+						"<br>\n" +
+						"Password: " +
+						e.password 
+					);
+				  });
+				}
+		}
+	)
+}) 
 
 
 //  SYNTAX FORMAT  //
@@ -106,4 +216,4 @@ app.post('/userData/createUser/create', function(req,res){
 */
 
 // listen to port 2096
-const server = app.listen(2101);
+const server = app.listen(2084);

@@ -40,15 +40,6 @@ class userData extends React.Component {
 }
 
 class createUser extends React.Component {
-    constructor(props) {
-        super(props);
-        this.validate = this.validate.bind(this);
-    }
-
-    validate(){ 
-        
-    }
-
     render (){
         return(
             <div>
@@ -71,7 +62,16 @@ class createUser extends React.Component {
 class retrieveUser extends React.Component {
     render (){
         return(
+            <div>
             <h2>Retrieve a User account</h2>
+            <form action="http://csci2720-g84.cse.cuhk.edu.hk/userData/retrieveUser/retrieve" method="post">
+                <label htmlFor="user-id">User ID:</label>
+                <input type="text" id = "user-id" name="id"></input>
+
+                <input type="submit" />
+                {/*<button id="Submit" type="button" onClick={this.validate}>Create</button>*/}
+            </form>
+        </div>
         )
     }
 }
@@ -79,7 +79,22 @@ class retrieveUser extends React.Component {
 class updateUser extends React.Component {
     render (){
         return(
-            <h2>Update a User account</h2>
+            <div>
+             <h2>Update a User account</h2>
+            <form action="http://csci2720-g84.cse.cuhk.edu.hk/userData/updateUser/update" method="post">
+                <label htmlFor="user-id">Original User ID:</label>
+                <input type="text" id = "user-id" name="id"></input>
+
+                <label htmlFor="newuser-id">New User ID:</label>
+                <input type="text" id = "newuser-id" name="newid"></input>
+
+                <label htmlFor="newuser-pw">New Password:</label>
+                <input type="text" id = "newuser-pw" name="newpw"></input>
+
+                <input type="submit" />
+                {/*<button id="Submit" type="button" onClick={this.validate}>Create</button>*/}
+            </form>
+        </div>
         )
     }
 }
@@ -87,7 +102,16 @@ class updateUser extends React.Component {
 class deleteUser extends React.Component {
     render (){
         return(
-            <h2>Delete a User account</h2>
+            <div>
+             <h2>Delete a User account</h2>
+            <form action="http://csci2720-g84.cse.cuhk.edu.hk/userData/deleteUser/delete" method="post">
+                <label htmlFor="user-id">User ID:</label>
+                <input type="text" id = "user-id" name="id"></input>
+
+                <input type="submit" />
+                {/*<button id="Submit" type="button" onClick={this.validate}>Create</button>*/}
+            </form>
+            </div>
         )
     }
 }
