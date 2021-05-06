@@ -122,7 +122,6 @@ class Info extends React.Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {/*filterLocations(locations, query)*/}
                         {this.filterDatas(this.state.latestData, this.state.searchQuery, this.state.field).map((value, index) => {
                             if (value['journeyType'] === "1") {
                                 return (
