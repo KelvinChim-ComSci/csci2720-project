@@ -23,7 +23,6 @@ class Map extends React.Component {
 
   render() {
     return (
-      // Currently Working, need to change up the coordinates.
       // Key is AIzaSyBhVbCumzcBYSl-jizd9Lf04uhdZ6Qlrv8
       <div style={{ height: '100vh', width: '100%' }}>
         <GoogleMapReact
@@ -36,8 +35,8 @@ class Map extends React.Component {
           {this.state.markers.map((place) => { 
             return(
             <Marker
-            lat = {place[2]} // Number is not accurate, but works.
-            lng = {place[1]}
+            lat = {place[3]}
+            lng = {place[4]}
             place = {place[0]}
             />
             )}
