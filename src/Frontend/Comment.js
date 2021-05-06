@@ -12,12 +12,15 @@ class Comment extends React.Component {
   }
 
   onChangeValue(e) {
-    console.log("e.target.value: " + e.target.value);
-    this.setState({ newComment: e.target.value });
+    if (!e) {
+      this.setState({newComment: ""});
+    } else {
+      this.setState({newComment: e.target.value});
+    }
   }
 
-  createComment() {
-    fetch(
+  async createComment() {
+    await fetch(
       `http://csci2720-g114.cse.cuhk.edu.hk/createComment`,
       {
         method: "POST",
@@ -31,10 +34,16 @@ class Comment extends React.Component {
         }),
       }
     )
-      .then()
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res);
+        this.onChangeValue();
+        this.props.updateHandler();
+      })
   }
 
-  checkValid() {
+  checkValid(event) {
+    event.preventDefault();
     if (this.state.newComment != "") {
       this.createComment();
     } else alert("Your comment cannot be empty.")
@@ -49,22 +58,30 @@ class Comment extends React.Component {
             <div id="comments"> 
               <div>
                 <span>
-                  <h5>{value.username}</h5>
-                  <h5>{value.time}</h5>
+                  <h5>{value.username + "     " + value.time}</h5>
                 </span>
                 
                 <p>{value.comment}</p>
               </div>
+              <br />
             </div> 
           )
         })}
         {/*create comment*/}
-        <form>
+        <form onSubmit={(event) => this.checkValid(event)}>
           <div onChange={this.onChangeValue}>
-            <label for="new-comment" class="form-label">Comment</label>
-            <textarea type="text" class="form-control" id="new-comment" placeholder="Hello World!" rows="3" required></textarea>
+            <label for="new-comment" class="form-label">Add your own comment: </label>
+            <textarea 
+              type="text" 
+              class="form-control"
+              id="new-comment"
+              value={this.state.newComment}
+              placeholder="Hello World!"
+              rows="3"
+              required
+            ></textarea>
           </div>
-        <button type="button" onClick={() => this.checkValid()}>Add comment</button>
+          <button type="submit" value="Submit">Add comment</button>
         </form>
       </div>
     )

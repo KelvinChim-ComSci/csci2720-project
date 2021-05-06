@@ -6,8 +6,10 @@ class Place extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            comments:[]
+            comments:[],
         }
+
+        this.updateHandler = this.updateHandler.bind(this);
     }
 
     getData() {
@@ -43,9 +45,24 @@ class Place extends React.Component {
             })
     }
 
+    updateHandler() {
+        console.log("update...");
+        /*
+        this.setState({
+            someVar: 'some value'
+        })
+        */
+    }
+
     componentDidMount() {
         this.getData();
     }
+
+    /*
+    componentDidUpdate() {
+        this.getData();
+    }
+    */
 
     render() {
         const loc = this.props.place;
@@ -75,10 +92,13 @@ class Place extends React.Component {
                     </tbody>
                 </table>
                 {/*Comments are fetched below*/}
-                <Comment 
+                <hr/>
+                <h1>Comment</h1>
+                <Comment
                     comments={this.state.comments}
                     username={this.props.username}
                     locID={this.props.place}
+                    updateHandler={this.updateHandler()}
                 />
             </div>
         );
