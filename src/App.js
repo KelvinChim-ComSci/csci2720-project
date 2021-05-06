@@ -9,7 +9,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       username: window.localStorage.getItem("username"),
-      logined: window.localStorage.getItem("logined"),
+      logined: window.localStorage.getItem("logined"), // "0" means user, "1" mean admin
     }
 
     this.handleAdminLogin = this.handleAdminLogin.bind(this);
@@ -46,7 +46,6 @@ class App extends React.Component {
           <LoginedRouterClassUser 
             logined={this.state.logined}
             Logout={this.Logout}
-            username={this.state.username}
           />
         </div>
       );

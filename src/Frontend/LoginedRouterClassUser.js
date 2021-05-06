@@ -26,7 +26,7 @@ class LoginedRouterClassUser extends React.Component { //User Page
             <Router>
                 <div>
                     <header>
-                        <p>{this.props.username}</p>
+                        <p>{window.localStorage.getItem("username")}</p>
                         <button onClick={this.props.Logout}>Logout</button>
                     </header>
                     {/*<h2>Welcome back, User! OwO</h2>*/}
@@ -44,7 +44,7 @@ class LoginedRouterClassUser extends React.Component { //User Page
                     <Switch>
                         <Route path="/info"><Info changePlace={this.changePlace} /></Route>
                         {/*<Route path="/info" component={Info} />*/}
-                        <Route path="/place"><Place place={this.state.place} username={this.props.username} /></Route>
+                        <Route path="/place"><Place place={this.state.place} /></Route>
                         <Route path="/favouriteplace" component={FavouritePlace} />
                         <Route path="/map" component={Map} />
                         <Route path="/chart" component={Chart} />

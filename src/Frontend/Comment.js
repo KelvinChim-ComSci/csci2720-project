@@ -33,7 +33,7 @@ class Comment extends React.Component {
         }),
         body: JSON.stringify({
           locID: this.props.locID,
-          username: this.props.username,
+          username: window.localStorage.getItem("username"),
           comment: this.state.newComment
         }),
       }
@@ -49,7 +49,7 @@ class Comment extends React.Component {
 
   checkValid(event) {
     event.preventDefault();
-    if (this.state.newComment != "") {
+    if (this.state.newComment !== "") {
       this.createComment();
     } else alert("Your comment cannot be empty.")
   }
@@ -59,11 +59,27 @@ class Comment extends React.Component {
       <div>
         {/*fetch comment*/}
         {this.props.comments.map((value) => {
+          var date = new Date(value.timestamp);
+          var convertedMonth = date.getMonth() + 1;
+          console.log("value.timestamp: " + value.timestamp);
+          console.log("date: " + date);
+          var formalDate = date.getHours().toString().padStart(2, '0') +
+          ':' +
+          date.getMinutes().toString().padStart(2, '0') +
+          '  ' +
+          date.getDate().toString().padStart(2, '0') +
+          '/' +
+          convertedMonth.toString().padStart(2, '0') +
+          '/' +
+          date.getFullYear().toString()
+          console.log("formalDate: " + formalDate);
+          console.log(formalDate);
+          // console.log("hours: " + value.timestamp.getHours().toString());
           return (
             <div id="comments"> 
               <div>
                 <span>
-                  <h5>{value.username + "     " + value.timestamp}</h5>
+                  <h5>{value.username}   {formalDate}</h5>
                 </span>
                 
                 <p>{value.comment}</p>

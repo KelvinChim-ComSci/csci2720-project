@@ -93,7 +93,6 @@ class Place extends React.Component {
                 <h1>Comment</h1>
                 <Comment
                     comments={this.state.comments}
-                    username={this.props.username}
                     locID={this.props.place}
                     
                 />
