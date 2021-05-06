@@ -8,14 +8,14 @@ class Login extends React.Component {
 
   validate() { // Validation
     fetch(
-      `http://csci2720-g114.cse.cuhk.edu.hk/login`, // Please use your own port when working.
+      `http://csci2720-g101.cse.cuhk.edu.hk/login`, // Please use your own port when working.
       { // Otherwise it won't work.
         method: "POST",
         headers: new Headers({
           "Content-Type": 'application/json',
-          "Access-Control-Allow-Origin" : "*",
+          "Access-Control-Allow-Origin": "*",
           "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS",
-          "Access-Control-Allow-Credentials" : true, 
+          "Access-Control-Allow-Credentials": true,
         }),
         body: JSON.stringify({
           id: document.getElementById("login-id").value,

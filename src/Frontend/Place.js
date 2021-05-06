@@ -6,7 +6,7 @@ class Place extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            comments:[],
+            comments: [],
         }
 
         //this.updateHandler = this.updateHandler.bind(this);
@@ -16,14 +16,14 @@ class Place extends React.Component {
         var status;
         console.log("this.props.place: " + this.props.place);
         fetch(
-            `http://csci2720-g114.cse.cuhk.edu.hk/fetchComment`, // Please use your own port when working.
+            `http://csci2720-g101.cse.cuhk.edu.hk/fetchComment`, // Please use your own port when working.
             { // Otherwise it won't work.
                 method: "POST",
                 headers: new Headers({
-                "Content-Type": 'application/json',
-                //"Access-Control-Allow-Origin" : "'http://localhost:3000'",
-                //"Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS",
-                //"Access-Control-Allow-Credentials" : true, 
+                    "Content-Type": 'application/json',
+                    //"Access-Control-Allow-Origin" : "'http://localhost:3000'",
+                    //"Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS",
+                    //"Access-Control-Allow-Credentials" : true, 
                 }),
                 body: JSON.stringify({
                     location: this.props.place
@@ -38,7 +38,7 @@ class Place extends React.Component {
             .then((res) => {
                 if (status === 200) {
                     //console.log(res.data);
-                    this.setState({comments: res.data});
+                    this.setState({ comments: res.data });
                     //console.log("comment");
                     //console.log(this.state.comments);
                 }
@@ -89,12 +89,12 @@ class Place extends React.Component {
                     </tbody>
                 </table>
                 {/*Comments are fetched below*/}
-                <hr/>
+                <hr />
                 <h1>Comment</h1>
                 <Comment
                     comments={this.state.comments}
                     locID={this.props.place}
-                    
+
                 />
                 {/*updateHandler={this.updateHandler()}*/}
             </div>
