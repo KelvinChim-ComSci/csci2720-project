@@ -23,9 +23,10 @@ var UserSchema = mongoose.Schema({
 });
 
 var CommentSchema = mongoose.Schema({
-	username: { type: String, required: true, unique: true },
+	locID: { type: String, required: true },
+	username: { type: String, required: true },
 	comment: { type: String, required: true }, // NEED HASHING
-	time: { type: Date, required: true }
+	time: { type: Date, required: true, default: Date.now() }
 });
 
 var User = mongoose.model('User', UserSchema);
@@ -69,6 +70,36 @@ app.post('/userData/createUser/create', function (req, res) {
 	console.log(req.body);
 })
 
+app.post('/fetchComment', function(req, res) {
+	var locID = req.body.location;
+	Comment.find({locID}, function(err, data) {
+		if (err) {
+			return console.log('err');
+		}
+		if (!data) {
+			return res.status(422).json({ msg: 'comment not exist' });
+		}
+		else {
+			console.log(data);
+			return res.status(200).json({ data, msg: 'comment fetched' }); // SUCCESS
+		}
+	});
+})
+
+app.post('/createComment', function(req, res) {
+	var locID = req.body.locID;
+	var username = req.body.username;
+	var comment = req.body.comment;
+	console.log(locID + " " + username + " " + comment);
+
+	Comment.create({locID, username, comment}, (err, data) => {
+		if (err) {
+			return console.log('err');
+		} else {
+			return res.status(200).json({data, msg: 'comment created'});
+		}
+	})
+})
 
 //  SYNTAX FORMAT  //
 /* app.get('/loc', function(req,res) {
@@ -112,4 +143,4 @@ app.post('/userData/createUser/create', function (req, res) {
 */
 
 // listen to port 2096
-const server = app.listen(2101);
+const server = app.listen(2114);

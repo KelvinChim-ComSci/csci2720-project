@@ -15,10 +15,6 @@ class LoginedRouterClassUser extends React.Component { //User Page
         this.changePlace = this.changePlace.bind(this);
     }
 
-    componentDidMount() {
-        this.props.getUsername();
-    }
-
     changePlace(loc) {
         this.setState({
             place: loc
@@ -30,7 +26,7 @@ class LoginedRouterClassUser extends React.Component { //User Page
             <Router>
                 <div>
                     <header>
-                        <p id="username"></p>
+                        <p>{this.props.username}</p>
                         <button onClick={this.props.Logout}>Logout</button>
                     </header>
                     {/*<h2>Welcome back, User! OwO</h2>*/}
@@ -48,7 +44,7 @@ class LoginedRouterClassUser extends React.Component { //User Page
                     <Switch>
                         <Route path="/info"><Info changePlace={this.changePlace} /></Route>
                         {/*<Route path="/info" component={Info} />*/}
-                        <Route path="/place"><Place place={this.state.place} /></Route>
+                        <Route path="/place"><Place place={this.state.place} username={this.props.username} /></Route>
                         <Route path="/favouriteplace" component={FavouritePlace} />
                         <Route path="/map" component={Map} />
                         <Route path="/chart" component={Chart} />
