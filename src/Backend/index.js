@@ -22,8 +22,16 @@ var UserSchema = mongoose.Schema({
 	admin: { type: Boolean }
 });
 
-
 var User = mongoose.model('User', UserSchema);
+
+var PlaceSchema = mongoose.Schema({
+	placeId: { type: String, required: true, unique: true },
+	placeName: { type: String, required: true, unique: true },
+	lattitude: { type: Number, required: true },
+	longitude: { type: Number, required: true }
+});
+
+var Place = mongoose.model('Place', PlaceSchema);
 
 /*app.get('/*', function(req,res) {
 	User.findOne({}, function(err,user) {
@@ -56,6 +64,7 @@ app.post('/login', function (req, res) { // LOGIN SYSTEM
 	})
 })
 
+// CRUD userData
 app.post('/userData/createUser/create', function(req,res){ 
 	console.log("Create user request received!!");
 	console.log(req.body);
@@ -166,6 +175,154 @@ app.post('/userData/deleteUser/delete', function(req,res){
 						"<br>\n" +
 						"Password: " +
 						e.password 
+					);
+				  });
+				}
+		}
+	)
+}) 
+
+app.post('/placeData/createPlace/create', function(req,res){ 
+	console.log("Create place request received!!");
+	console.log(req.body);
+	Place.findOne(
+        { placeId: req.body.id }, // need to check name?
+        (err, e) => {
+			//if (err) return res.send(err);
+			if (e == null || e == " ") {
+				var x = new Place({
+					placeId: req.body.id,
+					placeName: req.body.name,
+					lattitude: req.body.lat,
+					longitude: req.body.log,
+				});
+				x.save(function (err) {
+					if (err) return res.send(err);
+					return res
+					.status(201)
+					.send(
+						"New place created! <br>Place ID: " +
+							req.body.id +
+						"<br>\n" +
+						"Place name: " +
+						req.body.name +
+						"<br>\n" +
+						"Place lattitude: " +
+						req.body.lat+
+						"<br>\n" +
+						"Place longitude: " +
+						req.body.log 
+					);
+				})
+			} 
+			else
+				return res.send("Place ID registered already");
+		}
+	)
+})
+
+app.post('/placeData/retrievePlace/retrieve', function(req,res){ 
+	console.log("Retrieve place request received!!");
+	console.log(req.body);
+	Place.findOne(
+        { placeId: req.body.id },
+		"placeId, placeName, lattitude, longitude",
+        (err, e) => {
+			if (err) return res.send(err);
+			if (e == null || e == " ") 
+				return res.send("Place data not found");
+			else{	
+					return res.status(201).send(
+						"Place data retrieved! <br>Place ID: " +
+						e.placeId +
+						"<br>\n" +
+						"Place name: " +
+						e.placename +
+						"<br>\n" +
+						"Place lattitude: " +
+						e.lattitude+
+						"<br>\n" +
+						"Place longitude: " +
+						e.longitude 
+				);
+				}
+		}
+	)
+}) 
+
+app.post('/placeData/updatePlace/update', function(req,res){ 
+	console.log("Update place request received!!");
+	console.log(req.body);
+	Place.findOne(
+        { placeId: req.body.id },
+		"placeId, placeName, lattitude, longitude",
+        (err, e) => {
+			if (err) return res.send(err);
+			if (e == null || e == " ") 
+				return res.send("Place data not found");
+			else{	
+				if (e.placeId != req.body.id ){
+						e.placeId = req.body.newid;
+				}
+				if (e.placeName != req.body.newname){
+					e.placeNmae = req.body.newname;
+				}
+				if (e.lattitude != req.body.newlat){
+					e.lattitude = req.body.newlat;
+				}
+				if (e.longitude != req.body.newlog){
+					e.longitude = req.body.newlog;
+				}
+				e.save();
+					return res.status(201).send(
+						"Place data updated! <br>Place ID: " +
+						req.body.id +
+						"<br>\n" +
+						"New Place ID: " +
+						e.placeId +
+						"<br>\n" +
+						"New Place name: " +
+						e.placename +
+						"<br>\n" +
+						"New Place lattitude: " +
+						e.lattitude+
+						"<br>\n" +
+						"New Place longitude: " +
+						e.longitude 
+					);
+				}
+		}
+	)
+}) 
+
+app.post('/placeData/deletePlace/delete', function(req,res){ 
+	console.log("Delete place request received!!");
+	console.log(req.body);
+	Place.findOne(
+		{ placeId: req.body.id },
+		"placeId, placeName, lattitude, longitude",
+        (err, e) => {
+			if (err) return res.send(err);
+			if (e == null || e == " ") 
+				return res.send("Place data not found");
+			else{	
+				User.deleteOne({ placeId: req.body.id }).exec(function (
+					err,
+					l
+				  ) {
+					if (err) return res.send(err);
+					return res.status(201).send(
+						"Place data deleted! <br>Place ID: " +
+						e.placeId +
+						"<br>\n" +
+						"Place name: " +
+						e.placename +
+						"<br>\n" +
+						"Place lattitude: " +
+						e.lattitude+
+						"<br>\n" +
+						"Place longitude: " +
+						e.longitude 
 					);
 				  });
 				}
