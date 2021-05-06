@@ -13,9 +13,9 @@ class Login extends React.Component {
         method: "POST",
         headers: new Headers({
           "Content-Type": 'application/json',
-          //"Access-Control-Allow-Origin" : "'http://localhost:3000'",
-          //"Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS",
-          //"Access-Control-Allow-Credentials" : true, 
+          "Access-Control-Allow-Origin" : "*",
+          "Access-Control-Allow-Methods": "GET,POST,PUT,DELETE,OPTIONS",
+          "Access-Control-Allow-Credentials" : true, 
         }),
         body: JSON.stringify({
           id: document.getElementById("login-id").value,

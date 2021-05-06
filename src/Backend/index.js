@@ -32,6 +32,15 @@ var CommentSchema = mongoose.Schema({
 var User = mongoose.model('User', UserSchema);
 var Comment = mongoose.model('Comment', CommentSchema);
 
+var PlaceSchema = mongoose.Schema({
+	placeId: { type: String, required: true, unique: true },
+	placeName: { type: String, required: true, unique: true },
+	latitude: { type: Number, required: true },
+	longitude: { type: Number, required: true }
+});
+
+var Place = mongoose.model('Place', PlaceSchema);
+
 /*app.get('/*', function(req,res) {
 	User.findOne({}, function(err,user) {
 		if (err) {
@@ -63,12 +72,272 @@ app.post('/login', function (req, res) { // LOGIN SYSTEM
 	})
 })
 
-app.post('/userData/createUser/create', function (req, res) {
-	console.log("Post request received!!");
-	var username = req.body.id;
-	var password = req.body.pw;
+// CRUD userData
+app.post('/userData/createUser/create', function(req,res){ 
+	console.log("Create user request received!!");
 	console.log(req.body);
+	User.findOne(
+        { username: req.body.id },
+        (err, e) => {
+			//if (err) return res.send(err);
+			if (e == null || e == " ") {
+				var x = new User({
+					username: req.body.id,
+					password: req.body.pw,
+					admin: false,
+				});
+				x.save(function (err) {
+					if (err) return res.send(err);
+					return res
+					.status(201)
+					.send(
+						"New user account created! <br>Username: " +
+							req.body.id +
+						"<br>\n" +
+						"Password: " +
+						req.body.pw 
+					);
+				})
+			} 
+			else
+				return res.send("Username registered already");
+		}
+	)
 })
+
+app.post('/userData/retrieveUser/retrieve', function(req,res){ 
+	console.log("Retrieve user request received!!");
+	console.log(req.body);
+	User.findOne(
+        { username: req.body.id },
+		"username password",
+        (err, e) => {
+			if (err) return res.send(err);
+			if (e == null || e == " ") 
+				return res.send("User account not found");
+			else{	
+					return res.status(201).send(
+						"User account retrieved! <br>Username: " +
+						e.username +
+						"<br>\n" +
+						"Password: " +
+						e.password 
+					);
+				}
+		}
+	)
+}) 
+
+app.post('/userData/updateUser/update', function(req,res){ 
+	console.log("Update user request received!!");
+	console.log(req.body);
+	User.findOne(
+        { username: req.body.id },
+		"username password",
+        (err, e) => {
+			if (err) return res.send(err);
+			if (e == null || e == " ") 
+				return res.send("User account not found");
+			else{	
+				if (e.username != req.body.id ){
+						e.username = req.body.newid;
+				}
+				if (e.password != req.body.newpw){
+					e.password = req.body.newpw;
+				}
+				e.save();
+					return res.status(201).send(
+						"User account updated! <br>Username: " +
+						req.body.id +
+						"<br>\n" +
+						"New Username: " +
+						e.username+
+						"<br>\n" +
+						"New Password: " +
+						e.password 
+					);
+				}
+		}
+	)
+}) 
+
+app.post('/userData/deleteUser/delete', function(req,res){ 
+	console.log("Delete user request received!!");
+	console.log(req.body);
+	User.findOne(
+        { username: req.body.id },
+		"username password",
+        (err, e) => {
+			if (err) return res.send(err);
+			if (e == null || e == " ") 
+				return res.send("User account not found");
+			else{	
+				User.deleteOne({ username: req.body.id }).exec(function (
+					err,
+					l
+				  ) {
+					if (err) return res.send(err);
+					return res.status(201).send(
+						"User account deleted! <br>Username: " +
+						e.username +
+						"<br>\n" +
+						"Password: " +
+						e.password 
+					);
+				  });
+				}
+		}
+	)
+}) 
+
+app.post('/placeData/createPlace/create', function(req,res){ 
+	console.log("Create place request received!!");
+	console.log(req.body);
+	Place.findOne(
+        { placeId: req.body.id }, // need to check name?
+        (err, e) => {
+			//if (err) return res.send(err);
+			if (e == null || e == " ") {
+				var x = new Place({
+					placeId: req.body.id,
+					placeName: req.body.name,
+					latitude: req.body.lat,
+					longitude: req.body.log,
+				});
+				x.save(function (err) {
+					if (err) return res.send(err);
+					return res
+					.status(201)
+					.send(
+						"New place created! <br>Place ID: " +
+							req.body.id +
+						"<br>\n" +
+						"Place name: " +
+						req.body.name +
+						"<br>\n" +
+						"Place latitude: " +
+						req.body.lat+
+						"<br>\n" +
+						"Place longitude: " +
+						req.body.log 
+					);
+				})
+			} 
+			else
+				return res.send("Place ID registered already");
+		}
+	)
+})
+
+app.post('/placeData/retrievePlace/retrieve', function(req,res){ 
+	console.log("Retrieve place request received!!");
+	console.log(req.body);
+	Place.findOne(
+        { placeId: req.body.id },
+		"placeId placeName latitude longitude",
+        (err, e) => {
+			if (err) return res.send(err);
+			if (e == null || e == " ") 
+				return res.send("Place data not found");
+			else{	
+				console.log(e)
+					return res.status(201).send(
+						"Place data retrieved! <br>Place ID: " +
+						e.placeId +
+						"<br>\n" +
+						"Place name: " +
+						e.placeName +
+						"<br>\n" +
+						"Place latitude: " +
+						e.latitude+
+						"<br>\n" +
+						"Place longitude: " +
+						e.longitude 
+				);
+				}
+		}
+	)
+}) 
+
+app.post('/placeData/updatePlace/update', function(req,res){ 
+	console.log("Update place request received!!");
+	console.log(req.body);
+	Place.findOne(
+        { placeId: req.body.id },
+		"placeId placeName latitude longitude",
+        (err, e) => {
+			if (err) return res.send(err);
+			if (e == null || e == " ") 
+				return res.send("Place data not found");
+			else{	
+				if (e.placeId != req.body.newid ){
+						e.placeId = req.body.newid;
+				}
+				if (e.placeName != req.body.newname){
+					e.placeNmae = req.body.newname;
+				}
+				if (e.latitude != req.body.newlat){
+					e.latitude = req.body.newlat;
+				}
+				if (e.longitude != req.body.newlog){
+					e.longitude = req.body.newlog;
+				}
+				e.save();
+					return res.status(201).send(
+						"Place data updated! <br>Place ID: " +
+						req.body.id +
+						"<br>\n" +
+						"New Place ID: " +
+						e.placeId +
+						"<br>\n" +
+						"New Place name: " +
+						e.placeName +
+						"<br>\n" +
+						"New Place latitude: " +
+						e.latitude+
+						"<br>\n" +
+						"New Place longitude: " +
+						e.longitude 
+					);
+				}
+		}
+	)
+}) 
+
+app.post('/placeData/deletePlace/delete', function(req,res){ 
+	console.log("Delete place request received!!");
+	console.log(req.body);
+	Place.findOne(
+		{ placeId: req.body.id },
+		"placeId placeName latitude longitude",
+        (err, e) => {
+			if (err) return res.send(err);
+			if (e == null || e == " ") 
+				return res.send("Place data not found");
+			else{	
+				Place.deleteOne({ placeId: req.body.id }).exec(function (
+					err,
+					l
+				  ) {
+					if (err) return res.send(err);
+					return res.status(201).send(
+						"Place data deleted! <br>Place ID: " +
+						e.placeId +
+						"<br>\n" +
+						"Place name: " +
+						e.placeName +
+						"<br>\n" +
+						"Place latitude: " +
+						e.latitude+
+						"<br>\n" +
+						"Place longitude: " +
+						e.longitude 
+					);
+				  });
+				}
+		}
+	)
+}) 
 
 app.post('/fetchComment', function(req, res) {
 	var locID = req.body.location;
