@@ -26,7 +26,11 @@ var CommentSchema = mongoose.Schema({
 	locID: { type: String, required: true },
 	username: { type: String, required: true },
 	comment: { type: String, required: true }, // NEED HASHING
-	time: { type: Date, required: true, default: Date.now() }
+	timestamp: {
+    type: Date,
+    required: true,
+    default: Date.now,
+  },
 });
 
 var User = mongoose.model('User', UserSchema);
@@ -340,6 +344,7 @@ app.post('/placeData/deletePlace/delete', function(req,res){
 }) 
 
 app.post('/fetchComment', function(req, res) {
+	console.log("fetch comment post request received!");
 	var locID = req.body.location;
 	Comment.find({locID}, function(err, data) {
 		if (err) {
@@ -356,14 +361,16 @@ app.post('/fetchComment', function(req, res) {
 })
 
 app.post('/createComment', function(req, res) {
+	console.log("create comment post request received!");
 	var locID = req.body.locID;
 	var username = req.body.username;
 	var comment = req.body.comment;
 	console.log(locID + " " + username + " " + comment);
 
-	Comment.create({locID, username, comment}, (err, data) => {
+	Comment.create({ locID, username, comment }, (err, data) => {
 		if (err) {
-			return console.log('err');
+			console.log(Date.now());
+			return res.status(422).json({msg: 'error'});
 		} else {
 			return res.status(200).json({data, msg: 'comment created'});
 		}
@@ -412,4 +419,4 @@ app.post('/createComment', function(req, res) {
 */
 
 // listen to port 2096
-const server = app.listen(2084);
+const server = app.listen(2114);

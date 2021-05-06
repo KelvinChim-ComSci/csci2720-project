@@ -19,6 +19,10 @@ class Comment extends React.Component {
     }
   }
 
+  refreshPage() {
+    window.location.reload(false);
+  }
+
   async createComment() {
     await fetch(
       `http://csci2720-g114.cse.cuhk.edu.hk/createComment`,
@@ -38,7 +42,8 @@ class Comment extends React.Component {
       .then((res) => {
         console.log(res);
         this.onChangeValue();
-        this.props.updateHandler();
+        this.refreshPage();
+        // this.props.updateHandler();
       })
   }
 
@@ -58,7 +63,7 @@ class Comment extends React.Component {
             <div id="comments"> 
               <div>
                 <span>
-                  <h5>{value.username + "     " + value.time}</h5>
+                  <h5>{value.username + "     " + value.timestamp}</h5>
                 </span>
                 
                 <p>{value.comment}</p>

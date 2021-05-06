@@ -9,7 +9,7 @@ class Place extends React.Component {
             comments:[],
         }
 
-        this.updateHandler = this.updateHandler.bind(this);
+        //this.updateHandler = this.updateHandler.bind(this);
     }
 
     getData() {
@@ -45,14 +45,11 @@ class Place extends React.Component {
             })
     }
 
+    /*
     updateHandler() {
         console.log("update...");
-        /*
-        this.setState({
-            someVar: 'some value'
-        })
-        */
     }
+    */
 
     componentDidMount() {
         this.getData();
@@ -98,8 +95,9 @@ class Place extends React.Component {
                     comments={this.state.comments}
                     username={this.props.username}
                     locID={this.props.place}
-                    updateHandler={this.updateHandler()}
+                    
                 />
+                {/*updateHandler={this.updateHandler()}*/}
             </div>
         );
     }

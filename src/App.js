@@ -7,43 +7,57 @@ import Login from "./Frontend/Login.js";
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { username: "", logined: -1 }; // -1 is wrong, 0 is user, 1 is admin
+    this.state = {
+      username: window.localStorage.getItem("username"),
+      logined: window.localStorage.getItem("logined"),
+    }
+
     this.handleAdminLogin = this.handleAdminLogin.bind(this);
     this.handleUserLogin = this.handleUserLogin.bind(this);
     this.Logout = this.Logout.bind(this);
   }
 
-  handleAdminLogin() {
-    this.setState({
-      logined: 1
-    })
+  async handleAdminLogin() {
+    window.localStorage.setItem("logined", 1);
+    window.location.reload(false);
   }
 
-  handleUserLogin() {
-    this.setState({
-      logined: 0,
-      username: document.getElementById("login-id").value
-    })
+  async handleUserLogin() {
+    window.localStorage.setItem("username", document.getElementById("login-id").value);
+    window.localStorage.setItem("logined", 0);
+    window.location.reload(false);
   }
 
-  Logout() {
-    this.setState({
-      logined: -1
-    })
+  async Logout() {
+    window.localStorage.setItem("username", "");
+    window.localStorage.setItem("logined", "");
+    window.location.reload(false);
+  }
+
+  componentDidMount() {
+    console.log(window.localStorage.getItem("username"));
+    console.log(window.localStorage.getItem("logined"));
   }
 
   render() {
-    if (this.state.logined === 0) { // USER INTERFACE
+    if (this.state.logined === "0") { // USER INTERFACE
       return (
         <div>
-          <LoginedRouterClassUser logined={this.state.logined} Logout={this.Logout} username={this.state.username} />
+          <LoginedRouterClassUser 
+            logined={this.state.logined}
+            Logout={this.Logout}
+            username={this.state.username}
+          />
         </div>
       );
     }
-    else if (this.state.logined === 1) { // ADMIN INTERFACE
+    else if (this.state.logined === "1") { // ADMIN INTERFACE
         return (
           <div>
-            <LoginedRouterClassAdmin logined={this.state.logined} Logout={this.Logout} />
+            <LoginedRouterClassAdmin 
+              logined={this.state.logined} 
+              Logout={this.Logout} 
+            />
           </div>
         );
     }
