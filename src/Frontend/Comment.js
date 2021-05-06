@@ -44,7 +44,7 @@ class Comment extends React.Component {
 
   checkValid(event) {
     event.preventDefault();
-    if (this.state.newComment != "") {
+    if (this.state.newComment !== "") {
       this.createComment();
     } else alert("Your comment cannot be empty.")
   }
