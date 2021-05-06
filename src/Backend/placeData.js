@@ -48,8 +48,8 @@ class createPlace extends React.Component {
                     <label htmlFor="place-name">Place name:</label>
                     <input type="text" id ="place-name" name="name"></input>
 
-                    <label htmlFor="place-lattitude">Place lattitude:</label>
-                    <input type="text" id ="place-lattitude" name="lat"></input>
+                    <label htmlFor="place-latitude">Place latitude:</label>
+                    <input type="text" id ="place-latitude" name="lat"></input>
 
                     <label htmlFor="place-longitude">Place longitude:</label>
                     <input type="text" id ="place-longitude" name="log"></input>
@@ -94,8 +94,8 @@ class updatePlace extends React.Component {
                 <label htmlFor="newplace-name">New Place name:</label>
                 <input type="text" id ="newplace-name" name="newname"></input>
 
-                <label htmlFor="newplace-lattitude">New Place lattitude:</label>
-                <input type="text" id ="newplace-lattitude" name="newlat"></input>
+                <label htmlFor="newplace-latitude">New Place latitude:</label>
+                <input type="text" id ="newplace-latitude" name="newlat"></input>
 
                 <label htmlFor="newplace-longitude">New Place longitude:</label>
                 <input type="text" id ="newplace-longitude" name="newlog"></input>

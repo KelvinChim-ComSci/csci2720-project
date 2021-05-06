@@ -27,7 +27,7 @@ var User = mongoose.model('User', UserSchema);
 var PlaceSchema = mongoose.Schema({
 	placeId: { type: String, required: true, unique: true },
 	placeName: { type: String, required: true, unique: true },
-	lattitude: { type: Number, required: true },
+	latitude: { type: Number, required: true },
 	longitude: { type: Number, required: true }
 });
 
@@ -102,7 +102,7 @@ app.post('/userData/retrieveUser/retrieve', function(req,res){
 	console.log(req.body);
 	User.findOne(
         { username: req.body.id },
-		"username, password",
+		"username password",
         (err, e) => {
 			if (err) return res.send(err);
 			if (e == null || e == " ") 
@@ -110,7 +110,7 @@ app.post('/userData/retrieveUser/retrieve', function(req,res){
 			else{	
 					return res.status(201).send(
 						"User account retrieved! <br>Username: " +
-						req.body.id +
+						e.username +
 						"<br>\n" +
 						"Password: " +
 						e.password 
@@ -125,7 +125,7 @@ app.post('/userData/updateUser/update', function(req,res){
 	console.log(req.body);
 	User.findOne(
         { username: req.body.id },
-		"username, password",
+		"username password",
         (err, e) => {
 			if (err) return res.send(err);
 			if (e == null || e == " ") 
@@ -158,7 +158,7 @@ app.post('/userData/deleteUser/delete', function(req,res){
 	console.log(req.body);
 	User.findOne(
         { username: req.body.id },
-		"username, password",
+		"username password",
         (err, e) => {
 			if (err) return res.send(err);
 			if (e == null || e == " ") 
@@ -171,7 +171,7 @@ app.post('/userData/deleteUser/delete', function(req,res){
 					if (err) return res.send(err);
 					return res.status(201).send(
 						"User account deleted! <br>Username: " +
-						req.body.id +
+						e.username +
 						"<br>\n" +
 						"Password: " +
 						e.password 
@@ -193,7 +193,7 @@ app.post('/placeData/createPlace/create', function(req,res){
 				var x = new Place({
 					placeId: req.body.id,
 					placeName: req.body.name,
-					lattitude: req.body.lat,
+					latitude: req.body.lat,
 					longitude: req.body.log,
 				});
 				x.save(function (err) {
@@ -207,7 +207,7 @@ app.post('/placeData/createPlace/create', function(req,res){
 						"Place name: " +
 						req.body.name +
 						"<br>\n" +
-						"Place lattitude: " +
+						"Place latitude: " +
 						req.body.lat+
 						"<br>\n" +
 						"Place longitude: " +
@@ -226,21 +226,22 @@ app.post('/placeData/retrievePlace/retrieve', function(req,res){
 	console.log(req.body);
 	Place.findOne(
         { placeId: req.body.id },
-		"placeId, placeName, lattitude, longitude",
+		"placeId placeName latitude longitude",
         (err, e) => {
 			if (err) return res.send(err);
 			if (e == null || e == " ") 
 				return res.send("Place data not found");
 			else{	
+				console.log(e)
 					return res.status(201).send(
 						"Place data retrieved! <br>Place ID: " +
 						e.placeId +
 						"<br>\n" +
 						"Place name: " +
-						e.placename +
+						e.placeName +
 						"<br>\n" +
-						"Place lattitude: " +
-						e.lattitude+
+						"Place latitude: " +
+						e.latitude+
 						"<br>\n" +
 						"Place longitude: " +
 						e.longitude 
@@ -255,20 +256,20 @@ app.post('/placeData/updatePlace/update', function(req,res){
 	console.log(req.body);
 	Place.findOne(
         { placeId: req.body.id },
-		"placeId, placeName, lattitude, longitude",
+		"placeId placeName latitude longitude",
         (err, e) => {
 			if (err) return res.send(err);
 			if (e == null || e == " ") 
 				return res.send("Place data not found");
 			else{	
-				if (e.placeId != req.body.id ){
+				if (e.placeId != req.body.newid ){
 						e.placeId = req.body.newid;
 				}
 				if (e.placeName != req.body.newname){
 					e.placeNmae = req.body.newname;
 				}
-				if (e.lattitude != req.body.newlat){
-					e.lattitude = req.body.newlat;
+				if (e.latitude != req.body.newlat){
+					e.latitude = req.body.newlat;
 				}
 				if (e.longitude != req.body.newlog){
 					e.longitude = req.body.newlog;
@@ -282,10 +283,10 @@ app.post('/placeData/updatePlace/update', function(req,res){
 						e.placeId +
 						"<br>\n" +
 						"New Place name: " +
-						e.placename +
+						e.placeName +
 						"<br>\n" +
-						"New Place lattitude: " +
-						e.lattitude+
+						"New Place latitude: " +
+						e.latitude+
 						"<br>\n" +
 						"New Place longitude: " +
 						e.longitude 
@@ -300,13 +301,13 @@ app.post('/placeData/deletePlace/delete', function(req,res){
 	console.log(req.body);
 	Place.findOne(
 		{ placeId: req.body.id },
-		"placeId, placeName, lattitude, longitude",
+		"placeId placeName latitude longitude",
         (err, e) => {
 			if (err) return res.send(err);
 			if (e == null || e == " ") 
 				return res.send("Place data not found");
 			else{	
-				User.deleteOne({ placeId: req.body.id }).exec(function (
+				Place.deleteOne({ placeId: req.body.id }).exec(function (
 					err,
 					l
 				  ) {
@@ -316,10 +317,10 @@ app.post('/placeData/deletePlace/delete', function(req,res){
 						e.placeId +
 						"<br>\n" +
 						"Place name: " +
-						e.placename +
+						e.placeName +
 						"<br>\n" +
-						"Place lattitude: " +
-						e.lattitude+
+						"Place latitude: " +
+						e.latitude+
 						"<br>\n" +
 						"Place longitude: " +
 						e.longitude 
