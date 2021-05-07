@@ -101,12 +101,15 @@ class Place extends React.Component {
                     />
                 </div>
                 <button id="fav-loc" value={loc} type="button" onClick={this.add}>Add To Your Favourite Place</button>
+                <h3>Location Information</h3>
                 <p>Location ID: {loc}</p>
                 <p>Location: {location_dict[loc][0]}</p>
-                <p>Easting: {location_dict[loc][1]}E          Northing: {location_dict[loc][2]}N</p>
-                <p>Longitude: {location_dict[loc][4]}          Latitude: {location_dict[loc][3]}</p>
+                <p>Easting: {location_dict[loc][1]}E </p>
+                <p>Northing: {location_dict[loc][2]}N</p>
+                <p>Longitude: {location_dict[loc][4]} </p>         
+                <p>Latitude: {location_dict[loc][3]}</p>
                 <p>Possible destination:</p>
-                <table>
+                <table> 
                     <thead>
                         <tr>
                             <th>Destination ID</th>
@@ -126,7 +129,7 @@ class Place extends React.Component {
                 </table>
                 {/*Comments are fetched below*/}
                 <hr />
-                <h1>Comment</h1>
+                <h3>Comment</h3>
                 <Comment
                     comments={this.state.comments}
                     locID={this.props.place}
