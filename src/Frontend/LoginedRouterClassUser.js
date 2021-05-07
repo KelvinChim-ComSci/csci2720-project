@@ -49,7 +49,7 @@ class LoginedRouterClassUser extends React.Component { //User Page
                         <Route path="/map" component={Map} />
                         <Route path="/chartPage" component={ChartPage} />
 
-                        <Route path="/mapPage" component={MapPage} />
+                        <Route path="/mapPage"><MapPage place = {this.state.place} changePlace = {this.changePlace}/> </Route>
 
                         {/*<Route path="*" component={NoMatch} />*/}
                         {/*<Route path="/search" component={Search} />*/}
