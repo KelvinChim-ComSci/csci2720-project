@@ -46,3 +46,58 @@
   white-space: nowrap;
   width: 1px;
 }
+
+/* general */
+@import url('https://fonts.googleapis.com/css2?family=Merriweather&display=swap');
+* {
+  font-family: 'Merriweather', serif;
+  background-color:#e8efff;
+}
+
+h1 {
+  font-family: 'Merriweather', serif;
+}
+
+input{
+  margin:2%;
+}
+
+/* login */
+.loginPage{
+  flex-direction: column;
+  padding: 8%;
+}
+.loginForm{
+  flex-direction: column;
+}
+
+.loginButton{
+  margin-top:2%;
+}
+
+/* logined */
+.adminMainPage{
+  display: flex;
+  flex-direction: column;
+  background-color: lightcoral;
+  padding: 8%;
+  margin: 2%;
+
+}
+
+.userMainPage{
+
+  padding: 8%;
+}
+
+header{
+ 
+}
+
+.logoutButton{
+ 
+}
+
+.link{
+  margin:1%;
+}

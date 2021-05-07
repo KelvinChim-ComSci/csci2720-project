@@ -8,7 +8,7 @@ class Login extends React.Component {
 
   validate() { // Validation
     fetch(
-      `http://csci2720-g114.cse.cuhk.edu.hk/login`, // Please use your own port when working.
+      `http://csci2720-g84.cse.cuhk.edu.hk/login`, // Please use your own port when working.
       { // Otherwise it won't work.
         method: "POST",
         headers: new Headers({
@@ -40,16 +40,20 @@ class Login extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="loginPage">
         <h1>Login</h1>
-        <form>
+        <form className="loginForm">
+          <div>
           <label htmlFor="login-id">Login ID:</label>
           <input type="text" id="login-id" name="id"></input>
+          </div>
 
+          <div>
           <label htmlFor="login-pw">Password:</label>
           <input type="password" id="login-pw" name="pw"></input>
+          </div>
 
-          <button id="Submit" type="button" onClick={this.validate}>Login</button>
+          <button className="loginButton" id="Submit" type="button" onClick={this.validate}>Login</button>
         </form>
       </div>
     );

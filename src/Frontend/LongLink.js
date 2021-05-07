@@ -9,7 +9,7 @@ function LongLink({label, to, activeOnlyWhenExact}) {
   return (
     <li className={match ? "active" : ""}>
       {match && "> "}
-      <Link to={to}>{label}</Link>
+      <Link className="link" to={to}>{label}</Link>
     </li>
   );
 }

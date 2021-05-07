@@ -13,11 +13,14 @@ class LoginedRouterClassAdmin extends React.Component { //Admin Page
     render() {
         return (
             <Router>
+                <div className ="adminMainPage">
+                <button className="logoutButton" onClick={this.props.Logout}>Logout</button>
                 <header>
-                    <button onClick={this.props.Logout}>Logout</button>
+                    <h2>Welcome back, Admin!</h2>
+                    
                 </header>
                 <div>
-                    <h2>Welcome back, Admin!</h2>
+                    
                     <ul>
                         <LongLink to="/placeData" label="placeData" />
                         <LongLink to="/userData" label="userData" />
@@ -30,6 +33,7 @@ class LoginedRouterClassAdmin extends React.Component { //Admin Page
                         <Route path="/userData" component={userData} />
             {/*<Route path="*" component={NoMatch} />*/}
                     </Switch>
+                </div>
                 </div>
             </Router>
         );

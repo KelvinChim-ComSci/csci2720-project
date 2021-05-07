@@ -24,10 +24,10 @@ class LoginedRouterClassUser extends React.Component { //User Page
     render() {
         return (
             <Router>
-                <div>
+                <div className="userMainPage">
+                <button className="logoutButton" onClick={this.props.Logout}>Logout</button>
                     <header>
-                        <p>Welcome {window.localStorage.getItem("username")}!</p>
-                        <button onClick={this.props.Logout}>Logout</button>
+                        <h2>Welcome {window.localStorage.getItem("username")}!</h2>
                     </header>
                     {/*<h2>Welcome back, User! OwO</h2>*/}
                     <ul>
