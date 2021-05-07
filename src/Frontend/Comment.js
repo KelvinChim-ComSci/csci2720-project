@@ -13,15 +13,19 @@ class Comment extends React.Component {
 
   onChangeValue(e) {
     if (!e) {
-      this.setState({newComment: ""});
+      this.setState({ newComment: "" });
     } else {
-      this.setState({newComment: e.target.value});
+      this.setState({ newComment: e.target.value });
     }
+  }
+
+  refreshPage() {
+    window.location.reload(false);
   }
 
   async createComment() {
     await fetch(
-      `http://csci2720-g114.cse.cuhk.edu.hk/createComment`,
+      `http://csci2720-g101.cse.cuhk.edu.hk/createComment`,
       {
         method: "POST",
         headers: new Headers({
@@ -29,7 +33,7 @@ class Comment extends React.Component {
         }),
         body: JSON.stringify({
           locID: this.props.locID,
-          username: this.props.username,
+          username: window.localStorage.getItem("username"),
           comment: this.state.newComment
         }),
       }
@@ -38,7 +42,8 @@ class Comment extends React.Component {
       .then((res) => {
         console.log(res);
         this.onChangeValue();
-        this.props.updateHandler();
+        this.refreshPage();
+        // this.props.updateHandler();
       })
   }
 
@@ -54,25 +59,41 @@ class Comment extends React.Component {
       <div>
         {/*fetch comment*/}
         {this.props.comments.map((value) => {
+          var date = new Date(value.timestamp);
+          var convertedMonth = date.getMonth() + 1;
+          console.log("value.timestamp: " + value.timestamp);
+          console.log("date: " + date);
+          var formalDate = date.getHours().toString().padStart(2, '0') +
+            ':' +
+            date.getMinutes().toString().padStart(2, '0') +
+            '  ' +
+            date.getDate().toString().padStart(2, '0') +
+            '/' +
+            convertedMonth.toString().padStart(2, '0') +
+            '/' +
+            date.getFullYear().toString()
+          console.log("formalDate: " + formalDate);
+          console.log(formalDate);
+          // console.log("hours: " + value.timestamp.getHours().toString());
           return (
-            <div id="comments"> 
+            <div id="comments">
               <div>
                 <span>
-                  <h5>{value.username + "     " + value.time}</h5>
+                  <h5>{value.username}   {formalDate}</h5>
                 </span>
-                
+
                 <p>{value.comment}</p>
               </div>
               <br />
-            </div> 
+            </div>
           )
         })}
         {/*create comment*/}
         <form onSubmit={(event) => this.checkValid(event)}>
           <div onChange={this.onChangeValue}>
             <label for="new-comment" class="form-label">Add your own comment: </label>
-            <textarea 
-              type="text" 
+            <textarea
+              type="text"
               class="form-control"
               id="new-comment"
               value={this.state.newComment}

@@ -5,7 +5,7 @@ import LongLink from "./LongLink.js";
 import Info from "./Info.js";
 import Place from "./Place.js";
 import FavouritePlace from "./FavouritePlace.js";
-import Chart from "./Chart.js";
+import ChartPage from "./ChartPage.js";
 import MapPage from "./MapPage.js";
 
 class LoginedRouterClassUser extends React.Component { //User Page
@@ -26,14 +26,14 @@ class LoginedRouterClassUser extends React.Component { //User Page
             <Router>
                 <div>
                     <header>
-                        <p>{this.props.username}</p>
+                        <p>Welcome {window.localStorage.getItem("username")}!</p>
                         <button onClick={this.props.Logout}>Logout</button>
                     </header>
                     {/*<h2>Welcome back, User! OwO</h2>*/}
                     <ul>
                         <LongLink to="/info" label="Real-time Data" />
                         <LongLink to="/favouriteplace" label="FavouritePlace" />
-                        <LongLink to="/chart" label="Chart" />
+                        <LongLink to="/chartPage" label="ChartPage" />
                         {/*<LongLink to="/map" label="Map" />*/}
                         <LongLink to="/mapPage" label="MapPage" />
                         {/*<LongLink to="/search" label="Search" />*/}
@@ -44,10 +44,10 @@ class LoginedRouterClassUser extends React.Component { //User Page
                     <Switch>
                         <Route path="/info"><Info changePlace={this.changePlace} /></Route>
                         {/*<Route path="/info" component={Info} />*/}
-                        <Route path="/place"><Place place={this.state.place} username={this.props.username} /></Route>
-                        <Route path="/favouriteplace" component={FavouritePlace} />
+                        <Route path="/place"><Place place={this.state.place} /></Route>
+                        <Route path="/favouriteplace">< FavouritePlace username={this.props.username} /></Route>
                         <Route path="/map" component={Map} />
-                        <Route path="/chart" component={Chart} />
+                        <Route path="/chartPage" component={ChartPage} />
 
                         <Route path="/mapPage" component={MapPage} />
 
