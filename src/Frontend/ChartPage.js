@@ -1,32 +1,28 @@
 import React from "react";
+import { Chart, registerables } from 'chart.js';
 import { destination_dict, location_dict, journal_type2_dict, color_dict } from "../Backend/data.js";
+Chart.register(...registerables);
 
-class Chart extends React.Component {
+class ChartPage extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            place: "H1",
+            place: "",
             latestData: [],
             get: false,
         };
     }
 
-    componentDidMount() {
-        var day = new Date();
-        this.getData(`https://resource.data.one.gov.hk/td/journeytime.xml`);
-        this.getData(`https://s3-ap-southeast-1.amazonaws.com/historical-resource-archive/2021/05/04/https%253A%252F%252Fresource.data.one.gov.hk%252Ftd%252Fjourneytime.xml/0226`);
-        //this.getData(`https://s3-ap-southeast-1.amazonaws.com/historical-resource-archive/2021/05/04/https%253A%252F%252Fresource.data.one.gov.hk%252Ftd%252Fjourneytime.xml/0227`);
-        console.log(this.state.latestData);
-        console.log(day);
-        ('0' + 11).slice(-2)
-        console.log(day.getFullYear() + '/' + ('0' + (day.getMonth() + 1)).slice(-2) + '/' + ('0' + day.getDate()).slice(-2));     //day
+    refreshPage() {
+        window.location.reload(false);
     }
-
 
     changePlace = e => {
         this.setState({
             place: e.target.value
         });
+        console.log("e.target.value: " + e.target.value);
+        //this.refreshPage();
     }
 
     getData(web) {
@@ -62,6 +58,47 @@ class Chart extends React.Component {
             });
     }
 
+    createChart(place) {
+        console.log("chart data: ");
+        console.log(place);
+        var ctx = document.getElementById('myFirstChart');
+        const chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                January: 10,
+                February: 20
+            },
+            options: {
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Chart hi'
+                    }
+                },
+                scales: {
+                    x: {
+                        type: 'linear'
+                    },
+                    y: {
+                        type: 'linear'
+                    }
+                }
+            }
+        })
+    }
+
+    componentDidMount() {
+        var day = new Date();
+        this.getData(`https://resource.data.one.gov.hk/td/journeytime.xml`);
+        this.getData(`https://s3-ap-southeast-1.amazonaws.com/historical-resource-archive/2021/05/04/https%253A%252F%252Fresource.data.one.gov.hk%252Ftd%252Fjourneytime.xml/0226`);
+        //this.getData(`https://s3-ap-southeast-1.amazonaws.com/historical-resource-archive/2021/05/04/https%253A%252F%252Fresource.data.one.gov.hk%252Ftd%252Fjourneytime.xml/0227`);
+        console.log(this.state.latestData);
+        console.log(day);
+        ('0' + 11).slice(-2)
+        console.log(day.getFullYear() + '/' + ('0' + (day.getMonth() + 1)).slice(-2) + '/' + ('0' + day.getDate()).slice(-2));     //day
+        console.log("have I created a chart?");
+        this.createChart(this.state.place);
+    }
 
     render() {
 
@@ -80,9 +117,11 @@ class Chart extends React.Component {
                     }
                 </select>
                 <p>{this.state.place}</p>
+                <canvas id="myFirstChart" width="400" height="400"></canvas>
+                <canvas id="mySecondChart" width="400" height="400"></canvas>
             </div>
         );
     }
 }
 
-export default Chart;
+export default ChartPage;

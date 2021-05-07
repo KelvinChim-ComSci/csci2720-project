@@ -195,8 +195,6 @@ app.post('/userData/deleteUser/delete', function(req,res){
 }) 
 
 app.post('/placeData/createPlace/create', function(req,res){ 
-	console.log("Create place request received!!");
-	console.log(req.body);
 	Place.findOne(
         { placeId: req.body.id }, // need to check name?
         (err, e) => {
