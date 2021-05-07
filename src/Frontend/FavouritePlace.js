@@ -16,10 +16,10 @@ class FavouritePlace extends React.Component {
       }
     
     
-      componentDidMount() {
+      async componentDidMount() {
         var username = this.props.username;
         var url= "http://csci2720-g110.cse.cuhk.edu.hk/fav/";
-        fetch(
+       await fetch(
           url+ username , // Please use your own port when working.
           { // Otherwise it won't work.
             method: "GET",
@@ -37,9 +37,18 @@ class FavouritePlace extends React.Component {
 
 
     render() {
-      
+
       var hits  = this.state;
+     
       var loc = this.state.hits;
+
+      if(loc=="No Favourite Place is not found")
+      return (
+      <div>
+        <h3>No Favourite Place is not found</h3>
+        </div>
+        ); 
+
       var locd=location_dict[loc];
       locd = "" + locd;    locd=locd.toString();  var n = locd.search(",");
       var locinfo=locd.slice(0, n);
@@ -68,7 +77,7 @@ class FavouritePlace extends React.Component {
                     <thead>
                         <tr>
                             <th>Destination ID</th>
-                            <th>Destination</th>
+                            
                         </tr>
                     </thead>
                     <tbody>
