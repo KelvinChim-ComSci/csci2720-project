@@ -75,7 +75,7 @@ app.post('/login', function (req, res) { // LOGIN SYSTEM
 			return res.status(422).json({ msg: 'user not exist' }); // NO USER EXISTS. WRONG PW OR WRONG ID.
 		}
 
-		if (user.admin == true) {
+		if (user.admin === true) {
 			return res.status(201).json({ msg: 'admin' }); // ADMIN
 		}
 		else return res.status(200).json({ msg: 'success' }); // SUCCESSFUL
@@ -96,6 +96,22 @@ app.get('/fav/:user', function(req,res) {
       });
     });
 
+app.post('/favadd', function(req,res) {
+		var username = req.body.username;
+		var loc = req.body.loc;
+        var e = new Favplace({
+        username: username, 
+        loc: loc
+        });
+        e.save(function(err) {
+			if (err)
+			return res.status(422).json({ msg: 'fail' });			
+			else return res.status(200).json({ msg: 'success' });
+        
+        });
+    });
+
+
 // CRUD userData
 app.post('/userData/createUser/create', function (req, res) {
 	console.log("Create user request received!!");
@@ -104,7 +120,7 @@ app.post('/userData/createUser/create', function (req, res) {
 		{ username: req.body.id },
 		(err, e) => {
 			//if (err) return res.send(err);
-			if (e == null || e == " ") {
+			if (e === null || e === " ") {
 				var x = new User({
 					username: req.body.id,
 					password: req.body.pw,
@@ -137,7 +153,7 @@ app.post('/userData/retrieveUser/retrieve', function (req, res) {
 		"username password",
 		(err, e) => {
 			if (err) return res.send(err);
-			if (e == null || e == " ")
+			if (e === null || e === " ") 
 				return res.send("User account not found");
 			else {
 				return res.status(201).send(
@@ -160,13 +176,13 @@ app.post('/userData/updateUser/update', function (req, res) {
 		"username password",
 		(err, e) => {
 			if (err) return res.send(err);
-			if (e == null || e == " ")
+			if (e === null || e === " ")
 				return res.send("User account not found");
 			else {
-				if (e.username != req.body.id) {
+				if (e.username !== req.body.id) {
 					e.username = req.body.newid;
 				}
-				if (e.password != req.body.newpw) {
+				if (e.password !== req.body.newpw) {
 					e.password = req.body.newpw;
 				}
 				e.save();
@@ -193,7 +209,7 @@ app.post('/userData/deleteUser/delete', function (req, res) {
 		"username password",
 		(err, e) => {
 			if (err) return res.send(err);
-			if (e == null || e == " ")
+			if (e === null || e === " ") 
 				return res.send("User account not found");
 			else {
 				User.deleteOne({ username: req.body.id }).exec(function (
@@ -221,7 +237,7 @@ app.post('/placeData/createPlace/create', function (req, res) {
 		{ placeId: req.body.id }, // need to check name?
 		(err, e) => {
 			//if (err) return res.send(err);
-			if (e == null || e == " ") {
+			if (e === null || e === " ") {
 				var x = new Place({
 					placeId: req.body.id,
 					placeName: req.body.name,
@@ -261,7 +277,7 @@ app.post('/placeData/retrievePlace/retrieve', function (req, res) {
 		"placeId placeName latitude longitude",
 		(err, e) => {
 			if (err) return res.send(err);
-			if (e == null || e == " ")
+			if (e === null || e === " ") 
 				return res.send("Place data not found");
 			else {
 				console.log(e)
@@ -291,19 +307,19 @@ app.post('/placeData/updatePlace/update', function (req, res) {
 		"placeId placeName latitude longitude",
 		(err, e) => {
 			if (err) return res.send(err);
-			if (e == null || e == " ")
+			if (e === null || e === " ") 
 				return res.send("Place data not found");
-			else {
-				if (e.placeId != req.body.newid) {
-					e.placeId = req.body.newid;
+			else{	
+				if (e.placeId !== req.body.newid ){
+						e.placeId = req.body.newid;
 				}
-				if (e.placeName != req.body.newname) {
+				if (e.placeName !== req.body.newname){
 					e.placeNmae = req.body.newname;
 				}
-				if (e.latitude != req.body.newlat) {
+				if (e.latitude !== req.body.newlat){
 					e.latitude = req.body.newlat;
 				}
-				if (e.longitude != req.body.newlog) {
+				if (e.longitude !== req.body.newlog){
 					e.longitude = req.body.newlog;
 				}
 				e.save();
@@ -336,7 +352,7 @@ app.post('/placeData/deletePlace/delete', function (req, res) {
 		"placeId placeName latitude longitude",
 		(err, e) => {
 			if (err) return res.send(err);
-			if (e == null || e == " ")
+			if (e === null || e === " ") 
 				return res.send("Place data not found");
 			else {
 				Place.deleteOne({ placeId: req.body.id }).exec(function (
