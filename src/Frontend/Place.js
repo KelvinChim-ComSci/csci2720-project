@@ -16,7 +16,7 @@ class Place extends React.Component {
         var status;
         console.log("this.props.place: " + this.props.place);
         fetch(
-            `http://csci2720-g101.cse.cuhk.edu.hk/fetchComment`, // Please use your own port when working.
+            `http://csci2720-g110.cse.cuhk.edu.hk/fetchComment`, // Please use your own port when working.
             { // Otherwise it won't work.
                 method: "POST",
                 headers: new Headers({
@@ -61,11 +61,37 @@ class Place extends React.Component {
     }
     */
 
+    add(){ 
+        fetch(
+          `http://csci2720-g110.cse.cuhk.edu.hk/favadd`, // Please use your own port when working.
+          { // Otherwise it won't work.
+            method: "POST",
+            headers: new Headers({
+              "Content-Type": 'application/json',
+            }),
+            body: JSON.stringify({
+			  username: window.localStorage.getItem("username"),
+              loc:  document.getElementById("fav-loc").value,
+              
+            }),
+          }
+        )
+          .then((res) => {
+            if (res.status === 200) { 
+                alert("Successfully Added");
+                return console.log("Successfully Added");
+              }
+            else if (res.status === 422) 
+            alert("Fail. You already have your favourite place.");
+            return console.log("Fail. You already have your favourite place. ");
+          })
+      }
+
     render() {
         const loc = this.props.place;
         return (
             <div>
-                <h2>Place</h2>
+                <h2>Place</h2>  <button id="fav-loc" value={loc} type="button" onClick={this.add}>Add To Your Favourite Place</button>
                 <p>Location ID: {loc}</p>
                 <p>Location: {location_dict[loc][0]}</p>
                 <p>Longitude: {location_dict[loc][1]}E          Latitude: {location_dict[loc][2]}N</p>

@@ -96,6 +96,22 @@ app.get('/fav/:user', function(req,res) {
       });
     });
 
+app.post('/favadd', function(req,res) {
+		var username = req.body.username;
+		var loc = req.body.loc;
+        var e = new Favplace({
+        username: username, 
+        loc: loc
+        });
+        e.save(function(err) {
+			if (err)
+			return res.status(422).json({ msg: 'fail' });			
+			else return res.status(200).json({ msg: 'success' });
+        
+        });
+    });
+
+
 // CRUD userData
 app.post('/userData/createUser/create', function (req, res) {
 	console.log("Create user request received!!");
