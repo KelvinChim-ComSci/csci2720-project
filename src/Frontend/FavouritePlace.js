@@ -62,12 +62,12 @@ class FavouritePlace extends React.Component {
 
       return (
           <div className="favcss" >
-          <div className=" w3-padding-16 w3-blue  w3-round-xlarge w3-container w3-center">
-          <h3>Your Favourite Place is : </h3> <h4> {locinfo} ({this.state.hits}) </h4> 
+          <div className=" w3-padding-16 w3-blue  w3-round-xlarge w3-container ">
+          <h3>Your Favourite Place is : </h3> <h5> {locinfo} ({this.state.hits}) </h5> 
           </div>
           <p></p>
      
-        <div className="w3-light-blue w3-round-xlarge w3-container w3-center ">
+        <div className="w3-light-blue w3-round-xlarge w3-container  ">
         <h3> Details: </h3>
                <p> Location description: {locinfo}</p>
                <p> Location Longitude : {loclong}</p>
@@ -75,7 +75,7 @@ class FavouritePlace extends React.Component {
         
                </div>
          <p></p>      
-        <div className=" w3-padding-16 w3-sand w3-round-xlarge w3-container w3-center">
+        <div className=" w3-padding-16 w3-sand w3-round-xlarge w3-container ">
         <div> <h3> Possible Destination ID:</h3> <p>{destd}</p></div>        
                     
                </div>
