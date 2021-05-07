@@ -1,6 +1,7 @@
 import React from "react";
 import { location_dict, destination_dict, loc_to_dest_dict } from "../Backend/data.js";
 import Comment from "./Comment.js";
+import Map from "./Map.js";
 
 class Place extends React.Component {
     constructor(props) {
@@ -16,7 +17,7 @@ class Place extends React.Component {
         var status;
         console.log("this.props.place: " + this.props.place);
         fetch(
-            `http://csci2720-g110.cse.cuhk.edu.hk/fetchComment`, // Please use your own port when working.
+            `http://csci2720-g96.cse.cuhk.edu.hk/fetchComment`, // Please use your own port when working.
             { // Otherwise it won't work.
                 method: "POST",
                 headers: new Headers({
@@ -91,10 +92,19 @@ class Place extends React.Component {
         const loc = this.props.place;
         return (
             <div>
-                <h2>Place</h2>  <button id="fav-loc" value={loc} type="button" onClick={this.add}>Add To Your Favourite Place</button>
+                <h2>Place</h2>  
+                <div>
+                    <Map changePlace = {this.props.changePlace}
+                        center={{lat: location_dict[loc][3], lng: location_dict[loc][4]}}
+                        zoom={20}
+                        place = {this.props.place}
+                    />
+                </div>
+                <button id="fav-loc" value={loc} type="button" onClick={this.add}>Add To Your Favourite Place</button>
                 <p>Location ID: {loc}</p>
                 <p>Location: {location_dict[loc][0]}</p>
-                <p>Longitude: {location_dict[loc][1]}E          Latitude: {location_dict[loc][2]}N</p>
+                <p>Easting: {location_dict[loc][1]}E          Northing: {location_dict[loc][2]}N</p>
+                <p>Longitude: {location_dict[loc][4]}          Latitude: {location_dict[loc][3]}</p>
                 <p>Possible destination:</p>
                 <table>
                     <thead>
