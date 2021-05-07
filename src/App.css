@@ -123,8 +123,30 @@ header{
   flex-wrap: wrap;
 }
 
-/* comment*/
-.createCommentForm{
-  display: flex;
-  flex-direction: column;
+.favcss {
+  padding:50px 50px 50px 50px;
+  margin:50px auto;
+  align-items: center;
+  background: #c5d7f7 ;
+  color:rgb(21, 21, 22);
+}
+
+.p {
+  background: #c5d7f7 ;
+  color: black;
+  
+}
+
+.h3 {
+  padding:50px 50px 50px 50px;
+  margin:50px auto;
+}
+
+.div {
+  border: 1px solid black;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-right: 150px;
+  margin-left: 80px;
+  background-color: #a5cee9;
 }
