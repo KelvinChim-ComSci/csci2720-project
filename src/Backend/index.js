@@ -33,8 +33,14 @@ var CommentSchema = mongoose.Schema({
 	},
 });
 
+var FavSchema = mongoose.Schema({
+	username: { type: String, required: true, unique: true },
+	loc: { type: String, required: true }, 
+  });
+
 var User = mongoose.model('User', UserSchema);
 var Comment = mongoose.model('Comment', CommentSchema);
+var Favplace = mongoose.model('Favplace', FavSchema);
 
 var PlaceSchema = mongoose.Schema({
 	placeId: { type: String, required: true, unique: true },
@@ -75,6 +81,20 @@ app.post('/login', function (req, res) { // LOGIN SYSTEM
 		else return res.status(200).json({ msg: 'success' }); // SUCCESSFUL
 	})
 })
+
+
+app.get('/fav/:user', function(req,res) {  
+	//var user = req.body.id; 
+    Favplace.findOne({username: req.params['user']})                                 
+    .then(p => {       
+        if(!p) {       
+         return  res.send("No Favourite Place is not found");      
+        }
+        return res.send(p.loc);
+      }).catch((e) => {      
+        return res.send("Error \n"+ e );    
+      });
+    });
 
 // CRUD userData
 app.post('/userData/createUser/create', function (req, res) {
@@ -419,4 +439,4 @@ app.post('/createComment', function (req, res) {
 */
 
 // listen to port 2096
-const server = app.listen(2101);
+const server = app.listen(2110);

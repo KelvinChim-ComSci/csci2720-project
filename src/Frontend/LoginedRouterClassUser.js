@@ -45,7 +45,7 @@ class LoginedRouterClassUser extends React.Component { //User Page
                         <Route path="/info"><Info changePlace={this.changePlace} /></Route>
                         {/*<Route path="/info" component={Info} />*/}
                         <Route path="/place"><Place place={this.state.place} /></Route>
-                        <Route path="/favouriteplace" component={FavouritePlace} />
+                        <Route path="/favouriteplace">< FavouritePlace username={this.props.username} /></Route>
                         <Route path="/map" component={Map} />
                         <Route path="/chart" component={Chart} />
 

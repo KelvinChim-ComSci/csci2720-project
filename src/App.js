@@ -46,6 +46,7 @@ class App extends React.Component {
           <LoginedRouterClassUser 
             logined={this.state.logined}
             Logout={this.Logout}
+            username={this.state.username}
           />
         </div>
       );
