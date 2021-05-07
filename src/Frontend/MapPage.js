@@ -9,13 +9,15 @@ class MapPage extends React.Component {
   render() {
     return (
       <div>
-        <Map 
+        <Map changePlace = {this.props.changePlace}
           center={{lat: 22.302711, lng: 114.177216}}
           zoom={11}
+          place = {this.props.place}
         />
       </div>
     )
   }
 }
 
-export default MapPage
+// Last Changed: 01:24 7/5/2021
+export default MapPage;
