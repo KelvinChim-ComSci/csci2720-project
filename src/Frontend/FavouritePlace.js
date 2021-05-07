@@ -61,31 +61,25 @@ class FavouritePlace extends React.Component {
       var destd = "" + dest; destd=destd.toString();
 
       return (
-        <div>
-          <h2>
-           Your Favourite Place is: {locinfo} ({this.state.hits}) </h2>  
-                  
-        <h2> Details: </h2>
-        <h3>
+          <div className="favcss" >
+          <div className=" w3-padding-16 w3-blue  w3-round-xlarge w3-container w3-center">
+          <h3>Your Favourite Place is : </h3> <h4> {locinfo} ({this.state.hits}) </h4> 
+          </div>
+          <p></p>
+     
+        <div className="w3-light-blue w3-round-xlarge w3-container w3-center ">
+        <h3> Details: </h3>
                <p> Location description: {locinfo}</p>
                <p> Location Longitude : {loclong}</p>
                <p> Location Longitude : {loclad}</p>
         
-
-        <p>Possible destination:</p>
-        <table>
-                    <thead>
-                        <tr>
-                            <th>Destination ID</th>
-                            
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {destd}
-                    </tbody>
-                </table>
-
-        </h3>
+               </div>
+         <p></p>      
+        <div className=" w3-padding-16 w3-sand w3-round-xlarge w3-container w3-center">
+        <div> <h3> Possible Destination ID:</h3> <p>{destd}</p></div>        
+                    
+               </div>
+                
         </div>
 
         
