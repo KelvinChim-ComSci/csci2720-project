@@ -45,12 +45,14 @@ class createUser extends React.Component {
             <div>
                 <h2>Create a User account</h2>
                 <form action="http://csci2720-g84.cse.cuhk.edu.hk/userData/createUser/create" method="post">
+                    <div>
                     <label htmlFor="user-id">User ID:</label>
                     <input type="text" id = "user-id" name="id" required></input>
-                    
+                    </div>
+                    <div>
                     <label htmlFor="user-pw">Password:</label>
                     <input type="password" id ="user-pw" name="pw" required></input>
-
+                    </div>
                     <input type="submit" />
                     {/*<button id="Submit" type="button" onClick={this.validate}>Create</button>*/}
                 </form>

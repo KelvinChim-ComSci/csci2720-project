@@ -40,20 +40,25 @@ class createPlace extends React.Component {
     render (){
         return(
             <div>
-                <h2>Create a Place</h2>
-                <form action="http://csci2720-g84.cse.cuhk.edu.hk/placeData/createPlace/create" method="post">
+                <h2 class>Create a Place</h2>
+                <form className="placeForm" action="http://csci2720-g84.cse.cuhk.edu.hk/placeData/createPlace/create" method="post">
+                    <div>
                     <label htmlFor="place-id">Place ID:</label>
                     <input type="text" id = "place-id" name="id" required></input>
-                    
+                    </div>
+                    <div>
                     <label htmlFor="place-name">Place name:</label>
                     <input type="text" id ="place-name" name="name" required></input>
-
+                    </div>
+                    <div>
                     <label htmlFor="place-latitude">Place latitude:</label>
                     <input type="text" id ="place-latitude" name="lat" required></input>
-
+                    </div>
+                    <div>
                     <label htmlFor="place-longitude">Place longitude:</label>
                     <input type="text" id ="place-longitude" name="log" required></input>
-
+                    </div>
+                    
                     <input type="submit" />
                     {/*<button id="Submit" type="button" onClick={this.validate}>Create</button>*/}
                 </form>
@@ -67,10 +72,11 @@ class retrievePlace extends React.Component {
         return(
             <div>
             <h2>Retrieve a Place</h2>
-            <form action="http://csci2720-g84.cse.cuhk.edu.hk/placeData/retrievePlace/retrieve" method="post">
+            <form className="placeForm" action="http://csci2720-g84.cse.cuhk.edu.hk/placeData/retrievePlace/retrieve" method="post">
+                <div>
                 <label htmlFor="place-id">Place ID:</label>
                 <input type="text" id = "place-id" name="id" required></input>
-                
+                </div>
                 <input type="submit" />
                 {/*<button id="Submit" type="button" onClick={this.validate}>Create</button>*/}
             </form>
@@ -84,22 +90,27 @@ class updatePlace extends React.Component {
         return(
             <div>
              <h2>Update a Place account</h2>
-            <form action="http://csci2720-g84.cse.cuhk.edu.hk/placeData/updatePlace/update" method="post">
+            <form className="placeForm" action="http://csci2720-g84.cse.cuhk.edu.hk/placeData/updatePlace/update" method="post">
+            <div>
                 <label htmlFor="place-id">Original Place ID:</label>
                 <input type="text" id = "place-id" name="id" required></input>
-
+            </div>
+            <div>
                 <label htmlFor="newplace-id">New Place ID:</label>
                 <input type="text" id = "newplace-id" name="newid" required></input>
-                
+            </div>
+            <div>
                 <label htmlFor="newplace-name">New Place name:</label>
                 <input type="text" id ="newplace-name" name="newname" required></input>
-
+            </div>
+            <div>
                 <label htmlFor="newplace-latitude">New Place latitude:</label>
                 <input type="text" id ="newplace-latitude" name="newlat" required></input>
-
+            </div>
+            <div>
                 <label htmlFor="newplace-longitude">New Place longitude:</label>
                 <input type="text" id ="newplace-longitude" name="newlog" required></input>
-
+            </div>
                 <input type="submit" />
                 {/*<button id="Submit" type="button" onClick={this.validate}>Create</button>*/}
             </form>
@@ -113,10 +124,11 @@ class deletePlace extends React.Component {
         return(
             <div>
              <h2>Delete a Place account</h2>
-            <form action="http://csci2720-g84.cse.cuhk.edu.hk/placeData/deletePlace/delete" method="post">
+            <form className="placeForm" action="http://csci2720-g84.cse.cuhk.edu.hk/placeData/deletePlace/delete" method="post">
+            <div>
                 <label htmlFor="place-id">Place ID:</label>
                 <input type="text" id = "place-id" name="id" required></input>
-            
+            </div>
                 <input type="submit" />
                 {/*<button id="Submit" type="button" onClick={this.validate}>Create</button>*/}
             </form>

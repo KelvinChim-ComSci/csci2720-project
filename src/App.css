@@ -51,42 +51,48 @@
 @import url('https://fonts.googleapis.com/css2?family=Merriweather&display=swap');
 * {
   font-family: 'Merriweather', serif;
-  background-color:#e8efff;
 }
 
 h1 {
   font-family: 'Merriweather', serif;
 }
 
+h2 {
+  padding-top:1%;
+}
+
 input{
   margin:2%;
+}
+
+label {
+
 }
 
 /* login */
 .loginPage{
   flex-direction: column;
-  padding: 8%;
+  padding: 20%;
+  padding-left: 36%;
 }
 .loginForm{
   flex-direction: column;
 }
 
 .loginButton{
-  margin-top:2%;
+  margin-top:5%;
+  margin-left:34%;
 }
 
 /* logined */
 .adminMainPage{
   display: flex;
   flex-direction: column;
-  background-color: lightcoral;
   padding: 8%;
   margin: 2%;
-
 }
 
 .userMainPage{
-
   padding: 8%;
 }
 
@@ -95,9 +101,48 @@ header{
 }
 
 .logoutButton{
- 
+
 }
 
 .link{
   margin:1%;
+}
+
+/* placeData header */
+.placeheader{
+
+}
+
+.placeForm{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.favcss {
+  padding:50px 50px 50px 50px;
+  margin:50px auto;
+  align-items: center;
+  background: #c5d7f7 ;
+  color:rgb(21, 21, 22);
+}
+
+.p {
+  background: #c5d7f7 ;
+  color: black;
+  
+}
+
+.h3 {
+  padding:50px 50px 50px 50px;
+  margin:50px auto;
+}
+
+.div {
+  border: 1px solid black;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-right: 150px;
+  margin-left: 80px;
+  background-color: #a5cee9;
 }

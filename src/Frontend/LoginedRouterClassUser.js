@@ -24,6 +24,7 @@ class LoginedRouterClassUser extends React.Component { //User Page
     render() {
         return (
             <Router>
+                <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"></link>
                 <div className="userMainPage">
                 <button className="logoutButton" onClick={this.props.Logout}>Logout</button>
                     <header>
@@ -32,10 +33,10 @@ class LoginedRouterClassUser extends React.Component { //User Page
                     {/*<h2>Welcome back, User! OwO</h2>*/}
                     <ul>
                         <LongLink to="/info" label="Real-time Data" />
-                        <LongLink to="/favouriteplace" label="FavouritePlace" />
-                        <LongLink to="/chartPage" label="ChartPage" />
+                        <LongLink to="/favouriteplace" label="Favourite Place" />
+                        <LongLink to="/chartPage" label="Chart Page" />
                         {/*<LongLink to="/map" label="Map" />*/}
-                        <LongLink to="/mapPage" label="MapPage" />
+                        <LongLink to="/mapPage" label="Map Page" />
                         {/*<LongLink to="/search" label="Search" />*/}
                     </ul>
 
