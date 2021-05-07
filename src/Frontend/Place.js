@@ -16,7 +16,7 @@ class Place extends React.Component {
         var status;
         console.log("this.props.place: " + this.props.place);
         fetch(
-            `http://csci2720-g101.cse.cuhk.edu.hk/fetchComment`, // Please use your own port when working.
+            `http://csci2720-g114.cse.cuhk.edu.hk/fetchComment`, // Please use your own port when working.
             { // Otherwise it won't work.
                 method: "POST",
                 headers: new Headers({
