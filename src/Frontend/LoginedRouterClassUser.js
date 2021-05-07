@@ -32,10 +32,10 @@ class LoginedRouterClassUser extends React.Component { //User Page
                     {/*<h2>Welcome back, User! OwO</h2>*/}
                     <ul>
                         <LongLink to="/info" label="Real-time Data" />
-                        <LongLink to="/favouriteplace" label="FavouritePlace" />
-                        <LongLink to="/chartPage" label="ChartPage" />
+                        <LongLink to="/favouriteplace" label="Favourite Place" />
+                        <LongLink to="/chartPage" label="Chart Page" />
                         {/*<LongLink to="/map" label="Map" />*/}
-                        <LongLink to="/mapPage" label="MapPage" />
+                        <LongLink to="/mapPage" label="Map Page" />
                         {/*<LongLink to="/search" label="Search" />*/}
                     </ul>
 
@@ -49,7 +49,7 @@ class LoginedRouterClassUser extends React.Component { //User Page
                         <Route path="/map" component={Map} />
                         <Route path="/chartPage" component={ChartPage} />
 
-                        <Route path="/mapPage" component={MapPage} />
+                        <Route path="/mapPage"><MapPage place = {this.state.place} changePlace = {this.changePlace}/> </Route>
 
                         {/*<Route path="*" component={NoMatch} />*/}
                         {/*<Route path="/search" component={Search} />*/}
