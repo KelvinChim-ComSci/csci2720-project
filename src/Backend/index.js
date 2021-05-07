@@ -1,3 +1,4 @@
+const bcrypt = require("bcryptjs");
 const express = require('express');
 const app = express();
 const cors = require('cors');
@@ -61,25 +62,27 @@ var Place = mongoose.model('Place', PlaceSchema);
 }) */
 
 // POST //
-app.post('/login', function (req, res) { // LOGIN SYSTEM
+app.post('/login', async function (req, res) { // LOGIN SYSTEM
 	console.log("Post request received!!");
 	var username = req.body.id;
 	var password = req.body.pw;
-	console.log(req.body);
-	User.findOne({ username: username, password: password }, function (err, user) {
-		if (err) {
-			return console.log('err'); // ERROR
-		}
-
-		if (!user) {
-			return res.status(422).json({ msg: 'user not exist' }); // NO USER EXISTS. WRONG PW OR WRONG ID.
-		}
-
+	User.findOne({ username: username }, async function (err, user) {
 		if (user.admin === true) {
 			return res.status(201).json({ msg: 'admin' }); // ADMIN
 		}
-		else return res.status(200).json({ msg: 'success' }); // SUCCESSFUL
-	})
+		else if (user) {
+			const validPassword = await bcrypt.compare(password, user.password);
+			if (validPassword) { // correct pw
+				return res.status(200).json({ msg: 'success' });
+			}
+			else { // wrong pw
+				return res.status(400).json({ error: "invalid password"});
+			}
+		}
+		else {
+			return res.status(422).json({ msg: 'user does not exist' }); // NO USER EXISTS.
+		}
+	});
 })
 
 
@@ -113,34 +116,42 @@ app.post('/favadd', function(req,res) {
 
 
 // CRUD userData
-app.post('/userData/createUser/create', function (req, res) {
+app.post('/userData/createUser/create', async function (req, res) {
 	console.log("Create user request received!!");
 	console.log(req.body);
 	User.findOne(
 		{ username: req.body.id },
-		(err, e) => {
+		async function (err, e) {
 			//if (err) return res.send(err);
 			if (e === null || e === " ") {
-				var x = new User({
-					username: req.body.id,
-					password: req.body.pw,
-					admin: false,
-				});
-				x.save(function (err) {
-					if (err) return res.send(err);
-					return res
-						.status(201)
-						.send(
-							"New user account created! <br>Username: " +
-							req.body.id +
-							"<br>\n" +
-							"Password: " +
-							req.body.pw
-						);
-				})
+				const createUser = req.body.id;
+				const createPassword = req.body.pw;
+				if (createUser.length >= 4 && createUser.length <= 20) {
+					if (createPassword.length >= 4 && createPassword.length <= 20) {
+						const salt = await bcrypt.genSalt(10); // generate salt
+						var x = new User({
+							username: createUser,
+							password: createPassword,
+							admin: false,
+						});
+						x.password = await bcrypt.hash(x.password, salt);
+						x.save( function(err) {
+							if (err) return res.send(err);
+							return res.status(201).send(
+									"New user account created! <br>Username: " +
+									createUser +
+									"<br>\n" +
+									"Password: " +
+									createPassword
+								);
+						})
+					}
+					else return res.send("User Password must be 4-20 characters long.");
+				}
+				else return res.send("Username must be 4-20 characters long.");
 			}
 			else
-				return res.send("Username registered already");
+				return res.send("Username is registered already. Please choose another username.");
 		}
 	)
 })
@@ -168,34 +179,54 @@ app.post('/userData/retrieveUser/retrieve', function (req, res) {
 	)
 })
 
-app.post('/userData/updateUser/update', function (req, res) {
+app.post('/userData/updateUser/update', async function (req, res) {
 	console.log("Update user request received!!");
 	console.log(req.body);
+	
 	User.findOne(
 		{ username: req.body.id },
 		"username password",
-		(err, e) => {
+		async (err, e) => {
 			if (err) return res.send(err);
 			if (e === null || e === " ")
 				return res.send("User account not found");
-			else {
-				if (e.username !== req.body.id) {
-					e.username = req.body.newid;
-				}
-				if (e.password !== req.body.newpw) {
-					e.password = req.body.newpw;
-				}
-				e.save();
-				return res.status(201).send(
-					"User account updated! <br>Username: " +
-					req.body.id +
-					"<br>\n" +
-					"New Username: " +
-					e.username +
-					"<br>\n" +
-					"New Password: " +
-					e.password
-				);
+			else { 
+				User.findOne( // check if newid is taken
+				{username: req.body.newid},
+				"username",
+				async (err,e2) => {
+					if (err) return res.send(err);
+					if (e2 !== null && e2 !== " ") {
+						return res.send("New Username was taken");
+					}
+					else {
+						const createNewUser = req.body.newid;
+						const createNewPassword = req.body.newpw;
+						if (createNewUser.length >= 4 && createNewUser.length <= 20) {
+							if (createNewPassword >= 4 && createNewPassword.length <= 20) {
+								if (e.username !== req.body.newid) {
+									e.username = req.body.newid;
+								}
+								const salt = await bcrypt.genSalt(10);
+								e.password = createNewPassword;
+								e.password = await bcrypt.hash(e.password, salt);
+								e.save();
+								return res.status(201).send(
+									"User account updated! <br>Username: " +
+									req.body.id +
+									"<br>\n" +
+									"New Username: " +
+									e.username +
+									"<br>\n" +
+									"New Password: " +
+									createNewPassword
+								);
+							}
+							else return res.send("User Password must be 4-20 characters long.")
+						}
+						else return res.send("Username must be 4-20 characters long.");
+					}
+				});
 			}
 		}
 	)
@@ -455,4 +486,4 @@ app.post('/createComment', function (req, res) {
 */
 
 // listen to port 2096
-const server = app.listen(2084);
+const server = app.listen(2096);

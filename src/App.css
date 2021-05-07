@@ -69,6 +69,10 @@ label {
 
 }
 
+button {
+  margin-top: 2%;
+}
+
 /* login */
 .loginPage{
   flex-direction: column;
@@ -81,7 +85,7 @@ label {
 
 .loginButton{
   margin-top:5%;
-  margin-left:34%;
+  margin-left:110px;
 }
 
 /* logined */

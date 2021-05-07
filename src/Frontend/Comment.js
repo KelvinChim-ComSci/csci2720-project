@@ -79,25 +79,25 @@ class Comment extends React.Component {
             <div id="comments">
               <div>
                 <span>
-                  <h5>{value.username}   {formalDate}</h5>
+                  <p>{value.username}   {formalDate}</p>
+                  <p>{value.comment}</p>
                 </span>
 
-                <p>{value.comment}</p>
+                
               </div>
-              <br />
             </div>
           )
         })}
         {/*create comment*/}
-        <form onSubmit={(event) => this.checkValid(event)}>
-          <div onChange={this.onChangeValue}>
+        <form  onSubmit={(event) => this.checkValid(event)}>
+          <div className="createCommitForm" onChange={this.onChangeValue}>
             <label for="new-comment" class="form-label">Add your own comment: </label>
             <textarea
               type="text"
               class="form-control"
               id="new-comment"
               value={this.state.newComment}
-              placeholder="Hello World!"
+              placeholder="Leave some comment on this location!"
               rows="3"
               required
             ></textarea>

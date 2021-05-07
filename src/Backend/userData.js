@@ -67,9 +67,10 @@ class retrieveUser extends React.Component {
             <div>
             <h2>Retrieve a User account</h2>
             <form action="http://csci2720-g84.cse.cuhk.edu.hk/userData/retrieveUser/retrieve" method="post">
+            <div>
                 <label htmlFor="user-id">User ID:</label>
                 <input type="text" id = "user-id" name="id" required></input>
-
+            </div>
                 <input type="submit" />
                 {/*<button id="Submit" type="button" onClick={this.validate}>Create</button>*/}
             </form>
@@ -84,15 +85,18 @@ class updateUser extends React.Component {
             <div>
              <h2>Update a User account</h2>
             <form action="http://csci2720-g84.cse.cuhk.edu.hk/userData/updateUser/update" method="post">
+            <div>
                 <label htmlFor="user-id">Original User ID:</label>
                 <input type="text" id = "user-id" name="id" required></input>
-
+            </div>
+            <div>
                 <label htmlFor="newuser-id">New User ID:</label>
                 <input type="text" id = "newuser-id" name="newid" required></input>
-
+            </div>
+            <div>
                 <label htmlFor="newuser-pw">New Password:</label>
                 <input type="text" id = "newuser-pw" name="newpw" required></input>
-
+            </div>
                 <input type="submit" />
                 {/*<button id="Submit" type="button" onClick={this.validate}>Create</button>*/}
             </form>
@@ -107,9 +111,10 @@ class deleteUser extends React.Component {
             <div>
              <h2>Delete a User account</h2>
             <form action="http://csci2720-g84.cse.cuhk.edu.hk/userData/deleteUser/delete" method="post">
+            <div>
                 <label htmlFor="user-id">User ID:</label>
                 <input type="text" id = "user-id" name="id" required></input>
-
+            </div>
                 <input type="submit" />
                 {/*<button id="Submit" type="button" onClick={this.validate}>Create</button>*/}
             </form>
