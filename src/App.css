@@ -170,9 +170,6 @@ th, td {
   text-align: left;
   padding: 8px;
 }
-.th1 {
-  border-radius: 15px 0px 0px 15px; 
-}
 
 /* Icon */
 .icon::before {
@@ -187,9 +184,6 @@ th, td {
   font-family: "Font Awesome 5 Free"; font-weight: 900; content: "\f007";
 }
 
-.th2 {
-  border-radius:  0px 15px 15px 0px; 
-}
 
 
 tr:nth-child(even){background-color: #8ea6c4}
@@ -216,3 +210,52 @@ th {
 #marker{
   color: #ffffff;
 }
+
+.destid {
+  width: 100%;
+  background-color: #325994b2;
+  color: white;
+  text-align: center;
+}
+
+
+
+
+
+
+
+
+.pla {
+  background-color: #cea671d0;
+  color: #3b302a;
+  text-align: left;
+  padding: 8px;
+}
+
+.plac {
+  background-color: #ebbea8;
+  color: #3b302a;
+  text-align: left;
+  padding: 8px;
+}
+
+
+.place {
+  background-color: #e2b7a1a9;
+  color: #3b302a;
+  text-align: left;
+  padding: 8px;
+}
+
+.place1 {
+  background-color: #d6b8a979;
+  color: #3b302a;
+  text-align: left;
+  padding: 8px;
+ 
+}
+
+.small{
+  font-size: 5px;
+}
+
