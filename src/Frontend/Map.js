@@ -5,13 +5,11 @@ import { Link } from "react-router-dom";
 
 // longitude = location_dict[loc][1], latitude = location_dict[loc][2]
 class Marker extends React.Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
   return (
     <Link onClick = {() => this.props.changePlace(this.props.place)} to = "/place">
-    <div style={{fontWeight: 'bold'}}>O</div>
+    {/*<span class="icon login"></span>*/}
+     <div style={{fontWeight: 'bold'}}>O</div>
     </Link>
   )};
 }
@@ -38,6 +36,7 @@ class Map extends React.Component {
     return (
       // Key is AIzaSyBhVbCumzcBYSl-jizd9Lf04uhdZ6Qlrv8
       <div style={{ height: '60vh', width: '100%' }}>
+        
         <GoogleMapReact
           bootstrapURLKeys={{ key: "AIzaSyBhVbCumzcBYSl-jizd9Lf04uhdZ6Qlrv8" }}
           defaultCenter={this.props.center}
