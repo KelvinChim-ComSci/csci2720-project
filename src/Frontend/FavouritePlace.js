@@ -65,11 +65,11 @@ class FavouritePlace extends React.Component {
       return (
           <div className="favcss" >
           <div className=" w3-padding-16 w3-round-xlarge w3-container">
-          <h3>Your Favourite Place is : </h3> <h5> {locinfo} ({this.state.hits}) </h5> 
+          <h3 class="pla">Your Favourite Place is : {locinfo} ({this.state.hits})</h3>
           </div>
           <p></p>
      
-        <div className="w3-light-blue w3-round-xlarge w3-container  ">
+        <div className="plac ">
         <h3> Details: </h3>
                <p> Location description: {locinfo}</p>
                <p> Location Longitude : {loclong}</p>
@@ -77,10 +77,24 @@ class FavouritePlace extends React.Component {
         
                </div>
          <p></p>      
-        <div className=" w3-padding-16 w3-sand w3-round-xlarge w3-container ">
-        <div> <h3> Possible Destination ID:</h3> <p>{destd}</p></div>        
-                    
-               </div>
+        <div className=" place ">
+        <div> <h3> Possible Destination ID:</h3> <p>{destd}</p></div>              
+        </div>
+        <p></p>
+        <div className="place1 ">
+        <div > <h3> Reference for destination ID: </h3> <p className="small"> 
+        <p>   CH : Cross Harbour Tunnel </p>
+        <p> EH : Eastern Harbour Crossing </p>
+        <p> WH : Western Harbour Crossing</p>
+        <p> LRT : Lion Rock Tunnel</p>
+        <p> SMT : Shing Mun Tunnel</p>
+        <p> TCT : Tate's Cairn Tunnel</p>
+        <p> TKTL : Ting Kau, via Tai Lam Tunnel</p>
+        <p> TKTM : Ting Kau, via Tuen Mun Road</p>
+        <p> TSCA : Tsing Sha Control Area</p>
+        <p> TWCP : Tsuen Wan via Castle Peak</p>
+        <p> TWTM : Tsuen Wan via Tuen Mun</p></p></div>        
+        </div>
                 
         </div>
 
