@@ -64,7 +64,7 @@ class FavouritePlace extends React.Component {
 
       return (
           <div className="favcss" >
-          <div className=" w3-padding-16 w3-blue  w3-round-xlarge w3-container ">
+          <div className=" w3-padding-16 w3-round-xlarge w3-container">
           <h3>Your Favourite Place is : </h3> <h5> {locinfo} ({this.state.hits}) </h5> 
           </div>
           <p></p>

@@ -106,34 +106,29 @@ class Info extends React.Component {
         return (
             <div className="realcss" >
             <div>
-                <h2  className=" w3-padding-16 w3-blue  w3-round-xlarge w3-container">Real-time Data</h2>
-                <div className="w3-pale-blue w3-round-xlarge w3-container  ">
+                <h2  className=" w3-padding-16 w3-round-xlarge w3-container">Real-time Data</h2>
+                <div className=" w3-round-xlarge w3-container  ">
                     <p></p>
                 
                     
                 <h4> Update time: +{this.state.time}</h4>
                
                 <p></p>
+                
                 <div onChange={this.onChangeValue}>
-                <table>
-                   
+                <table className= "searchTable">
                         <tr>
-                        <th className="th1"><input type="radio" value="locID"  name="field"/> Location ID </th>
+                        <th ><input type="radio" value="locID"  name="field"/> Location ID </th>
                         <th> <input type="radio" value="location" name="field" /> Location </th>
                         <th><input type="radio" value="destID" name="field" /> Destination ID </th>
-                        <th  className="th2"><input type="radio" value="destination" name="field" /> Destination </th>
+                        <th ><input type="radio" value="destination" name="field" /> Destination </th>
+                        <th> <SearchBar className= "searchBar" searchQuery={this.state.searchQuery} setSearchQuery={this.setSearchQuery}/></th>
                         </tr>
-                   
                     </table>
                    </div>
-                   <p></p>
- 
-                
-                <SearchBar
-                    searchQuery={this.state.searchQuery}
-                    setSearchQuery={this.setSearchQuery}
-                    
-                /><p></p></div>
+                </div>
+                <br/>
+           
                 <p></p>
                 <table className=" w3-padding-16 w3-pale-blue w3-round-xlarge w3-container ">
                     <thead>
