@@ -21,11 +21,11 @@ class ChartPage extends React.Component {
         };
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         var day = new Date();
         var d = day.getFullYear() + '/' + ('0' + (day.getMonth() + 1)).slice(-2) + '/' + ('0' + day.getDate()).slice(-2);
         var t = ('0' + (day.getHours())).slice(-2) + ('0' + day.getMinutes()).slice(-2);
-        this.getData(`https://resource.data.one.gov.hk/td/journeytime.xml`);
+        this.getData(`https://resource.data.one.gov.hk/td/journeytime.xml`)
         console.log("code line 21: ")
         console.log(this.state.latestData);
         //try error web
@@ -37,7 +37,14 @@ class ChartPage extends React.Component {
         //the part I have not do yet:
         //1. loop var d and t to fetch data from different time
         //2. check change t (-1 min) if the webpage is invalid (do this until the webpage work)
-        this.createFirstChart();
+        // this.createFirstChart();
+    }
+
+    async handleData() {
+        var theData = [];
+        theData = await this.getData(`https://resource.data.one.gov.hk/td/journeytime.xml`)
+        console.log(theData);
+        return theData;
     }
 
     changePlace = e => {
@@ -47,7 +54,7 @@ class ChartPage extends React.Component {
     }
 
     async getData(web) {
-        fetch(web)
+        await fetch(web)
             .then(response => response.text())
             .then((data) => {
                 const parser = new DOMParser();
@@ -71,10 +78,9 @@ class ChartPage extends React.Component {
                         var c = color_id[i].childNodes[0].nodeValue;
                         all_data.push({ locID: loc, destID: dest, journeyType: type, journeyData: d, color: color_dict[c], time: capture_time });
                     }
-                    //all_data.push({ locID: "H1", location: "test", destID: "tt", destination: "CH", journeyType: "2", journeyData: "3", color: "black" }); //to test journey type 2
                     this.setState({ latestData: all_data, time: capture_time, get: true });
-                    console.log("code line 68: ");
-                    console.log(this.state.latestData[3].journeyData);
+                    //all_data.push({ locID: "H1", location: "test", destID: "tt", destination: "CH", journeyType: "2", journeyData: "3", color: "black" }); //to test journey type 2
+                    
                 }
             })
             .catch(function (error) {
@@ -145,6 +151,18 @@ class ChartPage extends React.Component {
         })
     }
     render() {
+        if (!this.state.get) {
+            const allData = [];
+            return (
+                <div>
+                    <h2>Chart</h2>
+                    <p>Loading...</p>
+                    <button id="displayHour">
+                        Waiting time in this hour of past 7 days
+                    </button>
+                </div>
+            );
+        }
         return (
             <div>
                 <h2>Chart of historical data + {this.state.place}</h2>
@@ -159,14 +177,18 @@ class ChartPage extends React.Component {
                         })
                     }
                 </select>
-
-                <p>{this.state.place}</p>
-                <button id="displayHour">Waiting time in this hour of past 7 days</button>
+                <button id="displayHour" onClick= {async () => 
+                document.getElementById("allData").innerHTML = this.handleData()}
+                >
+                    Waiting time in this hour of past 7 days
+                </button>
                 <button id="displayWeek">Waiting time in the past 10 hours</button>
-                <canvas id="myFirstChart" width="400" height="400"></canvas>
+                <p>{this.state.place}</p>
+                <button onClick ={() => console.log(this.state.latestData[1])}>...</button>
+                <canvas id="myFirstChart" style={{display: 'none'}} width="400" height="400"></canvas>
                 <hr />
-                <canvas id="mySecondChart" width="400" height="400"></canvas>
-                <div id="weekData" style={{display: 'none'}}></div>
+                <canvas id="mySecondChart" style={{display: 'none'}} width="400" height="400"></canvas>
+                <div id="allData"></div>
                 <div id="hourData" style={{display: 'none'}}></div>
             </div>
         );
@@ -179,4 +201,5 @@ Idea for making the Chart work:
 2. put the data in a div by getElementbyId
 3. call the chart by pressing the button, so the action is done after the data is fetched.
 */
+
 export default ChartPage;
