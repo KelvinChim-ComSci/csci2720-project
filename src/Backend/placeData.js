@@ -41,7 +41,7 @@ class createPlace extends React.Component {
         return(
             <div>
                 <h2 class>Create a Place</h2>
-                <form className="placeForm" action="http://csci2720-g84.cse.cuhk.edu.hk/placeData/createPlace/create" method="post">
+                <form className="placeForm" action="http://csci2720-g96.cse.cuhk.edu.hk/placeData/createPlace/create" method="post">
                     <div>
                     <label htmlFor="place-id">Place ID:</label>
                     <input type="text" id = "place-id" name="id" required></input>
@@ -72,7 +72,7 @@ class retrievePlace extends React.Component {
         return(
             <div>
             <h2>Retrieve a Place</h2>
-            <form className="placeForm" action="http://csci2720-g84.cse.cuhk.edu.hk/placeData/retrievePlace/retrieve" method="post">
+            <form className="placeForm" action="http://csci2720-g96.cse.cuhk.edu.hk/placeData/retrievePlace/retrieve" method="post">
                 <div>
                 <label htmlFor="place-id">Place ID:</label>
                 <input type="text" id = "place-id" name="id" required></input>
@@ -90,7 +90,7 @@ class updatePlace extends React.Component {
         return(
             <div>
              <h2>Update a Place account</h2>
-            <form className="placeForm" action="http://csci2720-g84.cse.cuhk.edu.hk/placeData/updatePlace/update" method="post">
+            <form className="placeForm" action="http://csci2720-g96.cse.cuhk.edu.hk/placeData/updatePlace/update" method="post">
             <div>
                 <label htmlFor="place-id">Original Place ID:</label>
                 <input type="text" id = "place-id" name="id" required></input>
@@ -124,7 +124,7 @@ class deletePlace extends React.Component {
         return(
             <div>
              <h2>Delete a Place account</h2>
-            <form className="placeForm" action="http://csci2720-g84.cse.cuhk.edu.hk/placeData/deletePlace/delete" method="post">
+            <form className="placeForm" action="http://csci2720-g96.cse.cuhk.edu.hk/placeData/deletePlace/delete" method="post">
             <div>
                 <label htmlFor="place-id">Place ID:</label>
                 <input type="text" id = "place-id" name="id" required></input>

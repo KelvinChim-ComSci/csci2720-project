@@ -9,7 +9,7 @@ class FavouritePlace extends React.Component {
         super(props);
        
         this.state = {
-          hits: "",
+          hits: "No Favourite Place is found",
         };
     
       }
@@ -17,7 +17,7 @@ class FavouritePlace extends React.Component {
     
       async componentDidMount() {
         var username = this.props.username;
-        var url= "http://csci2720-g110.cse.cuhk.edu.hk/fav/";
+        var url= "http://csci2720-g96.cse.cuhk.edu.hk/fav/";
        await fetch(
           url+ username , // Please use your own port when working.
           { // Otherwise it won't work.
@@ -38,10 +38,10 @@ class FavouritePlace extends React.Component {
     render() {
       var loc = this.state.hits;
 
-      if (loc === "No Favourite Place is not found")
+      if (loc === "No Favourite Place is found")
       return (
       <div>
-        <h3>No Favourite Place is not found</h3>
+        <h3>No Favourite Place is found</h3>
         </div>
         ); 
 
