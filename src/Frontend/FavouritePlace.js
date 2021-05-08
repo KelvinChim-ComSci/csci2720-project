@@ -1,6 +1,5 @@
 import React from "react";
-import { location_dict, destination_dict, loc_to_dest_dict } from "../Backend/data.js";
-import  { Component } from 'react';
+import { location_dict, loc_to_dest_dict } from "../Backend/data.js";
 
 
 
@@ -37,27 +36,24 @@ class FavouritePlace extends React.Component {
 
 
     render() {
-
-      var hits  = this.state;
-     
       var loc = this.state.hits;
 
-      if(loc=="No Favourite Place is not found")
+      if (loc === "No Favourite Place is not found")
       return (
       <div>
         <h3>No Favourite Place is not found</h3>
         </div>
         ); 
 
-      var locd=location_dict[loc];
-      locd = "" + locd;    locd=locd.toString();  var n = locd.search(",");
-      var locinfo=locd.slice(0, n);
-      var loclong=locd.slice(n+1, );  var n1 = loclong.search(",");
-      loclong=loclong.slice(0,n1 );
-      var loclad=locd.slice(n+1, );   var n2 = loclad.search(",");
-      loclad=loclad.slice(n2+1, );    var n3 = loclad.search(",");
-      loclad=loclad.slice(0,n3);
-      var dest= loc_to_dest_dict[loc];
+      var locd = location_dict[loc];
+      locd = "" + locd;    locd = locd.toString();  var n = locd.search(",");
+      var locinfo = locd.slice(0, n);
+      var loclong = locd.slice(n+1, );  var n1 = loclong.search(",");
+      loclong = loclong.slice(0,n1 );
+      var loclad = locd.slice(n+1, );   var n2 = loclad.search(",");
+      loclad = loclad.slice(n2+1, );    var n3 = loclad.search(",");
+      loclad = loclad.slice(0,n3);
+      var dest = loc_to_dest_dict[loc];
       var destd = "" + dest; destd=destd.toString();
 
       return (

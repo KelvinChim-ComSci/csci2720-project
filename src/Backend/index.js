@@ -52,15 +52,6 @@ var PlaceSchema = mongoose.Schema({
 
 var Place = mongoose.model('Place', PlaceSchema);
 
-/*app.get('/*', function(req,res) {
-	User.findOne({}, function(err,user) {
-		if (err) {
-			return res.send(err);
-		}
-		return user;
-	})
-}) */
-
 // POST //
 app.post('/login', async function (req, res) { // LOGIN SYSTEM
 	console.log("Post request received!!");
@@ -444,46 +435,5 @@ app.post('/createComment', function (req, res) {
 	})
 })
 
-//  SYNTAX FORMAT  //
-/* app.get('/loc', function(req,res) {
-	var keyword = req.query['quota'];
-	if (keyword === undefined) {
-	Location.find({}, 'locId name quota',
-		function(err_l,l) {
-			if (err_l)
-				res.send(err_l);
-			var response = "";
-			for ( i = 0; i < l.length; i++) {
-				response = response + 
-				"Location ID: " + l[i].locId + "<br>\n" +
-				"Location name: " + l[i].name + "<br>\n" +
-				"Location quota: " + l[i].quota + "<br><br>\n";
-			};
-			res.send(response);
-		});
-	}
-	else {
-		Location.find( { quota: {$gte:keyword}}, 'locId name quota',
-			function(err, location) {
-				if (err)
-					res.send(err);
-				if (location.length == 0)
-					res.send("Quota is too large for any suitable locations.")
-				else {
-					var response = "";
-					for ( i = 0; i < location.length ;i++) {
-						response = response + 
-							"Location ID: " + location[i].locId + "<br>\n" +
-							"Location Name: " + location[i].name + "<br>\n" +
-							"Location quota: " + location[i].quota + "<br><br>\n";
-					}
-					res.send(response);
-				}
-			}
-		)
-	}
-});
-*/
 
-// listen to port 2096
 const server = app.listen(2096);
