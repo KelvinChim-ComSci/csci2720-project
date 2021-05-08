@@ -6,7 +6,6 @@ class Comment extends React.Component {
     this.state = {
       newComment: ""
     }
-    //this.checkValid = this.checkValid.bind(this);
     this.onChangeValue = this.onChangeValue.bind(this);
     this.createComment = this.createComment.bind(this);
   }
@@ -25,7 +24,7 @@ class Comment extends React.Component {
 
   async createComment() {
     await fetch(
-      `http://csci2720-g114.cse.cuhk.edu.hk/createComment`,
+      `http://csci2720-g96.cse.cuhk.edu.hk/createComment`,
       {
         method: "POST",
         headers: new Headers({
@@ -40,7 +39,6 @@ class Comment extends React.Component {
     )
       .then((res) => res.json())
       .then((res) => {
-        console.log(res);
         this.onChangeValue();
         this.refreshPage();
         // this.props.updateHandler();
@@ -61,8 +59,6 @@ class Comment extends React.Component {
         {this.props.comments.map((value) => {
           var date = new Date(value.timestamp);
           var convertedMonth = date.getMonth() + 1;
-          console.log("value.timestamp: " + value.timestamp);
-          console.log("date: " + date);
           var formalDate = date.getHours().toString().padStart(2, '0') +
             ':' +
             date.getMinutes().toString().padStart(2, '0') +
@@ -72,9 +68,6 @@ class Comment extends React.Component {
             convertedMonth.toString().padStart(2, '0') +
             '/' +
             date.getFullYear().toString()
-          console.log("formalDate: " + formalDate);
-          console.log(formalDate);
-          // console.log("hours: " + value.timestamp.getHours().toString());
           return (
             <div id="comments">
               <div>
@@ -82,8 +75,6 @@ class Comment extends React.Component {
                   <p>{value.username}   {formalDate}</p>
                   <p>{value.comment}</p>
                 </span>
-
-                
               </div>
             </div>
           )
@@ -92,6 +83,7 @@ class Comment extends React.Component {
         <form  onSubmit={(event) => this.checkValid(event)}>
           <div className="createCommitForm" onChange={this.onChangeValue}>
             <label for="new-comment" class="form-label">Add your own comment: </label>
+            <br></br>
             <textarea
               type="text"
               class="form-control"

@@ -153,12 +153,22 @@ class ChartPage extends React.Component {
                 </select>
 
                 <p>{this.state.place}</p>
+                <button id="displayHour">Waiting time in this hour of past 7 days</button>
+                <button id="displayWeek">Waiting time in the past 10 hours</button>
                 <canvas id="myFirstChart" width="400" height="400"></canvas>
                 <hr />
                 <canvas id="mySecondChart" width="400" height="400"></canvas>
+                <div id="weekData" style={{display: 'none'}}></div>
+                <div id="hourData" style={{display: 'none'}}></div>
             </div>
         );
     }
 }
 
+/*
+Idea for making the Chart work: 
+1. fetch the data with componentdidMount
+2. put the data in a div by getElementbyId
+3. call the chart by pressing the button, so the action is done after the data is fetched.
+*/
 export default ChartPage;

@@ -15,7 +15,6 @@ class Place extends React.Component {
 
     getData() {
         var status;
-        console.log("this.props.place: " + this.props.place);
         fetch(
             `http://csci2720-g96.cse.cuhk.edu.hk/fetchComment`, // Please use your own port when working.
             { // Otherwise it won't work.
@@ -38,33 +37,19 @@ class Place extends React.Component {
             .then((res) => res.json())
             .then((res) => {
                 if (status === 200) {
-                    //console.log(res.data);
                     this.setState({ comments: res.data });
-                    //console.log("comment");
-                    //console.log(this.state.comments);
                 }
             })
     }
-
-    /*
-    updateHandler() {
-        console.log("update...");
-    }
-    */
 
     componentDidMount() {
         this.getData();
     }
 
-    /*
-    componentDidUpdate() {
-        this.getData();
-    }
-    */
 
     add(){ 
         fetch(
-          `http://csci2720-g110.cse.cuhk.edu.hk/favadd`, // Please use your own port when working.
+          `http://csci2720-g96.cse.cuhk.edu.hk/favadd`, // Please use your own port when working.
           { // Otherwise it won't work.
             method: "POST",
             headers: new Headers({
@@ -80,11 +65,9 @@ class Place extends React.Component {
           .then((res) => {
             if (res.status === 200) { 
                 alert("Successfully Added");
-                return console.log("Successfully Added");
               }
             else if (res.status === 422) 
             alert("Fail. You already have your favourite place.");
-            return console.log("Fail. You already have your favourite place. ");
           })
       }
 
@@ -100,7 +83,8 @@ class Place extends React.Component {
                         place = {this.props.place}
                     />
                 </div>
-                <button id="fav-loc" value={loc} type="button" onClick={this.add}>Add To Your Favourite Place</button>
+                <br></br>
+                <button id="fav-loc" defaultValue={loc} type="button" onClick={this.add}>Add To Your Favourite Place <span style={{color: "orange"}}>&#9733;</span></button>
                 <h3>Location Information</h3>
                 <p>Location ID: {loc}</p>
                 <p>Location: {location_dict[loc][0]}</p>

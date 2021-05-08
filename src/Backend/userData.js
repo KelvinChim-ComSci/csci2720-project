@@ -44,7 +44,7 @@ class createUser extends React.Component {
         return(
             <div>
                 <h2>Create a User account</h2>
-                <form action="http://csci2720-g84.cse.cuhk.edu.hk/userData/createUser/create" method="post">
+                <form action="http://csci2720-g96.cse.cuhk.edu.hk/userData/createUser/create" method="post">
                     <div>
                     <label htmlFor="user-id">User ID:</label>
                     <input type="text" id = "user-id" name="id" required></input>
@@ -66,7 +66,7 @@ class retrieveUser extends React.Component {
         return(
             <div>
             <h2>Retrieve a User account</h2>
-            <form action="http://csci2720-g84.cse.cuhk.edu.hk/userData/retrieveUser/retrieve" method="post">
+            <form action="http://csci2720-g96.cse.cuhk.edu.hk/userData/retrieveUser/retrieve" method="post">
             <div>
                 <label htmlFor="user-id">User ID:</label>
                 <input type="text" id = "user-id" name="id" required></input>
@@ -84,7 +84,7 @@ class updateUser extends React.Component {
         return(
             <div>
              <h2>Update a User account</h2>
-            <form action="http://csci2720-g84.cse.cuhk.edu.hk/userData/updateUser/update" method="post">
+            <form action="http://csci2720-g96.cse.cuhk.edu.hk/userData/updateUser/update" method="post">
             <div>
                 <label htmlFor="user-id">Original User ID:</label>
                 <input type="text" id = "user-id" name="id" required></input>
@@ -110,7 +110,7 @@ class deleteUser extends React.Component {
         return(
             <div>
              <h2>Delete a User account</h2>
-            <form action="http://csci2720-g84.cse.cuhk.edu.hk/userData/deleteUser/delete" method="post">
+            <form action="http://csci2720-g96.cse.cuhk.edu.hk/userData/deleteUser/delete" method="post">
             <div>
                 <label htmlFor="user-id">User ID:</label>
                 <input type="text" id = "user-id" name="id" required></input>

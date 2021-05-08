@@ -96,21 +96,38 @@ class Info extends React.Component {
             );
         }
         return (
+            <div className="realcss" >
             <div>
-                <h2>Real-time Data</h2>
-                <p>Update time: +{this.state.time}</p>
+                <h2  className=" w3-padding-16 w3-blue  w3-round-xlarge w3-container">Real-time Data</h2>
+                <div className="w3-pale-blue w3-round-xlarge w3-container  ">
+                    <p></p>
+                
+                    
+                <h4> Update time: +{this.state.time}</h4>
+               
+                <p></p>
                 <div onChange={this.onChangeValue}>
-                    <input type="radio" value="locID" name="field" /> Location ID
-                    <input type="radio" value="location" name="field" /> Location
-                    <input type="radio" value="destID" name="field" /> Destination ID
-                    <input type="radio" value="destination" name="field" /> Destination
-
-                </div>
+                <table>
+                   
+                        <tr>
+                        <th className="th1"><input type="radio" value="locID"  name="field"/> Location ID </th>
+                        <th> <input type="radio" value="location" name="field" /> Location </th>
+                        <th><input type="radio" value="destID" name="field" /> Destination ID </th>
+                        <th  className="th2"><input type="radio" value="destination" name="field" /> Destination </th>
+                        </tr>
+                   
+                    </table>
+                   </div>
+                   <p></p>
+ 
+                
                 <SearchBar
                     searchQuery={this.state.searchQuery}
                     setSearchQuery={this.setSearchQuery}
-                />
-                <table>
+                    
+                /><p></p></div>
+                <p></p>
+                <table className=" w3-padding-16 w3-pale-blue w3-round-xlarge w3-container ">
                     <thead>
                         <tr>
                             <th>Location ID </th>
@@ -160,6 +177,7 @@ class Info extends React.Component {
                     </tbody>
                 </table>
             </div >
+            </div>
 
         );
     }

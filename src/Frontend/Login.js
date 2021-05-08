@@ -8,7 +8,7 @@ class Login extends React.Component {
 
   validate() { // Validation
     fetch(
-      `http://csci2720-g84.cse.cuhk.edu.hk/login`, // Please use your own port when working.
+      `http://csci2720-g96.cse.cuhk.edu.hk/login`, // Please use your own port when working.
       { // Otherwise it won't work.
         method: "POST",
         headers: new Headers({
