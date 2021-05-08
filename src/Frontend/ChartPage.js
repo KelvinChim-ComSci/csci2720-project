@@ -37,7 +37,6 @@ class ChartPage extends React.Component {
         //the part I have not do yet:
         //1. loop var d and t to fetch data from different time
         //2. check change t (-1 min) if the webpage is invalid (do this until the webpage work)
-        // this.createFirstChart();
     }
 
     async handleData() {
@@ -90,40 +89,37 @@ class ChartPage extends React.Component {
     }
 
     createFirstChart() {
-        console.log("code line 79: ");
-        console.log(this.state.latestData);
-        // console.log(this.state.latestData[3].journeyData);
- 
-        var testarray = [1,2,3,4,5,6,7];
+        var x_axis = [];
+        var y_axis = [];
         var ctx = document.getElementById('myFirstChart');
         const chart = new Chart(ctx, {
             type: 'line',
             
             data: {
-                labels: testarray, // x axis
+                labels: [1,2,3,4,5,6], // x axis
                 datasets: [{ 
-                    data: [this.state.latestData.journeyData], // y axis
-                    label: "Africa",
+                    data: [], // y axis
+                    label: "H1",
                     borderColor: "#3e95cd",
                     fill: false
                   }, { 
                     data: [282,350,411,502,635,809,947], // y axis
-                    label: "Asia",
+                    label: "H2",
                     borderColor: "#8e5ea2",
                     fill: false
                   }, { 
                     data: [168,170,178,190,203,276,408,547,675,734], // y axis
-                    label: "Europe",
+                    label: "H3",
                     borderColor: "#3cba9f",
                     fill: false
                   }, { 
                     data: [40,20,10,16,24,38,74,167,508,784], // y axis
-                    label: "Latin America",
+                    label: "K01",
                     borderColor: "#e8c3b9",
                     fill: false
                   }, { 
                     data: [6,3,2,2,7,26,82,172,312,433], // y axis
-                    label: "North America",
+                    label: "K02",
                     borderColor: "#c45850",
                     fill: false
                   }
@@ -177,15 +173,14 @@ class ChartPage extends React.Component {
                         })
                     }
                 </select>
-                <button id="displayHour" onClick= {async () => 
-                document.getElementById("allData").innerHTML = this.handleData()}
+                <button id="displayHour" onClick={() => this.createFirstChart()}
                 >
                     Waiting time in this hour of past 7 days
                 </button>
                 <button id="displayWeek">Waiting time in the past 10 hours</button>
                 <p>{this.state.place}</p>
-                <button onClick ={() => console.log(this.state.latestData[1])}>...</button>
-                <canvas id="myFirstChart" style={{display: 'none'}} width="400" height="400"></canvas>
+                <button onClick ={() => console.log(this.state.latestData)}>...</button>
+                <canvas id="myFirstChart" width="400" height="400"></canvas>
                 <hr />
                 <canvas id="mySecondChart" style={{display: 'none'}} width="400" height="400"></canvas>
                 <div id="allData"></div>
