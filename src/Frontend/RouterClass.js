@@ -26,7 +26,6 @@ class RouterClass extends React.Component {
           <hr />
 
           <Switch>
-            <Route exact path="/" component={Home} />
             <Route path="/login" component={Login} />
             {/*<Route path="*" component={NoMatch} />*/}
           </Switch>
