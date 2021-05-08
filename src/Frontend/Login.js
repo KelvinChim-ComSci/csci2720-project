@@ -49,7 +49,7 @@ class Login extends React.Component {
   render() {
     return (
       <div className="loginPage">
-        <h1>Login</h1>
+        <h1><span class="icon login"></span>Login</h1>
         <form className="loginForm">
           <div>
           <label htmlFor="login-id">Login ID:</label>

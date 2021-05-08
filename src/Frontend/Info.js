@@ -138,12 +138,20 @@ class Info extends React.Component {
                 <table className=" w3-padding-16 w3-pale-blue w3-round-xlarge w3-container ">
                     <thead>
                         <tr>
-                            <th className="th1">Location ID <button type="button" onClick={() => this.sortBy("locID")}>sort</button> </th>
-                            <th>Location <button type="button" onClick={() => this.sortBy("location")}>sort</button></th>
-                            <th>Destination ID <button type="button" onClick={() => this.sortBy("destID")}>sort</button></th>
-                            <th>Destination <button type="button" onClick={() => this.sortBy("destination")}>sort</button></th>
-                            <th>Journey Time / Traffic Status <button type="button" onClick={() => this.sortBy("journeyData")}>sort</button></th>
-                            <th className="th2" >Color Code <button type="button" onClick={() => this.sortBy("color")}>sort</button></th>
+                            <th>Location ID </th>
+                            <th>Location </th>
+                            <th>Destination ID </th>
+                            <th>Destination </th>
+                            <th>Journey Time / Traffic Status </th>
+                            <th>Color Code </th>
+                        </tr>
+                        <tr> 
+                            <th> <button type="button" onClick={() => this.sortBy("locID")}>sort</button> </th>
+                            <th> <button type="button" onClick={() => this.sortBy("location")}>sort</button></th>
+                            <th><button type="button" onClick={() => this.sortBy("destID")}>sort</button></th>
+                            <th> <button type="button" onClick={() => this.sortBy("destination")}>sort</button></th>
+                            <th><button type="button" onClick={() => this.sortBy("journeyData")}>sort</button></th>
+                            <th> <button type="button" onClick={() => this.sortBy("color")}>sort</button></th>
                         </tr>
                     </thead>
                     <tbody>

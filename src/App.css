@@ -164,6 +164,20 @@ th, td {
 .th1 {
   border-radius: 15px 0px 0px 15px; 
 }
+
+/* Icon */
+.icon::before {
+  display: inline-block;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+.login::before {
+  font-family: "Font Awesome 5 Free"; font-weight: 900; content: "\f007";
+}
+
 .th2 {
   border-radius:  0px 15px 15px 0px; 
 }

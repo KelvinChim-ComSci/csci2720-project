@@ -32,7 +32,6 @@ class LoginedRouterClassUser extends React.Component { //User Page
     render() {
         return (
             <Router>
-                <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"></link>
                 <div className="userMainPage">
                 <button className="logoutButton" onClick={this.props.Logout}>Logout</button>
                     <header>

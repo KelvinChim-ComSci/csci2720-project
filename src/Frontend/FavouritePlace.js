@@ -11,8 +11,7 @@ import { location_dict, loc_to_dest_dict } from "../Backend/data.js";
 
 
 
-class FavouritePlace extends React.Component {
-  
+class FavouritePlace extends React.Component { 
     constructor(props) {
         super(props);
        
@@ -21,8 +20,7 @@ class FavouritePlace extends React.Component {
         };
     
       }
-    
-    
+  
       async componentDidMount() {
         var username = this.props.username;
         var url= "http://csci2720-g96.cse.cuhk.edu.hk/fav/";
