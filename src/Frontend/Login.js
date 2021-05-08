@@ -7,6 +7,7 @@
 */
 
 import React from "react";
+import image from "../bg-image.jpg";
 
 class Login extends React.Component {
   constructor(props) {
@@ -45,11 +46,11 @@ class Login extends React.Component {
           return console.log("error");
       })
   }
-
+ 
   render() {
     return (
-      <div className="loginPage">
-        <h1><span class="icon login"></span>Login</h1>
+      <div className="loginPage" style={{ backgroundImage: `url(${image})`}}>
+        <h1>Login</h1>
         <form className="loginForm">
           <div>
           <label htmlFor="login-id">Login ID:</label>
@@ -63,6 +64,7 @@ class Login extends React.Component {
 
           <button className="loginButton" id="Submit" type="button" onClick={this.validate}>Login</button>
         </form>
+
       </div>
     );
   }
