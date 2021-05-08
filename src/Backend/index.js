@@ -54,7 +54,6 @@ var Place = mongoose.model('Place', PlaceSchema);
 
 // POST //
 app.post('/login', async function (req, res) { // LOGIN SYSTEM
-	console.log("Post request received!!");
 	var username = req.body.id;
 	var password = req.body.pw;
 	User.findOne({ username: username }, async function (err, user) {
@@ -108,8 +107,6 @@ app.post('/favadd', function(req,res) {
 
 // CRUD userData
 app.post('/userData/createUser/create', async function (req, res) {
-	console.log("Create user request received!!");
-	console.log(req.body);
 	User.findOne(
 		{ username: req.body.id },
 		async function (err, e) {
@@ -148,8 +145,6 @@ app.post('/userData/createUser/create', async function (req, res) {
 })
 
 app.post('/userData/retrieveUser/retrieve', function (req, res) {
-	console.log("Retrieve user request received!!");
-	console.log(req.body);
 	User.findOne(
 		{ username: req.body.id },
 		"username password",
@@ -171,8 +166,6 @@ app.post('/userData/retrieveUser/retrieve', function (req, res) {
 })
 
 app.post('/userData/updateUser/update', async function (req, res) {
-	console.log("Update user request received!!");
-	console.log(req.body);
 	
 	User.findOne(
 		{ username: req.body.id },
@@ -224,8 +217,6 @@ app.post('/userData/updateUser/update', async function (req, res) {
 })
 
 app.post('/userData/deleteUser/delete', function (req, res) {
-	console.log("Delete user request received!!");
-	console.log(req.body);
 	User.findOne(
 		{ username: req.body.id },
 		"username password",
@@ -253,8 +244,6 @@ app.post('/userData/deleteUser/delete', function (req, res) {
 })
 
 app.post('/placeData/createPlace/create', function (req, res) {
-	console.log("Create place request received!!");
-	console.log(req.body);
 	Place.findOne(
 		{ placeId: req.body.id }, // need to check name?
 		(err, e) => {
@@ -292,8 +281,6 @@ app.post('/placeData/createPlace/create', function (req, res) {
 })
 
 app.post('/placeData/retrievePlace/retrieve', function (req, res) {
-	console.log("Retrieve place request received!!");
-	console.log(req.body);
 	Place.findOne(
 		{ placeId: req.body.id },
 		"placeId placeName latitude longitude",
@@ -302,7 +289,6 @@ app.post('/placeData/retrievePlace/retrieve', function (req, res) {
 			if (e === null || e === " ") 
 				return res.send("Place data not found");
 			else {
-				console.log(e)
 				return res.status(201).send(
 					"Place data retrieved! <br>Place ID: " +
 					e.placeId +
@@ -322,8 +308,6 @@ app.post('/placeData/retrievePlace/retrieve', function (req, res) {
 })
 
 app.post('/placeData/updatePlace/update', function (req, res) {
-	console.log("Update place request received!!");
-	console.log(req.body);
 	Place.findOne(
 		{ placeId: req.body.id },
 		"placeId placeName latitude longitude",
@@ -367,8 +351,6 @@ app.post('/placeData/updatePlace/update', function (req, res) {
 })
 
 app.post('/placeData/deletePlace/delete', function (req, res) {
-	console.log("Delete place request received!!");
-	console.log(req.body);
 	Place.findOne(
 		{ placeId: req.body.id },
 		"placeId placeName latitude longitude",
@@ -402,7 +384,6 @@ app.post('/placeData/deletePlace/delete', function (req, res) {
 })
 
 app.post('/fetchComment', function (req, res) {
-	console.log("fetch comment post request received!");
 	var locID = req.body.location;
 	Comment.find({ locID }, function (err, data) {
 		if (err) {
@@ -412,18 +393,15 @@ app.post('/fetchComment', function (req, res) {
 			return res.status(422).json({ msg: 'comment not exist' });
 		}
 		else {
-			console.log(data);
 			return res.status(200).json({ data, msg: 'comment fetched' }); // SUCCESS
 		}
 	});
 })
 
 app.post('/createComment', function (req, res) {
-	console.log("create comment post request received!");
 	var locID = req.body.locID;
 	var username = req.body.username;
 	var comment = req.body.comment;
-	console.log(locID + " " + username + " " + comment);
 
 	Comment.create({ locID, username, comment }, (err, data) => {
 		if (err) {

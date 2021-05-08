@@ -59,8 +59,6 @@ class Comment extends React.Component {
         {this.props.comments.map((value) => {
           var date = new Date(value.timestamp);
           var convertedMonth = date.getMonth() + 1;
-          //console.log("value.timestamp: " + value.timestamp);
-          //console.log("date: " + date);
           var formalDate = date.getHours().toString().padStart(2, '0') +
             ':' +
             date.getMinutes().toString().padStart(2, '0') +
@@ -70,9 +68,6 @@ class Comment extends React.Component {
             convertedMonth.toString().padStart(2, '0') +
             '/' +
             date.getFullYear().toString()
-          //console.log("formalDate: " + formalDate);
-          //console.log(formalDate);
-          // console.log("hours: " + value.timestamp.getHours().toString());
           return (
             <div id="comments">
               <div>

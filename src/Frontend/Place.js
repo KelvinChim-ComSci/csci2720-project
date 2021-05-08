@@ -37,29 +37,15 @@ class Place extends React.Component {
             .then((res) => res.json())
             .then((res) => {
                 if (status === 200) {
-                    //console.log(res.data);
                     this.setState({ comments: res.data });
-                    //console.log("comment");
-                    //console.log(this.state.comments);
                 }
             })
     }
-
-    /*
-    updateHandler() {
-        console.log("update...");
-    }
-    */
 
     componentDidMount() {
         this.getData();
     }
 
-    /*
-    componentDidUpdate() {
-        this.getData();
-    }
-    */
 
     add(){ 
         fetch(
@@ -79,11 +65,9 @@ class Place extends React.Component {
           .then((res) => {
             if (res.status === 200) { 
                 alert("Successfully Added");
-                return console.log("Successfully Added");
               }
             else if (res.status === 422) 
             alert("Fail. You already have your favourite place.");
-            return console.log("Fail. You already have your favourite place. ");
           })
       }
 
