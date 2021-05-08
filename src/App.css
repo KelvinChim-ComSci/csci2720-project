@@ -59,22 +59,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Merriweather&display=swap');
 * {
   font-family: 'Merriweather', serif;
+  
 }
 
 h1 {
   font-family: 'Merriweather', serif;
+  color: #3b4d66;
 }
 
 h2 {
   padding-top:1%;
+  color: #3b4d66;
 }
 
 input{
   margin:2%;
+  color: #3b4d66;
 }
 
 label {
-
+  color: #3b4d66;
 }
 
 button {
@@ -86,6 +90,8 @@ button {
   flex-direction: column;
   padding: 20%;
   padding-left: 36%;
+  background-color: #EEEEEE;
+  color: #3b4d66;
 }
 .loginForm{
   flex-direction: column;
@@ -94,6 +100,7 @@ button {
 .loginButton{
   margin-top:5%;
   margin-left:110px;
+  color: #3b4d66;
 }
 
 /* logined */
@@ -102,10 +109,12 @@ button {
   flex-direction: column;
   padding: 8%;
   margin: 2%;
+  background-color: #EEEEEE;
 }
 
 .userMainPage{
   padding: 8%;
+  background-color: #EEEEEE;
 }
 
 header{
@@ -135,19 +144,19 @@ header{
   padding:50px 50px 50px 50px;
   margin:50px auto;
   
-  background: #c5d7f7 ;
-  color:rgb(21, 21, 22);
+  background: #EDDCD4;
+  color: #3b4d66;
 }
 
-
-
+.favPlace{
+  background:#E0C6BA;
+}
 
 .realcss {
   padding:10px 50px 50px 50px;
   margin:50px auto;
-  
-  background: #c5d7f7 ;
-  color:rgb(21, 21, 22);
+  background:#A9BBC9;
+  color: #3b4d66;
 }
 
 
@@ -183,9 +192,27 @@ th, td {
 }
 
 
-tr:nth-child(even){background-color: #3259945e}
+tr:nth-child(even){background-color: #8ea6c4}
 
 th {
-  background-color: #325994b2;
-  color: rgb(20, 18, 18);
+  background-color: #7b90ac;
+  color: #EEEEEE;
+}
+
+#searchBar{
+  width: 100%
+}
+
+#createCommentForm{
+  min-width: 1000px;
+}
+#commentBox{
+  min-width: 1000px;
+}
+
+#map{
+  color: #000000;
+}
+#marker{
+  color: #ffffff;
 }

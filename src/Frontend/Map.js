@@ -20,7 +20,7 @@ class Marker extends React.Component {
     <>
     <Link onClick = {() => this.props.changePlace(this.props.place)} to = "/place">
     <div 
-    style={{fontWeight: 'bold'}}
+    style={{fontWeight: 'bold'}} className="marker"
     onMouseOver = {() => document.getElementById('popup').innerHTML = this.props.placeName}/*document.getElementById('popup').style.display = 'block'*/
     onMouseOut = {() => document.getElementById('popup').innerHTML = ""}
     >&#8681;</div>
@@ -50,7 +50,7 @@ class Map extends React.Component {
   render() {
     return (
       // Key is AIzaSyBhVbCumzcBYSl-jizd9Lf04uhdZ6Qlrv8
-      <div style={{ height: '60vh', width: '100%' }}>
+      <div style={{ height: '60vh', width: '100%' }} className="map">
         
         <GoogleMapReact
           bootstrapURLKeys={{ key: "AIzaSyBhVbCumzcBYSl-jizd9Lf04uhdZ6Qlrv8" }}
