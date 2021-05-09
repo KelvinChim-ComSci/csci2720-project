@@ -115,18 +115,20 @@ class Info extends React.Component {
                
                 <p></p>
                 
-                <div onChange={this.onChangeValue}>
-                <table className= "searchTable">
+                <div >
+                    <table className= "searchTable">
                         <tr>
-                        <th ><input type="radio" value="locID"  name="field"/> Location ID </th>
-                        <th> <input type="radio" value="location" name="field" /> Location </th>
-                        <th><input type="radio" value="destID" name="field" /> Destination ID </th>
-                        <th ><input type="radio" value="destination" name="field" /> Destination </th>
-                        <th> <SearchBar className= "searchBar" searchQuery={this.state.searchQuery} setSearchQuery={this.setSearchQuery}/></th>
+                            <th><input type="radio" value="locID"  name="field" onChange={this.onChangeValue}/> Location ID </th>
+                            <th><input type="radio" value="location" name="field" onChange={this.onChangeValue}/> Location </th>
+                            <th><input type="radio" value="destID" name="field" onChange={this.onChangeValue}/> Destination ID </th>
+                            <th><input type="radio" value="destination" name="field" onChange={this.onChangeValue}/> Destination </th>
+                            <th><SearchBar className= "searchBar" searchQuery={this.state.searchQuery} setSearchQuery={this.setSearchQuery}/></th>
                         </tr>
                     </table>
-                   </div>
+                    
                 </div>
+                
+            </div>
                 <br/>
            
                 <p></p>

@@ -24,7 +24,7 @@ class Place extends React.Component {
     getData() {
         var status;
         fetch(
-            `http://csci2720-g101.cse.cuhk.edu.hk/fetchComment`, // Please use your own port when working.
+            `http://csci2720-g96.cse.cuhk.edu.hk/fetchComment`, // Please use your own port when working.
             { // Otherwise it won't work.
                 method: "POST",
                 headers: new Headers({
@@ -57,7 +57,7 @@ class Place extends React.Component {
 
     add() {
         fetch(
-            `http://csci2720-g101.cse.cuhk.edu.hk/favadd`, // Please use your own port when working.
+            `http://csci2720-g96.cse.cuhk.edu.hk/favadd`, // Please use your own port when working.
             { // Otherwise it won't work.
                 method: "POST",
                 headers: new Headers({

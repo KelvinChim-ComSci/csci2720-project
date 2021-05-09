@@ -9,7 +9,6 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import { BrowserRouter as Router } from "react-router-dom";
-import Home from "./Home.js";
 import LongLink from "./LongLink.js";
 import Login from "./Login.js";
 

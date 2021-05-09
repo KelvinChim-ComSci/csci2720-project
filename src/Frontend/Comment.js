@@ -32,7 +32,7 @@ class Comment extends React.Component {
 
   async createComment() {
     await fetch(
-      `http://csci2720-g101.cse.cuhk.edu.hk/createComment`,
+      `http://csci2720-g96.cse.cuhk.edu.hk/createComment`,
       {
         method: "POST",
         headers: new Headers({
