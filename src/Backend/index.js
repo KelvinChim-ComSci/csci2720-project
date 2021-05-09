@@ -44,8 +44,8 @@ var CommentSchema = mongoose.Schema({
 
 var FavSchema = mongoose.Schema({
 	username: { type: String, required: true, unique: true },
-	loc: { type: String, required: true }, 
-  });
+	loc: { type: String, required: true },
+});
 
 var User = mongoose.model('User', UserSchema);
 var Comment = mongoose.model('Comment', CommentSchema);
@@ -65,7 +65,10 @@ app.post('/login', async function (req, res) { // LOGIN SYSTEM
 	var username = req.body.id;
 	var password = req.body.pw;
 	User.findOne({ username: username }, async function (err, user) {
-		if (user.admin === true) {
+		if (!user) {
+			return res.status(422).json({ msg: 'user does not exist' });
+		}
+		else if (user.admin === true) {
 			return res.status(201).json({ msg: 'admin' }); // ADMIN
 		}
 		else if (user) {
@@ -74,43 +77,40 @@ app.post('/login', async function (req, res) { // LOGIN SYSTEM
 				return res.status(200).json({ msg: 'success' });
 			}
 			else { // wrong pw
-				return res.status(400).json({ error: "invalid password"});
+				return res.status(400).json({ error: "invalid password" });
 			}
-		}
-		else {
-			return res.status(422).json({ msg: 'user does not exist' }); // NO USER EXISTS.
 		}
 	});
 })
 
 
-app.get('/fav/:user', function(req,res) {  
+app.get('/fav/:user', function (req, res) {
 	//var user = req.body.id; 
-    Favplace.findOne({username: req.params['user']})                                 
-    .then(p => {       
-        if(!p) {       
-         return  res.send("No Favourite Place is not found");      
-        }
-        return res.send(p.loc);
-      }).catch((e) => {      
-        return res.send("Error \n"+ e );    
-      });
-    });
+	Favplace.findOne({ username: req.params['user'] })
+		.then(p => {
+			if (!p) {
+				return res.send("No Favourite Place is not found");
+			}
+			return res.send(p.loc);
+		}).catch((e) => {
+			return res.send("Error \n" + e);
+		});
+});
 
-app.post('/favadd', function(req,res) {
-		var username = req.body.username;
-		var loc = req.body.loc;
-        var e = new Favplace({
-        username: username, 
-        loc: loc
-        });
-        e.save(function(err) {
-			if (err)
-			return res.status(422).json({ msg: 'fail' });			
-			else return res.status(200).json({ msg: 'success' });
-        
-        });
-    });
+app.post('/favadd', function (req, res) {
+	var username = req.body.username;
+	var loc = req.body.loc;
+	var e = new Favplace({
+		username: username,
+		loc: loc
+	});
+	e.save(function (err) {
+		if (err)
+			return res.status(422).json({ msg: 'fail' });
+		else return res.status(200).json({ msg: 'success' });
+
+	});
+});
 
 
 // CRUD userData
@@ -131,15 +131,15 @@ app.post('/userData/createUser/create', async function (req, res) {
 							admin: false,
 						});
 						x.password = await bcrypt.hash(x.password, salt);
-						x.save( function(err) {
+						x.save(function (err) {
 							if (err) return res.send(err);
 							return res.status(201).send(
-									"New user account created! <br>Username: " +
-									createUser +
-									"<br>\n" +
-									"Password: " +
-									createPassword
-								);
+								"New user account created! <br>Username: " +
+								createUser +
+								"<br>\n" +
+								"Password: " +
+								createPassword
+							);
 						})
 					}
 					else return res.send("User Password must be 4-20 characters long.");
@@ -158,7 +158,7 @@ app.post('/userData/retrieveUser/retrieve', function (req, res) {
 		"username password",
 		(err, e) => {
 			if (err) return res.send(err);
-			if (e === null || e === " ") 
+			if (e === null || e === " ")
 				return res.send("User account not found");
 			else {
 				return res.status(201).send(
@@ -174,7 +174,7 @@ app.post('/userData/retrieveUser/retrieve', function (req, res) {
 })
 
 app.post('/userData/updateUser/update', async function (req, res) {
-	
+
 	User.findOne(
 		{ username: req.body.id },
 		"username password",
@@ -182,43 +182,43 @@ app.post('/userData/updateUser/update', async function (req, res) {
 			if (err) return res.send(err);
 			if (e === null || e === " ")
 				return res.send("User account not found");
-			else { 
+			else {
 				User.findOne( // check if newid is taken
-				{username: req.body.newid},
-				"username",
-				async (err,e2) => {
-					if (err) return res.send(err);
-					if (e2 !== null && e2 !== " ") {
-						return res.send("New Username was taken");
-					}
-					else {
-						const createNewUser = req.body.newid;
-						const createNewPassword = req.body.newpw;
-						if (createNewUser.length >= 4 && createNewUser.length <= 20) {
-							if (createNewPassword >= 4 && createNewPassword.length <= 20) {
-								if (e.username !== req.body.newid) {
-									e.username = req.body.newid;
-								}
-								const salt = await bcrypt.genSalt(10);
-								e.password = createNewPassword;
-								e.password = await bcrypt.hash(e.password, salt);
-								e.save();
-								return res.status(201).send(
-									"User account updated! <br>Username: " +
-									req.body.id +
-									"<br>\n" +
-									"New Username: " +
-									e.username +
-									"<br>\n" +
-									"New Password: " +
-									createNewPassword
-								);
-							}
-							else return res.send("User Password must be 4-20 characters long.")
+					{ username: req.body.newid },
+					"username",
+					async (err, e2) => {
+						if (err) return res.send(err);
+						if (e2 !== null && e2 !== " ") {
+							return res.send("New Username was taken");
 						}
-						else return res.send("Username must be 4-20 characters long.");
-					}
-				});
+						else {
+							const createNewUser = req.body.newid;
+							const createNewPassword = req.body.newpw;
+							if (createNewUser.length >= 4 && createNewUser.length <= 20) {
+								if (createNewPassword >= 4 && createNewPassword.length <= 20) {
+									if (e.username !== req.body.newid) {
+										e.username = req.body.newid;
+									}
+									const salt = await bcrypt.genSalt(10);
+									e.password = createNewPassword;
+									e.password = await bcrypt.hash(e.password, salt);
+									e.save();
+									return res.status(201).send(
+										"User account updated! <br>Username: " +
+										req.body.id +
+										"<br>\n" +
+										"New Username: " +
+										e.username +
+										"<br>\n" +
+										"New Password: " +
+										createNewPassword
+									);
+								}
+								else return res.send("User Password must be 4-20 characters long.")
+							}
+							else return res.send("Username must be 4-20 characters long.");
+						}
+					});
 			}
 		}
 	)
@@ -230,7 +230,7 @@ app.post('/userData/deleteUser/delete', function (req, res) {
 		"username password",
 		(err, e) => {
 			if (err) return res.send(err);
-			if (e === null || e === " ") 
+			if (e === null || e === " ")
 				return res.send("User account not found");
 			else {
 				User.deleteOne({ username: req.body.id }).exec(function (
@@ -294,7 +294,7 @@ app.post('/placeData/retrievePlace/retrieve', function (req, res) {
 		"placeId placeName latitude longitude",
 		(err, e) => {
 			if (err) return res.send(err);
-			if (e === null || e === " ") 
+			if (e === null || e === " ")
 				return res.send("Place data not found");
 			else {
 				return res.status(201).send(
@@ -321,19 +321,19 @@ app.post('/placeData/updatePlace/update', function (req, res) {
 		"placeId placeName latitude longitude",
 		(err, e) => {
 			if (err) return res.send(err);
-			if (e === null || e === " ") 
+			if (e === null || e === " ")
 				return res.send("Place data not found");
-			else{	
-				if (e.placeId !== req.body.newid ){
-						e.placeId = req.body.newid;
+			else {
+				if (e.placeId !== req.body.newid) {
+					e.placeId = req.body.newid;
 				}
-				if (e.placeName !== req.body.newname){
+				if (e.placeName !== req.body.newname) {
 					e.placeNmae = req.body.newname;
 				}
-				if (e.latitude !== req.body.newlat){
+				if (e.latitude !== req.body.newlat) {
 					e.latitude = req.body.newlat;
 				}
-				if (e.longitude !== req.body.newlog){
+				if (e.longitude !== req.body.newlog) {
 					e.longitude = req.body.newlog;
 				}
 				e.save();
@@ -364,7 +364,7 @@ app.post('/placeData/deletePlace/delete', function (req, res) {
 		"placeId placeName latitude longitude",
 		(err, e) => {
 			if (err) return res.send(err);
-			if (e === null || e === " ") 
+			if (e === null || e === " ")
 				return res.send("Place data not found");
 			else {
 				Place.deleteOne({ placeId: req.body.id }).exec(function (
@@ -422,4 +422,4 @@ app.post('/createComment', function (req, res) {
 })
 
 
-const server = app.listen(2096);
+const server = app.listen(2101);

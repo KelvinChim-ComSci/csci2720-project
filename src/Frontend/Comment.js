@@ -32,7 +32,7 @@ class Comment extends React.Component {
 
   async createComment() {
     await fetch(
-      `http://csci2720-g96.cse.cuhk.edu.hk/createComment`,
+      `http://csci2720-g101.cse.cuhk.edu.hk/createComment`,
       {
         method: "POST",
         headers: new Headers({
@@ -88,7 +88,7 @@ class Comment extends React.Component {
           )
         })}
         {/*create comment*/}
-        <form  onSubmit={(event) => this.checkValid(event)}>
+        <form onSubmit={(event) => this.checkValid(event)}>
           <div className="createCommitForm" onChange={this.onChangeValue}>
             <label for="new-comment">Add your own comment: </label>
             <br></br>

@@ -24,7 +24,7 @@ class Place extends React.Component {
     getData() {
         var status;
         fetch(
-            `http://csci2720-g96.cse.cuhk.edu.hk/fetchComment`, // Please use your own port when working.
+            `http://csci2720-g101.cse.cuhk.edu.hk/fetchComment`, // Please use your own port when working.
             { // Otherwise it won't work.
                 method: "POST",
                 headers: new Headers({
@@ -55,54 +55,54 @@ class Place extends React.Component {
     }
 
 
-    add(){ 
+    add() {
         fetch(
-          `http://csci2720-g96.cse.cuhk.edu.hk/favadd`, // Please use your own port when working.
-          { // Otherwise it won't work.
-            method: "POST",
-            headers: new Headers({
-              "Content-Type": 'application/json',
-            }),
-            body: JSON.stringify({
-			  username: window.localStorage.getItem("username"),
-              loc:  document.getElementById("fav-loc").value,
-              
-            }),
-          }
+            `http://csci2720-g101.cse.cuhk.edu.hk/favadd`, // Please use your own port when working.
+            { // Otherwise it won't work.
+                method: "POST",
+                headers: new Headers({
+                    "Content-Type": 'application/json',
+                }),
+                body: JSON.stringify({
+                    username: window.localStorage.getItem("username"),
+                    loc: document.getElementById("fav-loc").value,
+
+                }),
+            }
         )
-          .then((res) => {
-            if (res.status === 200) { 
-                alert("Successfully Added");
-              }
-            else if (res.status === 422) 
-            alert("Fail. You already have your favourite place.");
-          })
-      }
+            .then((res) => {
+                if (res.status === 200) {
+                    alert("Successfully Added");
+                }
+                else if (res.status === 422)
+                    alert("Fail. You already have your favourite place.");
+            })
+    }
 
     render() {
         const loc = this.props.place;
         return (
             <div>
-                <h2>Place</h2>  
+                <h2>Place</h2>
                 <div>
-                    <Map changePlace = {this.props.changePlace}
-                        center={{lat: location_dict[loc][3], lng: location_dict[loc][4]}}
+                    <Map changePlace={this.props.changePlace}
+                        center={{ lat: location_dict[loc][3], lng: location_dict[loc][4] }}
                         zoom={20}
-                        place = {this.props.place}
+                        place={this.props.place}
                     />
                 </div>
                 <br></br>
-                <button className="favPlaceButton" id="fav-loc" defaultValue={loc} type="button" onClick={this.add}>Add To Your Favourite Place <span style={{color: "orange"}}>&#9733;</span></button>
+                <button className="favPlaceButton" id="fav-loc" defaultValue={loc} type="button" onClick={this.add}>Add To Your Favourite Place <span style={{ color: "orange" }}>&#9733;</span></button>
                 <h3>Location Information</h3>
                 <p>Location ID: {loc}</p>
                 <p>Location: {location_dict[loc][0]}</p>
                 <p>Easting: {location_dict[loc][1]}E </p>
                 <p>Northing: {location_dict[loc][2]}N</p>
-                <p>Longitude: {location_dict[loc][4]} </p>         
+                <p>Longitude: {location_dict[loc][4]} </p>
                 <p>Latitude: {location_dict[loc][3]}</p>
-                <br/>
+                <br />
                 <h3>Possible destination:</h3>
-                <table> 
+                <table>
                     <thead>
                         <tr>
                             <th>Destination ID</th>
@@ -123,7 +123,7 @@ class Place extends React.Component {
                 {/*Comments are fetched below*/}
                 <hr />
                 <h3>Comment</h3>
-                <Comment 
+                <Comment
                     comments={this.state.comments}
                     locID={this.props.place}
 

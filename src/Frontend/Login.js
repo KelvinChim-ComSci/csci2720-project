@@ -17,7 +17,7 @@ class Login extends React.Component {
 
   validate() { // Validation
     fetch(
-      `http://csci2720-g96.cse.cuhk.edu.hk/login`, // Please use your own port when working.
+      `http://csci2720-g101.cse.cuhk.edu.hk/login`, // Please use your own port when working.
       { // Otherwise it won't work.
         method: "POST",
         headers: new Headers({
@@ -39,27 +39,28 @@ class Login extends React.Component {
         else if (res.status === 200) { // user
           this.props.handleUserLogin();
         }
-        else if (res.status === 422) { // no user
+        else if (res.status === 400) { // no user
           alert("Invalid username or password! Please try again.");
         }
-        else
+        else if (res.status === 422) {
           return console.log("error");
+        }
       })
   }
- 
+
   render() {
     return (
-      <div className="loginPage" style={{ backgroundImage: `url(${image})`}}>
+      <div className="loginPage" style={{ backgroundImage: `url(${image})` }}>
         <h1>Login</h1>
         <form className="loginForm">
           <div>
-          <label htmlFor="login-id">Login ID:</label>
-          <input type="text" id="login-id" name="id"></input>
+            <label htmlFor="login-id">Login ID:</label>
+            <input type="text" id="login-id" name="id"></input>
           </div>
 
           <div>
-          <label htmlFor="login-pw">Password:</label>
-          <input type="password" id="login-pw" name="pw"></input>
+            <label htmlFor="login-pw">Password:</label>
+            <input type="password" id="login-pw" name="pw"></input>
           </div>
 
           <button className="loginButton" id="Submit" type="button" onClick={this.validate}>Login</button>
