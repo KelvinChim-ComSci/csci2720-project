@@ -52,8 +52,8 @@ var Comment = mongoose.model('Comment', CommentSchema);
 var Favplace = mongoose.model('Favplace', FavSchema);
 
 var PlaceSchema = mongoose.Schema({
-	placeId: { type: String, required: true, unique: true },
-	placeName: { type: String, required: true, unique: true },
+	placeId: { type: String, required: true },
+	placeName: { type: String, required: true },
 	latitude: { type: Number, required: true },
 	longitude: { type: Number, required: true }
 });
@@ -420,6 +420,5 @@ app.post('/createComment', function (req, res) {
 		}
 	})
 })
-
 
 const server = app.listen(2096);

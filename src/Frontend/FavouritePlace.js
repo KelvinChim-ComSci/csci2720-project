@@ -23,7 +23,7 @@ class FavouritePlace extends React.Component {
 
   async componentDidMount() {
     var username = this.props.username;
-    var url = "http://csci2720-g101.cse.cuhk.edu.hk/fav/";
+    var url = "http://csci2720-g96.cse.cuhk.edu.hk/fav/";
     await fetch(
       url + username, // Please use your own port when working.
       { // Otherwise it won't work.
