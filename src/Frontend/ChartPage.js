@@ -24,15 +24,20 @@ class ChartPage extends React.Component {
     async componentDidMount() {
         var day = new Date();
         var d = day.getFullYear() + '/' + ('0' + (day.getMonth() + 1)).slice(-2) + '/' + ('0' + day.getDate()).slice(-2);
+        var hour = ('0' + (day.getHours())).slice(-2);
+        var min = ('0' + day.getMinutes()).slice(-2);
         var t = ('0' + (day.getHours())).slice(-2) + ('0' + day.getMinutes()).slice(-2);
-        this.getData(`https://resource.data.one.gov.hk/td/journeytime.xml`)
-        console.log("code line 21: ")
-        console.log(this.state.latestData);
+        //this.getData(`https://resource.data.one.gov.hk/td/journeytime.xml`)
+        //console.log(this.state.latestData);
         //try error web
-        this.getData(`https://s3-ap-southeast-1.amazonaws.com/historical-resource-archive/2021/05/04/https%253A%252F%252Fresource.data.one.gov.hk%252Ftd%252Fjourneytime.xml/0227`);
+        //this.getData(`https://s3-ap-southeast-1.amazonaws.com/historical-resource-archive/2021/05/04/https%253A%252F%252Fresource.data.one.gov.hk%252Ftd%252Fjourneytime.xml/0227`);
+        var i;
+        // should be 10
+        for (i = 0; i < 3; i++) {
+            this.getData(`https://s3-ap-southeast-1.amazonaws.com/historical-resource-archive/` + d + `/https%253A%252F%252Fresource.data.one.gov.hk%252Ftd%252Fjourneytime.xml/`, 18 - i, 33);
+        }
 
-        this.getData(`https://s3-ap-southeast-1.amazonaws.com/historical-resource-archive/` + d + `/https%253A%252F%252Fresource.data.one.gov.hk%252Ftd%252Fjourneytime.xml/` + t);
-
+        console.log(this.state.latestData);
         //now the getData() can check the webpage has error or not and get out of the function is it is error page
         //the part I have not do yet:
         //1. loop var d and t to fetch data from different time
@@ -52,8 +57,10 @@ class ChartPage extends React.Component {
         });
     }
 
-    async getData(web) {
-        await fetch(web)
+    async getData(web, hour, min) {
+        var link = web + hour + min;
+        console.log(link)
+        await fetch(link)
             .then(response => response.text())
             .then((data) => {
                 const parser = new DOMParser();
@@ -80,6 +87,8 @@ class ChartPage extends React.Component {
                     this.setState({ latestData: all_data, time: capture_time, get: true });
                     //all_data.push({ locID: "H1", location: "test", destID: "tt", destination: "CH", journeyType: "2", journeyData: "3", color: "black" }); //to test journey type 2
 
+                } else {
+                    console.log("web invalid");
                 }
             })
             .catch(function (error) {
