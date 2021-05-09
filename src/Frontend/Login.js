@@ -39,11 +39,8 @@ class Login extends React.Component {
         else if (res.status === 200) { // user
           this.props.handleUserLogin();
         }
-        else if (res.status === 400) { // no user
+        else if (res.status === 400 || res.status === 422) { // no user or password
           alert("Invalid username or password! Please try again.");
-        }
-        else if (res.status === 422) {
-          return console.log("error");
         }
       })
   }

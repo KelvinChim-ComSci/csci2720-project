@@ -32,7 +32,7 @@ class ChartPage extends React.Component {
         this.getData(`https://s3-ap-southeast-1.amazonaws.com/historical-resource-archive/2021/05/04/https%253A%252F%252Fresource.data.one.gov.hk%252Ftd%252Fjourneytime.xml/0227`);
 
         this.getData(`https://s3-ap-southeast-1.amazonaws.com/historical-resource-archive/` + d + `/https%253A%252F%252Fresource.data.one.gov.hk%252Ftd%252Fjourneytime.xml/` + t);
-        
+
         //now the getData() can check the webpage has error or not and get out of the function is it is error page
         //the part I have not do yet:
         //1. loop var d and t to fetch data from different time
@@ -79,7 +79,7 @@ class ChartPage extends React.Component {
                     }
                     this.setState({ latestData: all_data, time: capture_time, get: true });
                     //all_data.push({ locID: "H1", location: "test", destID: "tt", destination: "CH", journeyType: "2", journeyData: "3", color: "black" }); //to test journey type 2
-                    
+
                 }
             })
             .catch(function (error) {
@@ -94,38 +94,38 @@ class ChartPage extends React.Component {
         var ctx = document.getElementById('myFirstChart');
         const chart = new Chart(ctx, {
             type: 'line',
-            
+
             data: {
-                labels: [1,2,3,4,5,6], // x axis
-                datasets: [{ 
+                labels: [1, 2, 3, 4, 5, 6], // x axis
+                datasets: [{
                     data: [], // y axis
                     label: "H1",
                     borderColor: "#3e95cd",
                     fill: false
-                  }, { 
-                    data: [282,350,411,502,635,809,947], // y axis
+                }, {
+                    data: [282, 350, 411, 502, 635, 809, 947], // y axis
                     label: "H2",
                     borderColor: "#8e5ea2",
                     fill: false
-                  }, { 
-                    data: [168,170,178,190,203,276,408,547,675,734], // y axis
+                }, {
+                    data: [168, 170, 178, 190, 203, 276, 408, 547, 675, 734], // y axis
                     label: "H3",
                     borderColor: "#3cba9f",
                     fill: false
-                  }, { 
-                    data: [40,20,10,16,24,38,74,167,508,784], // y axis
+                }, {
+                    data: [40, 20, 10, 16, 24, 38, 74, 167, 508, 784], // y axis
                     label: "K01",
                     borderColor: "#e8c3b9",
                     fill: false
-                  }, { 
-                    data: [6,3,2,2,7,26,82,172,312,433], // y axis
+                }, {
+                    data: [6, 3, 2, 2, 7, 26, 82, 172, 312, 433], // y axis
                     label: "K02",
                     borderColor: "#c45850",
                     fill: false
-                  }
+                }
                 ]
-              },
-              
+            },
+
             options: {
                 plugins: {
                     title: {
@@ -133,7 +133,7 @@ class ChartPage extends React.Component {
                         text: 'Waiting time in the past 10 hours',
                     }
                 },
-                
+
                 scales: {
                     x: {
                         type: 'linear'
@@ -142,7 +142,7 @@ class ChartPage extends React.Component {
                         type: 'linear'
                     }
                 }
-                
+
             }
         })
     }
@@ -179,12 +179,12 @@ class ChartPage extends React.Component {
                 </button>
                 <button id="displayWeek">Waiting time in the past 10 hours</button>
                 <p>{this.state.place}</p>
-                <button onClick ={() => console.log(this.state.latestData)}>...</button>
+                <button onClick={() => console.log(this.state.latestData)}>...</button>
                 <canvas id="myFirstChart" width="400" height="400"></canvas>
                 <hr />
-                <canvas id="mySecondChart" style={{display: 'none'}} width="400" height="400"></canvas>
+                <canvas id="mySecondChart" style={{ display: 'none' }} width="400" height="400"></canvas>
                 <div id="allData"></div>
-                <div id="hourData" style={{display: 'none'}}></div>
+                <div id="hourData" style={{ display: 'none' }}></div>
             </div>
         );
     }
