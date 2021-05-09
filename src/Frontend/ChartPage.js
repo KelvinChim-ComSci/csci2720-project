@@ -18,30 +18,25 @@ class ChartPage extends React.Component {
             place: "H1",
             latestData: [],
             get: false,
+            createChart: false,
         };
     }
 
     async componentDidMount() {
         var day = new Date();
-        var d = day.getFullYear() + '/' + ('0' + (day.getMonth() + 1)).slice(-2) + '/' + ('0' + day.getDate()).slice(-2);
-        var hour = ('0' + (day.getHours())).slice(-2);
-        var min = ('0' + day.getMinutes()).slice(-2);
+        var d = day.getFullYear() + ('0' + (day.getMonth() + 1)).slice(-2) + ('0' + day.getDate()).slice(-2);
+        var hour = day.getHours();
+        var min = day.getMinutes();
         var t = ('0' + (day.getHours())).slice(-2) + ('0' + day.getMinutes()).slice(-2);
-        //this.getData(`https://resource.data.one.gov.hk/td/journeytime.xml`)
+        //this.getData(`https://resource.data.one.gov.hk/td/journeytime.xml`);
         //console.log(this.state.latestData);
-        //try error web
-        //this.getData(`https://s3-ap-southeast-1.amazonaws.com/historical-resource-archive/2021/05/04/https%253A%252F%252Fresource.data.one.gov.hk%252Ftd%252Fjourneytime.xml/0227`);
-        var i;
-        // should be 10
-        for (i = 0; i < 3; i++) {
-            this.getData(`https://s3-ap-southeast-1.amazonaws.com/historical-resource-archive/` + d + `/https%253A%252F%252Fresource.data.one.gov.hk%252Ftd%252Fjourneytime.xml/`, 18 - i, 33);
-        }
 
+        var i;
+        for (i = 0; i < 10; i++) {
+            this.getData("", d - i, hour, min);
+        }
         console.log(this.state.latestData);
-        //now the getData() can check the webpage has error or not and get out of the function is it is error page
-        //the part I have not do yet:
-        //1. loop var d and t to fetch data from different time
-        //2. check change t (-1 min) if the webpage is invalid (do this until the webpage work)
+
     }
 
     async handleData() {
@@ -57,9 +52,13 @@ class ChartPage extends React.Component {
         });
     }
 
-    async getData(web, hour, min) {
-        var link = web + hour + min;
-        console.log(link)
+    async getData(web, day, hr, m) {
+        var hour = ('0' + hr).slice(-2);
+        var min = ('0' + m).slice(-2);
+        var link = web;
+        if (web === "") {
+            link = "https://api.data.gov.hk/v1/historical-archive/get-file?url=https%3A%2F%2Fresource.data.one.gov.hk%2Ftd%2Fjourneytime.xml&time=" + day + "-" + hour + min;
+        }
         await fetch(link)
             .then(response => response.text())
             .then((data) => {
@@ -88,7 +87,11 @@ class ChartPage extends React.Component {
                     //all_data.push({ locID: "H1", location: "test", destID: "tt", destination: "CH", journeyType: "2", journeyData: "3", color: "black" }); //to test journey type 2
 
                 } else {
-                    console.log("web invalid");
+                    if (m === 0) {
+                        this.getData("", day, hr - 1, 59);
+                    } else {
+                        this.getData("", day, hr, m - 1);
+                    }
                 }
             })
             .catch(function (error) {
@@ -97,17 +100,16 @@ class ChartPage extends React.Component {
 
     }
 
-    createFirstChart() {
+    createChart() {
         var x_axis = [];
         var y_axis = [];
         var ctx = document.getElementById('myFirstChart');
-        const chart = new Chart(ctx, {
+        var chart = new Chart(ctx, {
             type: 'line',
-
             data: {
                 labels: [1, 2, 3, 4, 5, 6], // x axis
                 datasets: [{
-                    data: [], // y axis
+                    data: [500, 500, 500, 500, 500, 500, 500], // y axis
                     label: "H1",
                     borderColor: "#3e95cd",
                     fill: false
@@ -155,6 +157,33 @@ class ChartPage extends React.Component {
             }
         })
     }
+
+    addData(chart, label, data) {
+        chart.data.labels.push(label);
+        chart.data.datasets.forEach((dataset) => {
+            dataset.data.push(data);
+        });
+        chart.update();
+    }
+
+    removeData(chart) {
+        chart.data.labels.pop();
+        chart.data.datasets.forEach((dataset) => {
+            dataset.data.pop();
+        });
+        chart.update();
+    }
+
+    updateChart() {
+        if (!this.state.createChart) {
+            this.createChart();
+            this.setState({ createChart: true });
+        } else {
+            console.log(document.getElementById('myFirstChart'));
+            //this.removeData(chart)
+        }
+    }
+
     render() {
         if (!this.state.get) {
             const allData = [];
@@ -182,16 +211,16 @@ class ChartPage extends React.Component {
                         })
                     }
                 </select>
-                <button id="displayHour" onClick={() => this.createFirstChart()}
+                <button id="displayHour" onClick={() => { this.updateChart() }}
                 >
                     Waiting time in this hour of past 7 days
                 </button>
                 <button id="displayWeek">Waiting time in the past 10 hours</button>
-                <p>{this.state.place}</p>
-                <button onClick={() => console.log(this.state.latestData)}>...</button>
+                {/*<p>{this.state.place}</p>*/}
+                {/*<button onClick={() => console.log(this.state.latestData)}>...</button>*/}
                 <canvas id="myFirstChart" width="400" height="400"></canvas>
                 <hr />
-                <canvas id="mySecondChart" style={{ display: 'none' }} width="400" height="400"></canvas>
+                <canvas id="mySecondChart" width="400" height="400"></canvas>
                 <div id="allData"></div>
                 <div id="hourData" style={{ display: 'none' }}></div>
             </div>
