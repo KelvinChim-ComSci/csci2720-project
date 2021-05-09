@@ -195,7 +195,7 @@ app.post('/userData/updateUser/update', async function (req, res) {
 							const createNewUser = req.body.newid;
 							const createNewPassword = req.body.newpw;
 							if (createNewUser.length >= 4 && createNewUser.length <= 20) {
-								if (createNewPassword >= 4 && createNewPassword.length <= 20) {
+								if (createNewPassword.length >= 4 && createNewPassword.length <= 20) {
 									if (e.username !== req.body.newid) {
 										e.username = req.body.newid;
 									}
@@ -422,4 +422,4 @@ app.post('/createComment', function (req, res) {
 })
 
 
-const server = app.listen(2101);
+const server = app.listen(2096);
