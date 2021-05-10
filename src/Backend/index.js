@@ -69,7 +69,12 @@ app.post('/login', async function (req, res) { // LOGIN SYSTEM
 			return res.status(422).json({ msg: 'user does not exist' });
 		}
 		else if (user.admin === true) {
-			return res.status(201).json({ msg: 'admin' }); // ADMIN
+			const validPassword = await bcrypt.compare(password, user.password);
+			if (validPassword)
+				return res.status(201).json({ msg: 'admin' }); // ADMIN
+			else // wrong pw
+				return res.status(400).json({ error: "invalid password" });
+
 		}
 		else if (user) {
 			const validPassword = await bcrypt.compare(password, user.password);
