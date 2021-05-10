@@ -61,8 +61,9 @@ class createUser extends React.Component {
                         <label htmlFor="user-pw">Password:</label>
                         <input type="password" id="user-pw" name="pw" required></input>
                     </div>
-                    <input type="submit" />
-                    {/*<button id="Submit" type="button" onClick={this.validate}>Create</button>*/}
+                    <div style={{display:"-ms-inline-flexbox" }}>
+                    <input type="submit"  value= "Submit" style={{ margin: "0", marginTop:"2%"}}/>
+                    </div>
                 </form>
             </div>
         )
@@ -79,8 +80,9 @@ class retrieveUser extends React.Component {
                         <label htmlFor="user-id">User ID:</label>
                         <input type="text" id="user-id" name="id" required></input>
                     </div>
-                    <input type="submit" />
-                    {/*<button id="Submit" type="button" onClick={this.validate}>Create</button>*/}
+                    <div style={{display:"-ms-inline-flexbox" }}>
+                    <input type="submit"  value= "Submit" style={{ margin: "0", marginTop:"2%"}}/>
+                    </div>
                 </form>
             </div>
         )
@@ -105,8 +107,9 @@ class updateUser extends React.Component {
                         <label htmlFor="newuser-pw">New Password:</label>
                         <input type="text" id="newuser-pw" name="newpw" required></input>
                     </div>
-                    <input type="submit" />
-                    {/*<button id="Submit" type="button" onClick={this.validate}>Create</button>*/}
+                    <div style={{display:"-ms-inline-flexbox" }}>
+                    <input type="submit"  value= "Submit" style={{ margin: "0", marginTop:"2%"}}/>
+                    </div>
                 </form>
             </div>
         )
@@ -123,8 +126,9 @@ class deleteUser extends React.Component {
                         <label htmlFor="user-id">User ID:</label>
                         <input type="text" id="user-id" name="id" required></input>
                     </div>
-                    <input type="submit" />
-                    {/*<button id="Submit" type="button" onClick={this.validate}>Create</button>*/}
+                    <div style={{display:"-ms-inline-flexbox" }}>
+                    <input type="submit"  value= "Submit" style={{ margin: "0", marginTop:"2%"}}/>
+                    </div>
                 </form>
             </div>
         )

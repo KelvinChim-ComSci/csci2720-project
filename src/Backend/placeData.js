@@ -66,8 +66,9 @@ class createPlace extends React.Component {
                         <label htmlFor="place-longitude">Place longitude:</label>
                         <input type="text" id="place-longitude" name="log" required></input>
                     </div>
-
-                    <input type="submit" />
+                    <div style={{display:"-ms-inline-flexbox" }}>
+                    <input type="submit"  value= "Submit" style={{ margin: "0", marginTop:"2%"}}/>
+                    </div>
                     {/*<button id="Submit" type="button" onClick={this.validate}>Create</button>*/}
                 </form>
             </div>
@@ -85,8 +86,9 @@ class retrievePlace extends React.Component {
                         <label htmlFor="place-id">Place ID:</label>
                         <input type="text" id="place-id" name="id" required></input>
                     </div>
-                    <input type="submit" />
-                    {/*<button id="Submit" type="button" onClick={this.validate}>Create</button>*/}
+                    <div style={{display:"-ms-inline-flexbox" }}>
+                    <input type="submit"  value= "Submit" style={{ margin: "0", marginTop:"2%"}}/>
+                    </div>
                 </form>
             </div>
         )
@@ -119,8 +121,9 @@ class updatePlace extends React.Component {
                         <label htmlFor="newplace-longitude">New Place longitude:</label>
                         <input type="text" id="newplace-longitude" name="newlog" required></input>
                     </div>
-                    <input type="submit" />
-                    {/*<button id="Submit" type="button" onClick={this.validate}>Create</button>*/}
+                    <div style={{display:"-ms-inline-flexbox" }}>
+                    <input type="submit"  value= "Submit" style={{ margin: "0", marginTop:"2%"}}/>
+                    </div>
                 </form>
             </div>
         )
@@ -137,8 +140,9 @@ class deletePlace extends React.Component {
                         <label htmlFor="place-id">Place ID:</label>
                         <input type="text" id="place-id" name="id" required></input>
                     </div>
-                    <input type="submit" />
-                    {/*<button id="Submit" type="button" onClick={this.validate}>Create</button>*/}
+                    <div style={{display:"-ms-inline-flexbox" }}>
+                    <input type="submit"  value= "Submit" style={{ margin: "0", marginTop:"2%"}}/>
+                    </div>
                 </form>
             </div>
         )
