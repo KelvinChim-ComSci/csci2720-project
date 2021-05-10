@@ -39,12 +39,12 @@ class LoginedRouterClassUser extends React.Component { //User Page
                     </header>
                     {/*<h2>Welcome back, User! OwO</h2>*/}
                     <ul>
-                        <LongLink to="/info" label="Real-time Data" />
-                        <LongLink to="/favouriteplace" label="Favourite Place" />
-                        <LongLink to="/chartPage" label="Chart Page" />
-                        {/*<LongLink to="/map" label="Map" />*/}
-                        <LongLink to="/mapPage" label="Map Page" />
-                        {/*<LongLink to="/search" label="Search" />*/}
+                    <div class="btn-group">
+                    <LongLink to="/info" label="Real-time Data" class="button" />
+                      <LongLink to="/favouriteplace" label="Favourite Place" class="button" /> 
+                      <LongLink to="/chartPage" label="Chart Page" class="button" /> 
+                      <LongLink to="/mapPage" label="Map Page" class="button"/> 
+                    </div>
                     </ul>
 
                     <hr />
