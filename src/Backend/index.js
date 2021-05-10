@@ -328,7 +328,7 @@ app.post('/placeData/updatePlace/update', function (req, res) {
 					e.placeId = req.body.newid;
 				}
 				if (e.placeName !== req.body.newname) {
-					e.placeNmae = req.body.newname;
+					e.placeName = req.body.newname;
 				}
 				if (e.latitude !== req.body.newlat) {
 					e.latitude = req.body.newlat;
