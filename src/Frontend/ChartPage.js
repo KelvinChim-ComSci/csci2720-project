@@ -8,7 +8,8 @@
 
 import React from "react";
 import { Chart, registerables } from 'chart.js';
-import { destination_dict, location_dict, journal_type2_dict, color_dict } from "../Backend/data.js";
+import { Line } from "react-chartjs-2";
+import { destination_dict, location_dict, journal_type2_dict, color_dict, loc_to_dest_dict } from "../Backend/data.js";
 Chart.register(...registerables);
 
 class ChartPage extends React.Component {
@@ -19,6 +20,10 @@ class ChartPage extends React.Component {
             latestData: [],
             get: false,
             createChart: false,
+            data: {
+                labels: [],
+                datasets: []
+            },
         };
     }
 
@@ -32,19 +37,13 @@ class ChartPage extends React.Component {
         //console.log(this.state.latestData);
 
         var i;
-        for (i = 0; i < 10; i++) {
+        for (i = 0; i < 7; i++) {
             this.getData("", d - i, hour, min);
         }
-        console.log(this.state.latestData);
+        this.updateDayChart();
 
     }
 
-    async handleData() {
-        var theData = [];
-        theData = await this.getData(`https://resource.data.one.gov.hk/td/journeytime.xml`)
-        console.log(theData);
-        return theData;
-    }
 
     changePlace = e => {
         this.setState({
@@ -100,88 +99,56 @@ class ChartPage extends React.Component {
 
     }
 
-    createChart() {
-        var x_axis = [];
-        var y_axis = [];
-        var ctx = document.getElementById('myFirstChart');
-        var chart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: [1, 2, 3, 4, 5, 6], // x axis
-                datasets: [{
-                    data: [500, 500, 500, 500, 500, 500, 500], // y axis
-                    label: "H1",
-                    borderColor: "#3e95cd",
-                    fill: false
-                }, {
-                    data: [282, 350, 411, 502, 635, 809, 947], // y axis
-                    label: "H2",
-                    borderColor: "#8e5ea2",
-                    fill: false
-                }, {
-                    data: [168, 170, 178, 190, 203, 276, 408, 547, 675, 734], // y axis
-                    label: "H3",
-                    borderColor: "#3cba9f",
-                    fill: false
-                }, {
-                    data: [40, 20, 10, 16, 24, 38, 74, 167, 508, 784], // y axis
-                    label: "K01",
-                    borderColor: "#e8c3b9",
-                    fill: false
-                }, {
-                    data: [6, 3, 2, 2, 7, 26, 82, 172, 312, 433], // y axis
-                    label: "K02",
-                    borderColor: "#c45850",
-                    fill: false
-                }
-                ]
-            },
 
-            options: {
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'Waiting time in the past 10 hours',
-                    }
-                },
+    updateDayChart() {
+        var place = this.state.place;
 
-                scales: {
-                    x: {
-                        type: 'linear'
-                    },
-                    y: {
-                        type: 'linear'
-                    }
-                }
+        var PlaceData = this.state.latestData.filter(function (item, index, array) {
+            return item.locID === place;
+        });
 
+        var destination = [];
+        var updatedata = [];
+        var color = ["#24e3e3", "#e324a3", "#6024e3"];
+        var j = 0;
+        for (var tmp of loc_to_dest_dict[place]) {
+            var destjourneytime = [];
+            var dest = PlaceData.filter(function (item, index, array) {
+                return item.destID === tmp;
+            });
+            dest.sort(function (a, b) {
+                return a.time.localeCompare(b.time);
+            });
+            for (i = 0; i < dest.length; i++) {
+                destjourneytime.push(parseInt(dest[i].journeyData));
+            }
+            updatedata.push({
+                label: tmp,
+                data: destjourneytime,
+                fill: false,
+                borderColor: color[j],
+            });
+            j++;
+        }
+
+        var i = 0;
+        var timeDate = []
+        for (i = 0; i < dest.length; i++) {
+            timeDate.push(dest[i].time);
+        }
+
+        var datatotake = 0;
+        console.log(destjourneytime.length / loc_to_dest_dict[place].length);
+
+        this.setState({
+            data:
+            {
+                labels: timeDate,
+                datasets: updatedata,
             }
         })
-    }
 
-    addData(chart, label, data) {
-        chart.data.labels.push(label);
-        chart.data.datasets.forEach((dataset) => {
-            dataset.data.push(data);
-        });
-        chart.update();
-    }
 
-    removeData(chart) {
-        chart.data.labels.pop();
-        chart.data.datasets.forEach((dataset) => {
-            dataset.data.pop();
-        });
-        chart.update();
-    }
-
-    updateChart() {
-        if (!this.state.createChart) {
-            this.createChart();
-            this.setState({ createChart: true });
-        } else {
-            console.log(document.getElementById('myFirstChart'));
-            //this.removeData(chart)
-        }
     }
 
     render() {
@@ -211,18 +178,16 @@ class ChartPage extends React.Component {
                         })
                     }
                 </select>
-                <button id="displayHour" onClick={() => { this.updateChart() }}
+                <button id="displayHour" onClick={() => { this.updateDayChart() }}
                 >
                     Waiting time in this hour of past 7 days
                 </button>
                 <button id="displayWeek">Waiting time in the past 10 hours</button>
                 {/*<p>{this.state.place}</p>*/}
                 {/*<button onClick={() => console.log(this.state.latestData)}>...</button>*/}
-                <canvas id="myFirstChart" width="400" height="400"></canvas>
+                <Line data={this.state.data} />
                 <hr />
-                <canvas id="mySecondChart" width="400" height="400"></canvas>
-                <div id="allData"></div>
-                <div id="hourData" style={{ display: 'none' }}></div>
+
             </div>
         );
     }
